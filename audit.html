@@ -28,11 +28,14 @@
 html { scroll-behavior: smooth; }
 
 body {
+background: #0D0D0D;
 background: var(–ink);
+color: #E8E4DC;
 color: var(–text);
 font-family: var(–sans);
 min-height: 100vh;
 overflow-x: hidden;
+-webkit-font-smoothing: antialiased;
 }
 
 /* Grain overlay */
@@ -601,8 +604,21 @@ letter-spacing: 0.05em;
 }
 
 @media (max-width: 480px) {
+.container { padding: 0 20px; }
 .btn-row { flex-direction: column-reverse; align-items: stretch; }
-.btn-primary { text-align: center; }
+.btn-primary { text-align: center; padding: 16px 24px; }
+.hero { padding: 48px 0 36px; }
+.hero-sub { font-size: 14px; }
+.hero-scripture { font-size: 14px; }
+.step-question { font-size: 20px; }
+.option { padding: 16px; }
+.option-text { font-size: 14px; }
+textarea { font-size: 16px; }
+input[type=“text”], input[type=“email”] { font-size: 16px; }
+.result-section { padding: 20px; }
+.result-scripture { font-size: 17px; }
+.declaration-text { font-size: 16px; }
+.declaration-block { padding: 20px; }
 }
 </style>
 
@@ -828,7 +844,7 @@ letter-spacing: 0.05em;
       title: 'You were never meant<br><em>to carry this by yourself.</em>',
       diagnosis: 'The weight you\'re feeling isn\'t the weight of the assignment — it\'s the weight of carrying it in isolation. God designed the body for this exact reason. The thing He put in you was never meant to be built alone. The heaviness is a signal, not a sentence.',
       scripture: '"Two are better than one; because they have a good reward for their labour. For if they fall, the one will lift up his fellow."',
-      ref: 'Ecclesiastes 4:9–10 KJV',
+      ref: 'Ecclesiastes 4:9--10 KJV',
       step: 'Name one person who should know about this.',
       action: 'Not to validate it — to carry it with you. Send the message today. Share what God put in you. The right person won\'t diminish it. They\'ll add their strength to it. That conversation is part of the cycle closing.'
     },

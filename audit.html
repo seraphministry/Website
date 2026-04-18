@@ -3,39 +3,43 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>The Cycle Audit — Seraph Ministry</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
 –gold: #C9A84C;
 –gold-light: #E8D5A3;
-–gold-dim: rgba(201,168,76,0.15);
+–gold-dim: rgba(201,168,76,0.12);
+–gold-glow: rgba(201,168,76,0.05);
 –ink: #0D0D0D;
-–ink-2: #1A1A1A;
-–ink-3: #2A2A2A;
-–text: #E8E4DC;
+–ink-2: #151515;
+–ink-3: #1E1E1E;
+–text: #EAE6DE;
 –text-dim: #9A9488;
-–text-muted: #6A6560;
-–border: rgba(201,168,76,0.2);
+–text-muted: #5A5550;
+–border: rgba(201,168,76,0.18);
 –serif: ‘Cormorant Garamond’, Georgia, serif;
-–sans: ‘Inter’, sans-serif;
+–sans: ‘Inter’, system-ui, sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+html {
+scroll-behavior: smooth;
+-webkit-text-size-adjust: 100%;
+text-size-adjust: 100%;
+}
 
 body {
 background: #0D0D0D;
-background: var(–ink);
-color: #E8E4DC;
-color: var(–text);
-font-family: var(–sans);
+color: #EAE6DE;
+font-family: ‘Inter’, system-ui, sans-serif;
 min-height: 100vh;
 overflow-x: hidden;
 -webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
 }
 
 /* Grain overlay */
@@ -43,582 +47,687 @@ body::before {
 content: ‘’;
 position: fixed;
 inset: 0;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’ opacity=‘0.04’/%3E%3C/svg%3E”);
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 200 200’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘n’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.85’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23n)’ opacity=‘0.035’/%3E%3C/svg%3E”);
 pointer-events: none;
-z-index: 1000;
-opacity: 0.4;
+z-index: 9999;
+opacity: 0.45;
+}
+
+/* Ambient glow top */
+body::after {
+content: ‘’;
+position: fixed;
+top: -15vh;
+left: 50%;
+transform: translateX(-50%);
+width: 70vw;
+height: 35vh;
+background: radial-gradient(ellipse, rgba(201,168,76,0.04) 0%, transparent 70%);
+pointer-events: none;
+z-index: 0;
 }
 
 .container {
-max-width: 680px;
+max-width: 600px;
 margin: 0 auto;
 padding: 0 24px;
+padding-left: max(24px, env(safe-area-inset-left, 24px));
+padding-right: max(24px, env(safe-area-inset-right, 24px));
+position: relative;
+z-index: 1;
 }
 
-/* ── HEADER ── */
+/* HEADER */
 .site-header {
-padding: 32px 0 0;
+padding: 36px 0 0;
+padding-top: max(36px, calc(env(safe-area-inset-top, 0px) + 20px));
 text-align: center;
 }
 
 .ministry-mark {
-font-family: var(–serif);
-font-size: 11px;
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: 10px;
 font-weight: 400;
-letter-spacing: 0.3em;
+letter-spacing: 0.35em;
 text-transform: uppercase;
-color: var(–gold);
-opacity: 0.8;
+color: #C9A84C;
+opacity: 0.7;
+display: inline-block;
 }
 
-/* ── HERO ── */
+/* HERO */
 .hero {
-padding: 64px 0 48px;
+padding: 56px 0 44px;
 text-align: center;
 position: relative;
 }
 
-.hero::before {
-content: ‘’;
+.hero-line {
 position: absolute;
-top: 0; left: 50%;
+top: 0;
+left: 50%;
 transform: translateX(-50%);
 width: 1px;
-height: 48px;
-background: linear-gradient(to bottom, transparent, var(–gold));
-opacity: 0.4;
+height: 44px;
+background: linear-gradient(to bottom, transparent, #C9A84C);
+opacity: 0.35;
 }
 
 .hero-label {
-font-family: var(–sans);
-font-size: 10px;
+font-size: 9px;
 font-weight: 500;
-letter-spacing: 0.25em;
+letter-spacing: 0.28em;
 text-transform: uppercase;
-color: var(–gold);
-margin-bottom: 20px;
+color: #C9A84C;
+margin-bottom: 18px;
 display: block;
+opacity: 0.85;
 }
 
 .hero-title {
-font-family: var(–serif);
-font-size: clamp(42px, 8vw, 64px);
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: clamp(48px, 12vw, 72px);
 font-weight: 300;
-line-height: 1.1;
-color: var(–text);
-margin-bottom: 24px;
-letter-spacing: -0.01em;
+line-height: 1.0;
+color: #EAE6DE;
+margin-bottom: 28px;
+letter-spacing: -0.02em;
 }
 
 .hero-title em {
 font-style: italic;
-color: var(–gold-light);
+color: #E8D5A3;
+font-weight: 300;
 }
 
 .hero-sub {
 font-size: 15px;
 font-weight: 300;
-line-height: 1.7;
-color: var(–text-dim);
-max-width: 480px;
-margin: 0 auto 40px;
+line-height: 1.75;
+color: #9A9488;
+max-width: 440px;
+margin: 0 auto 36px;
 }
 
 .hero-scripture {
-font-family: var(–serif);
+font-family: ‘Cormorant Garamond’, Georgia, serif;
 font-size: 15px;
 font-style: italic;
 font-weight: 300;
-color: var(–text-muted);
-border-left: 1px solid var(–gold);
-padding-left: 16px;
+color: #5A5550;
+border-left: 1px solid #C9A84C;
+padding: 2px 0 2px 18px;
 text-align: left;
-max-width: 420px;
-margin: 0 auto 48px;
-line-height: 1.6;
+max-width: 400px;
+margin: 0 auto;
+line-height: 1.65;
 }
 
 .hero-scripture span {
 display: block;
-font-family: var(–sans);
-font-size: 10px;
+font-family: ‘Inter’, system-ui, sans-serif;
+font-size: 9px;
 font-style: normal;
-letter-spacing: 0.15em;
-color: var(–gold);
-margin-top: 6px;
+letter-spacing: 0.18em;
+color: #C9A84C;
+margin-top: 8px;
 text-transform: uppercase;
+opacity: 0.8;
 }
 
-/* ── DIVIDER ── */
+/* DIVIDER */
 .divider {
 display: flex;
 align-items: center;
 gap: 16px;
-margin: 0 0 48px;
-opacity: 0.3;
+margin: 44px 0;
+opacity: 0.25;
 }
 .divider::before, .divider::after {
 content: ‘’;
 flex: 1;
 height: 1px;
-background: var(–gold);
+background: #C9A84C;
 }
 .divider-mark {
-font-family: var(–serif);
-font-size: 16px;
-color: var(–gold);
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: 14px;
+color: #C9A84C;
+line-height: 1;
 }
 
-/* ── AUDIT FORM ── */
-#audit-form { display: block; }
-
-.step {
-display: none;
-animation: fadeUp 0.4s ease forwards;
+/* PROGRESS */
+.progress-bar {
+height: 1px;
+background: #1E1E1E;
+margin-bottom: 44px;
+overflow: hidden;
 }
-.step.active { display: block; }
+.progress-fill {
+height: 100%;
+background: #C9A84C;
+transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+opacity: 0.55;
+}
+
+/* STEPS */
+.step { display: none; }
+.step.active {
+display: block;
+animation: fadeUp 0.45s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
 
 @keyframes fadeUp {
-from { opacity: 0; transform: translateY(16px); }
-to { opacity: 1; transform: translateY(0); }
+from { opacity: 0; transform: translateY(18px); }
+to   { opacity: 1; transform: translateY(0); }
 }
 
 .step-number {
-font-family: var(–sans);
-font-size: 10px;
+font-size: 9px;
 font-weight: 500;
-letter-spacing: 0.25em;
+letter-spacing: 0.28em;
 text-transform: uppercase;
-color: var(–gold);
-margin-bottom: 12px;
+color: #C9A84C;
+margin-bottom: 14px;
 display: block;
+opacity: 0.85;
 }
 
 .step-question {
-font-family: var(–serif);
-font-size: clamp(22px, 4vw, 30px);
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: clamp(24px, 6vw, 32px);
 font-weight: 400;
-line-height: 1.25;
-color: var(–text);
-margin-bottom: 8px;
+line-height: 1.2;
+color: #EAE6DE;
+margin-bottom: 10px;
 }
 
 .step-sub {
 font-size: 13px;
 font-weight: 300;
-color: var(–text-muted);
-margin-bottom: 32px;
-line-height: 1.6;
+color: #5A5550;
+margin-bottom: 28px;
+line-height: 1.65;
 }
 
-/* Text area */
+/* Textarea */
 textarea {
 width: 100%;
-background: var(–ink-2);
-border: 1px solid var(–border);
-border-radius: 2px;
-color: var(–text);
-font-family: var(–serif);
+background: #151515;
+border: 1px solid rgba(201,168,76,0.18);
+border-radius: 3px;
+color: #EAE6DE;
+font-family: ‘Cormorant Garamond’, Georgia, serif;
 font-size: 17px;
 font-weight: 300;
-line-height: 1.6;
-padding: 20px;
+line-height: 1.65;
+padding: 18px 20px;
 resize: none;
 outline: none;
-transition: border-color 0.2s;
-min-height: 120px;
+transition: border-color 0.2s, background 0.2s;
+min-height: 130px;
+-webkit-appearance: none;
+appearance: none;
+}
+textarea::placeholder { color: #5A5550; font-style: italic; }
+textarea:focus {
+border-color: rgba(201,168,76,0.45);
+background: #1E1E1E;
 }
 
-textarea::placeholder { color: var(–text-muted); font-style: italic; }
-textarea:focus { border-color: rgba(201,168,76,0.5); }
-
-/* Radio options */
-.options { display: flex; flex-direction: column; gap: 12px; }
+/* Options */
+.options { display: flex; flex-direction: column; gap: 10px; }
 
 .option {
 display: flex;
-align-items: flex-start;
+align-items: center;
 gap: 16px;
 padding: 18px 20px;
-background: var(–ink-2);
-border: 1px solid var(–border);
-border-radius: 2px;
+background: #151515;
+border: 1px solid rgba(201,168,76,0.18);
+border-radius: 3px;
 cursor: pointer;
-transition: all 0.2s;
+transition: border-color 0.2s, background 0.2s;
 position: relative;
+-webkit-tap-highlight-color: transparent;
+user-select: none;
+-webkit-user-select: none;
 }
-
-.option:hover {
-border-color: rgba(201,168,76,0.4);
-background: rgba(201,168,76,0.04);
+.option:active {
+background: rgba(201,168,76,0.12);
+border-color: #C9A84C;
 }
-
 .option.selected {
-border-color: var(–gold);
-background: var(–gold-dim);
+border-color: #C9A84C;
+background: rgba(201,168,76,0.12);
 }
-
 .option input[type=“radio”] {
 position: absolute;
 opacity: 0;
 pointer-events: none;
+width: 0; height: 0;
 }
-
 .option-dot {
-width: 18px;
-height: 18px;
+width: 20px;
+height: 20px;
 border-radius: 50%;
-border: 1px solid var(–text-muted);
+border: 1px solid #5A5550;
 flex-shrink: 0;
-margin-top: 2px;
 transition: all 0.2s;
 display: flex;
 align-items: center;
 justify-content: center;
 }
-
 .option.selected .option-dot {
-border-color: var(–gold);
-background: var(–gold);
+border-color: #C9A84C;
+background: #C9A84C;
 }
-
 .option.selected .option-dot::after {
 content: ‘’;
-width: 6px;
-height: 6px;
+width: 7px;
+height: 7px;
 border-radius: 50%;
-background: var(–ink);
+background: #0D0D0D;
 }
-
 .option-text {
 font-size: 15px;
 font-weight: 300;
-color: var(–text);
-line-height: 1.5;
+color: #EAE6DE;
+line-height: 1.45;
+flex: 1;
 }
+.option.selected .option-text { color: #E8D5A3; }
 
-.option.selected .option-text { color: var(–gold-light); }
-
-/* Email fields */
-.field-group { display: flex; flex-direction: column; gap: 16px; }
-
-input[type=“text”],
-input[type=“email”] {
-width: 100%;
-background: var(–ink-2);
-border: 1px solid var(–border);
-border-radius: 2px;
-color: var(–text);
-font-family: var(–sans);
-font-size: 15px;
-font-weight: 300;
-padding: 16px 20px;
-outline: none;
-transition: border-color 0.2s;
-}
-
-input::placeholder { color: var(–text-muted); }
-input:focus { border-color: rgba(201,168,76,0.5); }
+/* Fields */
+.field-group { display: flex; flex-direction: column; gap: 14px; }
+.field-wrap { display: flex; flex-direction: column; }
 
 .field-label {
-font-size: 10px;
+font-size: 9px;
 font-weight: 500;
-letter-spacing: 0.2em;
+letter-spacing: 0.22em;
 text-transform: uppercase;
-color: var(–text-muted);
+color: #5A5550;
 margin-bottom: 8px;
 display: block;
 }
 
-.opt-in-note {
-font-size: 12px;
+input[type=“text”],
+input[type=“email”] {
+width: 100%;
+background: #151515;
+border: 1px solid rgba(201,168,76,0.18);
+border-radius: 3px;
+color: #EAE6DE;
+font-family: ‘Inter’, system-ui, sans-serif;
+font-size: 16px;
 font-weight: 300;
-color: var(–text-muted);
-line-height: 1.6;
-margin-top: 8px;
+padding: 16px 20px;
+outline: none;
+transition: border-color 0.2s, background 0.2s;
+-webkit-appearance: none;
+appearance: none;
+}
+input[type=“text”]:focus,
+input[type=“email”]:focus {
+border-color: rgba(201,168,76,0.45);
+background: #1E1E1E;
+}
+input::placeholder { color: #5A5550; }
+
+.opt-in-note {
+font-size: 11px;
+font-weight: 300;
+color: #5A5550;
+line-height: 1.65;
+margin-top: 10px;
+opacity: 0.8;
 }
 
 /* Buttons */
 .btn-row {
 display: flex;
 gap: 12px;
-margin-top: 32px;
+margin-top: 28px;
 align-items: center;
 }
 
 .btn-primary {
-background: var(–gold);
-color: var(–ink);
+background: #C9A84C;
+color: #0D0D0D;
 border: none;
-padding: 14px 32px;
-font-family: var(–sans);
-font-size: 12px;
+padding: 16px 32px;
+font-family: ‘Inter’, system-ui, sans-serif;
+font-size: 11px;
 font-weight: 500;
-letter-spacing: 0.15em;
+letter-spacing: 0.18em;
 text-transform: uppercase;
 cursor: pointer;
-transition: all 0.2s;
+transition: background 0.2s, opacity 0.15s, transform 0.1s;
 border-radius: 1px;
+white-space: nowrap;
+-webkit-tap-highlight-color: transparent;
+touch-action: manipulation;
+min-height: 52px;
 }
-
-.btn-primary:hover { background: var(–gold-light); }
-.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+.btn-primary:hover { background: #E8D5A3; }
+.btn-primary:active { transform: scale(0.98); opacity: 0.88; }
+.btn-primary:disabled { opacity: 0.3; cursor: not-allowed; }
 
 .btn-back {
 background: transparent;
-color: var(–text-muted);
+color: #5A5550;
 border: none;
-padding: 14px 0;
-font-family: var(–sans);
-font-size: 12px;
+padding: 16px 8px;
+font-family: ‘Inter’, system-ui, sans-serif;
+font-size: 11px;
 font-weight: 400;
-letter-spacing: 0.1em;
+letter-spacing: 0.12em;
 text-transform: uppercase;
 cursor: pointer;
 transition: color 0.2s;
+white-space: nowrap;
+-webkit-tap-highlight-color: transparent;
+touch-action: manipulation;
+min-height: 52px;
+}
+.btn-back:hover { color: #EAE6DE; }
+
+.form-error {
+font-size: 12px;
+color: #D97070;
+margin-top: 8px;
+display: none;
+}
+.submitting-note {
+font-size: 11px;
+color: #5A5550;
+margin-top: 10px;
+display: none;
+letter-spacing: 0.05em;
 }
 
-.btn-back:hover { color: var(–text); }
-
-/* Progress */
-.progress-bar {
-height: 1px;
-background: var(–ink-3);
-margin-bottom: 48px;
-position: relative;
-}
-
-.progress-fill {
-height: 100%;
-background: var(–gold);
-transition: width 0.4s ease;
-opacity: 0.6;
-}
-
-/* ── RESULT ── */
+/* RESULT */
 #result-view { display: none; }
 
 .result-header {
 text-align: center;
-padding: 0 0 48px;
+padding: 0 0 44px;
 }
 
 .result-tag {
 display: inline-block;
-font-size: 10px;
+font-size: 9px;
 font-weight: 500;
-letter-spacing: 0.25em;
+letter-spacing: 0.28em;
 text-transform: uppercase;
-color: var(–gold);
-border: 1px solid var(–border);
-padding: 6px 14px;
-margin-bottom: 24px;
+color: #C9A84C;
+border: 1px solid rgba(201,168,76,0.18);
+padding: 7px 16px;
+margin-bottom: 22px;
+border-radius: 1px;
 }
 
 .result-title {
-font-family: var(–serif);
-font-size: clamp(28px, 5vw, 42px);
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: clamp(30px, 8vw, 46px);
 font-weight: 300;
-line-height: 1.2;
-color: var(–text);
-margin-bottom: 16px;
+line-height: 1.15;
+color: #EAE6DE;
+margin-bottom: 18px;
 }
-
-.result-title em { font-style: italic; color: var(–gold-light); }
+.result-title em { font-style: italic; color: #E8D5A3; }
 
 .result-diagnosis {
 font-size: 15px;
 font-weight: 300;
-color: var(–text-dim);
-line-height: 1.7;
-max-width: 520px;
+color: #9A9488;
+line-height: 1.75;
+max-width: 500px;
 margin: 0 auto;
 }
 
 .result-section {
-border: 1px solid var(–border);
-padding: 28px;
-margin-bottom: 20px;
-background: var(–ink-2);
-border-radius: 2px;
+border: 1px solid rgba(201,168,76,0.18);
+padding: 28px 24px;
+margin-bottom: 16px;
+background: #151515;
+border-radius: 3px;
+position: relative;
+overflow: hidden;
+}
+.result-section::before {
+content: ‘’;
+position: absolute;
+top: 0; left: 0;
+width: 2px; height: 100%;
+background: linear-gradient(to bottom, #C9A84C, transparent);
+opacity: 0.4;
 }
 
 .result-section-label {
-font-size: 10px;
+font-size: 9px;
 font-weight: 500;
-letter-spacing: 0.25em;
+letter-spacing: 0.28em;
 text-transform: uppercase;
-color: var(–gold);
-margin-bottom: 14px;
+color: #C9A84C;
+margin-bottom: 16px;
 display: block;
+opacity: 0.85;
 }
 
 .result-scripture {
-font-family: var(–serif);
-font-size: 20px;
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: 19px;
 font-style: italic;
 font-weight: 300;
-color: var(–text);
-line-height: 1.5;
-margin-bottom: 8px;
+color: #EAE6DE;
+line-height: 1.55;
+margin-bottom: 10px;
 }
 
 .result-ref {
-font-size: 11px;
-letter-spacing: 0.15em;
-color: var(–text-muted);
+font-size: 10px;
+letter-spacing: 0.18em;
+color: #5A5550;
 text-transform: uppercase;
 }
 
 .result-step-text {
-font-family: var(–serif);
-font-size: 18px;
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: 19px;
 font-weight: 400;
-color: var(–text);
-line-height: 1.6;
+color: #EAE6DE;
+line-height: 1.55;
+margin-bottom: 12px;
 }
 
 .result-step-action {
-font-size: 13px;
+font-size: 14px;
 font-weight: 300;
-color: var(–text-dim);
-line-height: 1.7;
-margin-top: 10px;
+color: #9A9488;
+line-height: 1.75;
 }
 
-/* Declaration block */
+/* Declaration */
 .declaration-block {
-border-left: 2px solid var(–gold);
-padding: 24px 28px;
-margin: 32px 0;
-background: rgba(201,168,76,0.04);
+border-left: 2px solid #C9A84C;
+padding: 24px 24px;
+margin: 28px 0;
+background: rgba(201,168,76,0.05);
+border-radius: 0 3px 3px 0;
 }
-
 .declaration-text {
-font-family: var(–serif);
-font-size: clamp(17px, 3vw, 22px);
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: clamp(16px, 3.5vw, 21px);
 font-style: italic;
 font-weight: 300;
-color: var(–text);
-line-height: 1.6;
+color: #EAE6DE;
+line-height: 1.65;
 }
 
-/* Contact section */
+/* Contact */
 .contact-section {
 text-align: center;
-padding: 40px 0 64px;
-border-top: 1px solid var(–border);
+padding: 36px 0 60px;
+padding-bottom: max(60px, calc(env(safe-area-inset-bottom, 0px) + 40px));
+border-top: 1px solid rgba(201,168,76,0.18);
 margin-top: 8px;
 }
-
 .contact-label {
-font-size: 10px;
+font-size: 9px;
 font-weight: 500;
-letter-spacing: 0.25em;
+letter-spacing: 0.28em;
 text-transform: uppercase;
-color: var(–text-muted);
+color: #5A5550;
 margin-bottom: 10px;
 display: block;
 }
-
 .contact-text {
 font-size: 13px;
 font-weight: 300;
-color: var(–text-dim);
+color: #9A9488;
 line-height: 1.7;
-margin-bottom: 14px;
-max-width: 400px;
-margin-left: auto;
-margin-right: auto;
+margin: 0 auto 14px;
+max-width: 360px;
 }
-
 .contact-email {
-font-family: var(–serif);
+font-family: ‘Cormorant Garamond’, Georgia, serif;
 font-size: 16px;
-color: var(–gold);
+color: #C9A84C;
 text-decoration: none;
-letter-spacing: 0.05em;
+letter-spacing: 0.04em;
 transition: opacity 0.2s;
 }
+.contact-email:hover { opacity: 0.65; }
 
-.contact-email:hover { opacity: 0.7; }
-
-/* Success state */
+/* Success */
 #success-view {
 display: none;
 text-align: center;
 padding: 80px 0;
 }
-
 .success-mark {
-font-family: var(–serif);
-font-size: 48px;
-color: var(–gold);
-margin-bottom: 24px;
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: 44px;
+color: #C9A84C;
+margin-bottom: 22px;
 display: block;
+animation: glow 2.5s ease-in-out infinite;
 }
-
+@keyframes glow {
+0%, 100% { opacity: 1; }
+50% { opacity: 0.55; }
+}
 .success-title {
-font-family: var(–serif);
-font-size: 28px;
+font-family: ‘Cormorant Garamond’, Georgia, serif;
+font-size: 30px;
 font-weight: 300;
-color: var(–text);
+color: #EAE6DE;
 margin-bottom: 12px;
 }
-
 .success-sub {
 font-size: 14px;
 font-weight: 300;
-color: var(–text-dim);
-line-height: 1.7;
-}
-
-/* Error */
-.form-error {
-font-size: 12px;
-color: #E07070;
-margin-top: 8px;
-display: none;
-}
-
-/* Submission note */
-.submitting-note {
-font-size: 12px;
-color: var(–text-muted);
-margin-top: 12px;
-display: none;
+color: #9A9488;
+line-height: 1.75;
 }
 
 /* Footer */
 footer {
-padding: 32px 0 48px;
+padding: 28px 0 40px;
+padding-bottom: max(40px, calc(env(safe-area-inset-bottom, 0px) + 24px));
 text-align: center;
-border-top: 1px solid rgba(201,168,76,0.1);
+border-top: 1px solid rgba(201,168,76,0.08);
 }
-
 footer p {
-font-size: 11px;
-color: var(–text-muted);
+font-size: 10px;
+color: #5A5550;
 font-weight: 300;
-letter-spacing: 0.05em;
+letter-spacing: 0.06em;
+opacity: 0.7;
 }
 
-@media (max-width: 480px) {
-.container { padding: 0 20px; }
-.btn-row { flex-direction: column-reverse; align-items: stretch; }
-.btn-primary { text-align: center; padding: 16px 24px; }
-.hero { padding: 48px 0 36px; }
-.hero-sub { font-size: 14px; }
-.hero-scripture { font-size: 14px; }
-.step-question { font-size: 20px; }
-.option { padding: 16px; }
+/* MOBILE */
+@media (max-width: 600px) {
+.container {
+padding-left: max(20px, env(safe-area-inset-left, 20px));
+padding-right: max(20px, env(safe-area-inset-right, 20px));
+}
+
+.hero {
+padding: 44px 0 36px;
+}
+.hero-title {
+font-size: clamp(46px, 13vw, 62px);
+margin-bottom: 22px;
+}
+.hero-sub {
+font-size: 14px;
+margin-bottom: 28px;
+}
+.hero-scripture {
+font-size: 14px;
+max-width: 100%;
+}
+
+.divider { margin: 36px 0; }
+.progress-bar { margin-bottom: 36px; }
+
+.step-question { font-size: clamp(22px, 6vw, 28px); }
+.step-sub { margin-bottom: 24px; }
+
+textarea {
+font-size: 16px;
+padding: 16px 18px;
+min-height: 120px;
+}
+
+.option {
+padding: 16px 16px;
+gap: 14px;
+}
 .option-text { font-size: 14px; }
-textarea { font-size: 16px; }
-input[type=“text”], input[type=“email”] { font-size: 16px; }
-.result-section { padding: 20px; }
+
+.btn-row {
+margin-top: 24px;
+flex-wrap: wrap;
+}
+.btn-primary {
+flex: 1 1 auto;
+text-align: center;
+padding: 17px 16px;
+}
+.btn-back {
+flex: 0 0 auto;
+}
+
+/* Full width when alone */
+.btn-row .btn-primary:first-child:last-child {
+flex: 1 1 100%;
+}
+
+.result-section {
+padding: 20px 18px;
+}
 .result-scripture { font-size: 17px; }
+.result-step-text { font-size: 17px; }
+.result-step-action { font-size: 13px; }
+.result-diagnosis { font-size: 14px; }
+
+.declaration-block { padding: 20px 18px; }
 .declaration-text { font-size: 16px; }
-.declaration-block { padding: 20px; }
+
+.contact-section {
+padding-top: 32px;
+padding-bottom: max(56px, calc(env(safe-area-inset-bottom, 0px) + 40px));
+}
+}
+
+@media (max-width: 360px) {
+.hero-title { font-size: 42px; }
+.step-question { font-size: 21px; }
+.option-text { font-size: 13px; }
 }
 </style>
 
@@ -634,6 +743,7 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
   <!-- HERO -->
 
   <section class="hero">
+    <div class="hero-line"></div>
     <span class="hero-label">Free Resource</span>
     <h1 class="hero-title">The <em>Cycle</em><br>Audit</h1>
     <p class="hero-sub">You've been faithful. You've been believing. So why does it feel like nothing is moving? This audit finds your specific open loop — and gives you one step to close it today.</p>
@@ -742,20 +852,20 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
   <h2 class="step-question">Want your result sent to you?</h2>
   <p class="step-sub">Enter your name and email and I'll send you your result plus a short follow-up word to help you follow through. No spam — just the word you need.</p>
   <div class="field-group">
-    <div>
+    <div class="field-wrap">
       <span class="field-label">First name</span>
-      <input type="text" id="fname" placeholder="Your first name">
+      <input type="text" id="fname" placeholder="Your first name" autocomplete="given-name">
     </div>
-    <div>
+    <div class="field-wrap">
       <span class="field-label">Email address</span>
-      <input type="email" id="email" placeholder="your@email.com">
+      <input type="email" id="email" placeholder="your@email.com" autocomplete="email" inputmode="email">
     </div>
   </div>
   <p class="opt-in-note">Your answers and email will only be used by Seraph Ministry to send you follow-up encouragement. Nothing else.</p>
   <div class="form-error" id="form-error">Please enter a valid email address.</div>
   <div class="btn-row">
     <button class="btn-primary" id="btn-submit" onclick="submitForm()">Send Me My Result</button>
-    <button class="btn-back" onclick="showResult()">Skip — just show me</button>
+    <button class="btn-back" onclick="showResult()">Skip</button>
   </div>
   <p class="submitting-note" id="submitting-note">Sending...</p>
 </div>
@@ -815,17 +925,15 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
 </footer>
 
 <script>
-  // ── STATE ──
   const answers = { q1: '', q2: '', q3: '', fname: '', email: '' };
   let currentStep = 1;
 
-  // ── RESULT DATA ──
   const results = {
     momentum: {
       tag: 'Lost Momentum',
       title: 'The cycle isn\'t dead.<br><em>It\'s waiting.</em>',
       diagnosis: 'You started because God initiated it. The momentum didn\'t stop because the word expired — it stopped because life got loud. But God doesn\'t revoke what He initiates. The cycle is still open. The door is still in front of you.',
-      scripture: '"Being confident of this very thing, that he which hath begun a good work in you will perform it until the day of Jesus Christ."',
+      scripture: '\u201cBeing confident of this very thing, that he which hath begun a good work in you will perform it until the day of Jesus Christ.\u201d',
       ref: 'Philippians 1:6 KJV',
       step: 'Go back to the exact place you stopped.',
       action: 'Not the beginning — the place you stopped. Open the document, make the call, send the message, take the first step you avoided. Don\'t restart the cycle. Resume it. Five minutes today breaks the stall.'
@@ -834,17 +942,17 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
       tag: 'Questioning the Calling',
       title: 'God doesn\'t start things<br><em>He doesn\'t finish.</em>',
       diagnosis: 'The doubt you\'re carrying isn\'t evidence that God changed His mind — it\'s evidence that the enemy knows what this thing carries when it\'s completed. Confusion about calling almost always intensifies right before breakthrough, not after failure.',
-      scripture: '"For the gifts and calling of God are without repentance."',
+      scripture: '\u201cFor the gifts and calling of God are without repentance.\u201d',
       ref: 'Romans 11:29 KJV',
       step: 'Ask God one question today.',
-      action: '"Lord, did You initiate this?" Then be still. Not for an hour — for five minutes. Write down what comes. The answer is rarely silence. The problem is usually that we\'ve been too loud to hear it.'
+      action: '\u201cLord, did You initiate this?\u201d Then be still. Not for an hour — for five minutes. Write down what comes. The answer is rarely silence. The problem is usually that we\'ve been too loud to hear it.'
     },
     weight: {
       tag: 'Carrying It Alone',
       title: 'You were never meant<br><em>to carry this by yourself.</em>',
       diagnosis: 'The weight you\'re feeling isn\'t the weight of the assignment — it\'s the weight of carrying it in isolation. God designed the body for this exact reason. The thing He put in you was never meant to be built alone. The heaviness is a signal, not a sentence.',
-      scripture: '"Two are better than one; because they have a good reward for their labour. For if they fall, the one will lift up his fellow."',
-      ref: 'Ecclesiastes 4:9--10 KJV',
+      scripture: '\u201cTwo are better than one; because they have a good reward for their labour. For if they fall, the one will lift up his fellow.\u201d',
+      ref: 'Ecclesiastes 4:9\u201310 KJV',
       step: 'Name one person who should know about this.',
       action: 'Not to validate it — to carry it with you. Send the message today. Share what God put in you. The right person won\'t diminish it. They\'ll add their strength to it. That conversation is part of the cycle closing.'
     },
@@ -852,7 +960,7 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
       tag: 'Fear of Completion',
       title: 'You\'re not afraid of failing.<br><em>You\'re afraid of arriving.</em>',
       diagnosis: 'Finishing changes everything. It changes how people see you, how you see yourself, and what God asks of you next. That fear is real — but it\'s not a red light. It\'s a marker. The things that matter most always carry the most weight going through the door.',
-      scripture: '"For God hath not given us the spirit of fear; but of power, and of love, and of a sound mind."',
+      scripture: '\u201cFor God hath not given us the spirit of fear; but of power, and of love, and of a sound mind.\u201d',
       ref: '2 Timothy 1:7 KJV',
       step: 'Name what you\'re actually afraid will happen when you finish.',
       action: 'Write it down. Literally. Bring the fear out of your head and onto paper where you can look at it. Then ask: is this fear from God, or from the enemy? That single act of naming it breaks most of its power.'
@@ -861,19 +969,17 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
       tag: 'The Hidden Loop',
       title: 'The Spirit knows<br><em>what the mind can\'t locate.</em>',
       diagnosis: 'Not knowing what\'s unfinished doesn\'t mean nothing is. It usually means the open loop is deeper than surface-level tasks — something God initiated that got buried under noise, busyness, or unprocessed weight. The answer isn\'t a longer audit. It\'s a moment of honest stillness.',
-      scripture: '"Likewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us."',
+      scripture: '\u201cLikewise the Spirit also helpeth our infirmities: for we know not what we should pray for as we ought: but the Spirit itself maketh intercession for us.\u201d',
       ref: 'Romans 8:26 KJV',
       step: 'Ask God the one question that finds it.',
-      action: '"Lord, what have You started in me that I haven\'t finished?" Sit with that question for five minutes in silence. Don\'t search for the answer — receive it. Write the first thing that surfaces. That\'s almost always it.'
+      action: '\u201cLord, what have You started in me that I haven\'t finished?\u201d Sit with that question for five minutes in silence. Don\'t search for the answer — receive it. Write the first thing that surfaces. That\'s almost always it.'
     }
   };
 
-  const declaration = "You are not someone who starts and stalls. You are a finisher. Close the cycle. Walk through the door. The flow you've been praying for is on the other side of the one thing you haven't finished.";
+  const declaration = "You are not someone who starts and stalls. You are a finisher. Close the cycle. Walk through the door. The flow you\u2019ve been praying for is on the other side of the one thing you haven\u2019t finished.";
 
-  // ── NAVIGATION ──
   function updateProgress(step) {
-    const pct = ((step - 1) / 4) * 100;
-    document.getElementById('progress').style.width = pct + '%';
+    document.getElementById('progress').style.width = ((step - 1) / 4 * 100) + '%';
   }
 
   function nextStep(from) {
@@ -882,8 +988,8 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
       if (!val) { document.getElementById('q1').focus(); return; }
       answers.q1 = val;
     }
-    if (from === 2) { if (!answers.q2) return; }
-    if (from === 3) { if (!answers.q3) return; }
+    if (from === 2 && !answers.q2) return;
+    if (from === 3 && !answers.q3) return;
 
     document.getElementById('step-' + from).classList.remove('active');
     currentStep = from + 1;
@@ -908,44 +1014,36 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
     if (btn) btn.disabled = false;
   }
 
-  // ── SUBMIT TO FORMSPREE ──
   async function submitForm() {
     const fname = document.getElementById('fname').value.trim();
     const email = document.getElementById('email').value.trim();
-
     if (!email || !email.includes('@')) {
       document.getElementById('form-error').style.display = 'block';
       return;
     }
-
     document.getElementById('form-error').style.display = 'none';
     answers.fname = fname;
     answers.email = email;
-
     const btn = document.getElementById('btn-submit');
     btn.disabled = true;
     document.getElementById('submitting-note').style.display = 'block';
-
     const result = results[answers.q3] || results['unknown'];
-
     const payload = {
-      _subject: 'Cycle Audit Submission — ' + (fname || 'Anonymous'),
+      _subject: 'Cycle Audit \u2014 ' + (fname || 'Anonymous'),
       name: fname || 'Not provided',
-      email: email,
+      email,
       'What God nudged toward': answers.q1,
       'Awareness duration': answers.q2,
       'Blocker category': answers.q3,
       'Result shown': result.tag,
       _replyto: email
     };
-
     try {
       const res = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(payload)
       });
-
       if (res.ok) {
         document.getElementById('audit-form').style.display = 'none';
         document.getElementById('success-view').style.display = 'block';
@@ -953,22 +1051,14 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
           document.getElementById('success-view').style.display = 'none';
           showResult();
         }, 2800);
-      } else {
-        showResult();
-      }
-    } catch (e) {
-      showResult();
-    }
+      } else { showResult(); }
+    } catch (e) { showResult(); }
   }
 
-  // ── SHOW RESULT ──
   function showResult() {
-    const key = answers.q3 || 'unknown';
-    const r = results[key];
-
+    const r = results[answers.q3 || 'unknown'];
     document.getElementById('audit-form').style.display = 'none';
     document.getElementById('success-view').style.display = 'none';
-
     document.getElementById('result-tag').textContent = r.tag;
     document.getElementById('result-title').innerHTML = r.title;
     document.getElementById('result-diagnosis').textContent = r.diagnosis;
@@ -976,11 +1066,9 @@ input[type=“text”], input[type=“email”] { font-size: 16px; }
     document.getElementById('result-ref').textContent = r.ref;
     document.getElementById('result-step').textContent = r.step;
     document.getElementById('result-action').textContent = r.action;
-    document.getElementById('result-declaration').textContent = '"' + declaration + '"';
-
-    const rv = document.getElementById('result-view');
-    rv.style.display = 'block';
-    rv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.getElementById('result-declaration').textContent = '\u201c' + declaration + '\u201d';
+    document.getElementById('result-view').style.display = 'block';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
 

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Seraph Ministry — The Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Tenor+Sans&display=swap" rel="stylesheet">
+<style>
+  /* ============================================================
+     RESULT CONTENT — EDIT THESE FIELDS
+     Replace placeholder text with your declarations.
+     Do not touch anything below the closing comment.
+  ============================================================ */
+
+  /* Content is stored in JS below — see RESULT_CONTENT object */
+
+  /* ============================================================
+     END EDITABLE CONTENT
+  ============================================================ */
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink:        #0a0807;
+    --ash:        #141210;
+    --char:       #1e1b18;
+    --deep:       #252118;
+    --smoke:      #4a4440;
+    --dust:       #7a7068;
+    --bone:       #c0b8ae;
+    --parchment:  #e4dcd0;
+    --ember:      #c4602a;
+    --ember-soft: rgba(196,96,42,0.12);
+    --ember-mid:  rgba(196,96,42,0.25);
+    --gold:       #b89030;
+    --gold-soft:  rgba(184,144,48,0.15);
+  }
+
+  html, body {
+    height: 100%;
+    background: var(--ink);
+    color: var(--parchment);
+    font-family: 'Crimson Pro', Georgia, serif;
+    overflow: hidden;
+  }
+
+  /* ── GRAIN OVERLAY ── */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ── AMBIENT GLOW ── */
+  .ambient {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse 50% 40% at 75% 35%, rgba(196,96,42,0.06) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── APP CONTAINER ── */
+  #app {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    padding: 24px;
+    overflow-y: auto;
+  }
+
+  /* ── SCREENS ── */
+  .screen {
+    display: none;
+    width: 100%;
+    max-width: 480px;
+    animation: screenIn 0.5s ease forwards;
+  }
+
+  .screen.active { display: flex; flex-direction: column; }
+
+  @keyframes screenIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes screenOut {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(-12px); }
+  }
+
+  .screen.leaving {
+    display: flex;
+    flex-direction: column;
+    animation: screenOut 0.3s ease forwards;
+  }
+
+  /* ── PROGRESS DOTS ── */
+  .progress {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 48px;
+    justify-content: flex-start;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--char);
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .dot.active {
+    background: var(--ember);
+    transform: scale(1.2);
+  }
+
+  .dot.done { background: var(--smoke); }
+
+  /* ── MINISTRY TAG ── */
+  .ministry-tag {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ministry-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--ember);
+    opacity: 0.6;
+  }
+
+  /* ── TYPOGRAPHY ── */
+  .screen-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(28px, 7vw, 42px);
+    font-weight: 400;
+    line-height: 1.12;
+    color: var(--parchment);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+
+  .screen-title em {
+    font-style: italic;
+    color: var(--ember);
+  }
+
+  .screen-sub {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(16px, 4vw, 19px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--dust);
+    line-height: 1.65;
+    margin-bottom: 48px;
+  }
+
+  .question-text {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(17px, 4.5vw, 21px);
+    font-weight: 400;
+    line-height: 1.6;
+    color: var(--bone);
+    margin-bottom: 32px;
+  }
+
+  /* ── ENTRY BUTTON ── */
+  .btn-reveal {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: transparent;
+    border: 1px solid rgba(196,96,42,0.45);
+    color: var(--ember);
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    padding: 18px 32px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-reveal:hover, .btn-reveal:active {
+    background: var(--ember-soft);
+    border-color: var(--ember);
+  }
+
+  .btn-arrow { transition: transform 0.25s ease; }
+  .btn-reveal:hover .btn-arrow { transform: translateX(5px); }
+
+  /* ── ANSWER OPTIONS ── */
+  .answers { display: flex; flex-direction: column; gap: 10px; }
+
+  .answer-btn {
+    width: 100%;
+    min-height: 64px;
+    background: var(--char);
+    border: 1px solid rgba(255,255,255,0.05);
+    color: var(--bone);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(15px, 3.8vw, 17px);
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: left;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .answer-btn::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--ember);
+    transform: scaleY(0);
+    transition: transform 0.2s ease;
+    transform-origin: bottom;
+  }
+
+  .answer-btn:hover {
+    background: var(--deep);
+    border-color: rgba(196,96,42,0.3);
+    color: var(--parchment);
+  }
+
+  .answer-btn:hover::before { transform: scaleY(1); }
+
+  .answer-btn.selected {
+    background: var(--ember-soft);
+    border-color: rgba(196,96,42,0.5);
+    color: var(--parchment);
+  }
+
+  .answer-btn.selected::before { transform: scaleY(1); }
+
+  /* ── TRANSITION SCREEN ── */
+  .transition-line {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(18px, 5vw, 24px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--bone);
+    line-height: 1.5;
+    margin-bottom: 48px;
+  }
+
+  .consent-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .consent-btn {
+    width: 100%;
+    min-height: 56px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.08);
+    color: var(--bone);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(15px, 4vw, 17px);
+    font-weight: 400;
+    text-align: left;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .consent-btn.primary {
+    background: var(--ember-soft);
+    border-color: rgba(196,96,42,0.4);
+    color: var(--parchment);
+  }
+
+  .consent-btn:hover { border-color: rgba(196,96,42,0.4); color: var(--parchment); }
+  .consent-btn.primary:hover { background: var(--ember-mid); }
+
+  /* ── HESITATION SCREEN ── */
+  .hesitation-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(20px, 5.5vw, 28px);
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--parchment);
+    margin-bottom: 16px;
+  }
+
+  .hesitation-sub {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(15px, 4vw, 17px);
+    font-style: italic;
+    color: var(--dust);
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+
+  /* ── RESULT SCREEN ── */
+  .result-label {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--ember);
+    margin-bottom: 12px;
+    opacity: 0.8;
+  }
+
+  .result-condition {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(32px, 8vw, 48px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--parchment);
+    line-height: 1.1;
+    margin-bottom: 32px;
+    letter-spacing: -0.01em;
+  }
+
+  .result-divider {
+    width: 48px;
+    height: 1px;
+    background: var(--ember);
+    opacity: 0.5;
+    margin-bottom: 32px;
+  }
+
+  .result-declaration {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(16px, 4vw, 18px);
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--bone);
+    margin-bottom: 24px;
+    padding: 28px;
+    background: var(--char);
+    border-left: 2px solid var(--ember);
+  }
+
+  .result-declaration.placeholder-text {
+    font-style: italic;
+    color: var(--smoke);
+    border-left-color: var(--smoke);
+  }
+
+  .result-secondary {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(14px, 3.5vw, 16px);
+    font-style: italic;
+    color: var(--dust);
+    line-height: 1.7;
+    margin-bottom: 36px;
+    padding-left: 16px;
+    border-left: 1px solid var(--char);
+  }
+
+  .result-invitation {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(16px, 4vw, 18px);
+    font-weight: 400;
+    color: var(--bone);
+    line-height: 1.7;
+    margin-bottom: 28px;
+  }
+
+  /* ── SHARE BUTTON ── */
+  .btn-share {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: var(--dust);
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: 12px;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn-share:hover { border-color: rgba(255,255,255,0.2); color: var(--bone); }
+
+  .share-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.6;
+  }
+
+  /* ── POST JOIN SCREEN ── */
+  .post-label {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-bottom: 32px;
+  }
+
+  .post-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+
+  .post-btn {
+    width: 100%;
+    min-height: 56px;
+    background: var(--char);
+    border: 1px solid rgba(255,255,255,0.05);
+    color: var(--bone);
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: clamp(15px, 3.8vw, 17px);
+    font-weight: 400;
+    text-align: left;
+    padding: 16px 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .post-btn:hover { background: var(--deep); border-color: rgba(196,96,42,0.3); color: var(--parchment); }
+  .post-btn.selected { background: var(--ember-soft); border-color: rgba(196,96,42,0.4); color: var(--parchment); }
+
+  .post-note {
+    font-family: 'Crimson Pro', Georgia, serif;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--smoke);
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* ── COMPLETE SCREEN ── */
+  .complete-mark {
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(196,96,42,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+
+  .complete-mark svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--ember);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* ── UTILITY ── */
+  .spacer { flex: 1; }
+
+  .bottom-tag {
+    font-family: 'Tenor Sans', sans-serif;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-top: 40px;
+    opacity: 0.6;
+  }
+
+  @media (max-height: 700px) {
+    .screen-title { font-size: 26px; }
+    .ministry-tag { margin-bottom: 28px; }
+    .screen-sub { margin-bottom: 32px; }
+    #app { align-items: flex-start; padding-top: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+
+<div id="app">
+
+  <!-- ══ SCREEN 1 — ENTRY ══ -->
+  <div class="screen active" id="screen-entry">
+    <div class="ministry-tag">Seraph Ministry</div>
+    <h1 class="screen-title">Identify the Condition<br>God is <em>Targeting</em><br>in Your Life Right Now</h1>
+    <p class="screen-sub">Something is already happening beneath the surface.<br>Five questions will name it.</p>
+    <button class="btn-reveal" onclick="startDiagnostic()">
+      Reveal it
+      <span class="btn-arrow">→</span>
+    </button>
+    <div class="spacer"></div>
+    <div class="bottom-tag">Seraph Ministry · The Burning Ones</div>
+  </div>
+
+  <!-- ══ SCREEN 2-6 — QUESTIONS ══ -->
+  <div class="screen" id="screen-questions">
+    <div class="progress" id="progress-dots"></div>
+    <p class="question-text" id="question-text"></p>
+    <div class="answers" id="answers-container"></div>
+    <div class="spacer"></div>
+    <div class="bottom-tag">Seraph Ministry</div>
+  </div>
+
+  <!-- ══ SCREEN 7 — TRANSITION ══ -->
+  <div class="screen" id="screen-transition">
+    <div class="ministry-tag">One moment</div>
+    <p class="transition-line">Before we show you what God is targeting — are you ready to see it?</p>
+    <div class="consent-options">
+      <button class="consent-btn primary" onclick="handleConsent(true)">
+        Yes — show me what He's targeting
+      </button>
+      <button class="consent-btn" onclick="handleConsent(false)">
+        I'm not sure I want to know
+      </button>
+    </div>
+    <div class="spacer"></div>
+    <div class="bottom-tag">Seraph Ministry</div>
+  </div>
+
+  <!-- ══ SCREEN 7B — HESITATION CATCH ══ -->
+  <div class="screen" id="screen-hesitation">
+    <div class="ministry-tag">Seraph Ministry</div>
+    <p class="hesitation-text">That hesitation is not weakness.<br>It's actually evidence of something.</p>
+    <p class="hesitation-sub">The fact that part of you pulled back means part of you already knows something is there. God does not reveal what He is not also ready to move on. You can look.</p>
+    <button class="consent-btn primary" onclick="showResult()">
+      I'm ready — show me
+    </button>
+    <div class="spacer"></div>
+    <div class="bottom-tag">Seraph Ministry</div>
+  </div>
+
+  <!-- ══ SCREEN 8 — RESULT ══ -->
+  <div class="screen" id="screen-result">
+    <div class="result-label">What God is targeting</div>
+    <div class="result-condition" id="result-condition-name"></div>
+    <div class="result-divider"></div>
+    <div class="result-declaration" id="result-declaration"></div>
+    <div class="result-secondary" id="result-secondary"></div>
+    <p class="result-invitation" id="result-invitation"></p>
+    <button class="btn-reveal" onclick="joinCommunity()" style="margin-bottom: 16px;">
+      Join The Burning Ones
+      <span class="btn-arrow">→</span>
+    </button>
+    <button class="btn-share" onclick="shareResult()">
+      <svg class="share-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.5">
+        <path d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+      </svg>
+      Share what God is targeting in your life
+    </button>
+    <div class="spacer"></div>
+    <div class="bottom-tag">Seraph Ministry · The Burning Ones</div>
+  </div>
+
+  <!-- ══ SCREEN 9 — POST JOIN ══ -->
+  <div class="screen" id="screen-postjoin">
+    <div class="ministry-tag">One more thing</div>
+    <h2 class="screen-title" style="font-size: clamp(22px, 6vw, 32px); margin-bottom: 16px;">Before you step in —</h2>
+    <p class="question-text" style="margin-bottom: 28px;">What are you most hoping The Burning Ones will be for you?</p>
+    <div class="post-options" id="post-options">
+      <button class="post-btn" onclick="selectPost(this)">A place where I stop performing and start being real</button>
+      <button class="post-btn" onclick="selectPost(this)">A community that can handle the depth I've been carrying alone</button>
+      <button class="post-btn" onclick="selectPost(this)">Teaching that actually moves something in me instead of just informing me</button>
+      <button class="post-btn" onclick="selectPost(this)">To be around people who are hungry for the same thing I am</button>
+    </div>
+    <button class="btn-reveal" id="post-continue" onclick="completeDiagnostic()" style="display:none;">
+      Step in
+      <span class="btn-arrow">→</span>
+    </button>
+    <div class="spacer"></div>
+    <div class="bottom-tag">Seraph Ministry</div>
+  </div>
+
+  <!-- ══ SCREEN 10 — COMPLETE ══ -->
+  <div class="screen" id="screen-complete">
+    <div class="complete-mark">
+      <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="ministry-tag">You're in</div>
+    <h2 class="screen-title" style="font-size: clamp(24px, 6vw, 36px); margin-bottom: 20px;">Welcome to<br><em>The Burning Ones.</em></h2>
+    <p class="screen-sub" style="margin-bottom: 0;">What God is targeting in you is not a problem to manage.<br>It's the beginning of something He has been preparing.</p>
+    <div class="spacer"></div>
+    <div class="bottom-tag">Seraph Ministry · The Burning Ones</div>
+  </div>
+
+</div>
+
+<script>
+  /* ============================================================
+     RESULT CONTENT — UPDATE THESE FIELDS WITH YOUR DECLARATIONS
+     Each condition has:
+       - name: displayed as the result title
+       - declaration: your prophetic word for this condition (2-3 sentences)
+       - invitation: one line leading into the CTA
+     Secondary acknowledgments: what God is also moving on underneath
+     (12 pairings — 4 most common built here, others marked TODO)
+  ============================================================ */
+
+  const RESULT_CONTENT = {
+    numb: {
+      name: "The Numb",
+      declaration: "[YOUR DECLARATION FOR THE NUMB — INSERT HERE]\n\nThis is the field where you speak prophetically to the person who has done everything right and feels nothing. They have performed faithfulness without encounter. God is targeting the substitution — where religion quietly took His place. Speak to what He is about to break open in them.",
+      invitation: "The Burning Ones is not another place to perform. It is a community built for people who are done going through the motions and ready for something that actually moves.",
+      isPlaceholder: true
+    },
+    unsettled: {
+      name: "The Unsettled",
+      declaration: "[YOUR DECLARATION FOR THE UNSETTLED — INSERT HERE]\n\nThis is the field where you speak to the person whose interior won't settle. Something in them is pressing outward with nowhere to go. God is targeting the calling — the thing He placed in them that ordinary Christianity was never designed to contain. Speak to the pressure and what it means.",
+      invitation: "The Burning Ones was built for people who can feel something building in them they cannot name alone. You will not be the only one.",
+      isPlaceholder: true
+    },
+    withdrawn: {
+      name: "The Withdrawn",
+      declaration: "[YOUR DECLARATION FOR THE WITHDRAWN — INSERT HERE]\n\nThis is the field where you speak to the person who touched something real and then something took it. They are not cold — they are guarded. There is a wall where an open door used to be. God is targeting the wound that became a wall. Speak to what He is moving on and why He has not given up on this person.",
+      invitation: "The Burning Ones holds space for people who have been hurt by what was supposed to be holy. You are safe to bring the real version of where you are.",
+      isPlaceholder: true
+    },
+    split: {
+      name: "The Split",
+      declaration: "[YOUR DECLARATION FOR THE SPLIT — INSERT HERE]\n\nThis is the field where you speak to the person living between a public faith and a private reality. The gap between who they perform and who they actually are is producing shame they cannot shake. God is targeting the false self — not to expose them, but to free them. Speak to the mercy in what He is doing.",
+      invitation: "The Burning Ones is for people who are exhausted by the gap. What you bring in private is exactly what is welcome here.",
+      isPlaceholder: true
+    }
+  };
+
+  /* Secondary condition acknowledgments — most common pairings */
+  const SECONDARY_TEXT = {
+    "numb-withdrawn":    "There is also something beneath the numbness that once knew closeness and lost it. God is moving on that too.",
+    "numb-split":        "There is also a gap between what you present and what you actually carry. God sees both versions.",
+    "unsettled-numb":    "There is also a quiet beneath the restlessness — a place that has stopped expecting to feel much. God is in that too.",
+    "unsettled-split":   "There is also something in you that performs stability while something else burns underneath. God is targeting both.",
+    "withdrawn-numb":    "There is also a hollowness beneath the guardedness — a place that has gone quiet from waiting. God has not gone quiet.",
+    "withdrawn-split":   "There is also a version of you that performs openness while keeping the real wound hidden. God is moving on both.",
+    "split-numb":        "There is also an emptiness beneath the performance — a place that stopped expecting to feel something genuine. God is breaking into that.",
+    "split-withdrawn":   "There is also a door that closed somewhere. The version of you that is hidden carries that closed door. God is at both.",
+    "numb-unsettled":    "There is also a restlessness beneath the numbness that has not fully gone quiet. God is stirring something.",
+    "unsettled-withdrawn": "There is also a guardedness beneath the hunger — a part of you that wants more but has learned not to reach. God is in the reach.",
+    "withdrawn-unsettled": "There is also an unsettled quality beneath the withdrawal — something that knows it was made for more. God has not forgotten that.",
+    "split-unsettled":   "There is also a hunger in you that the performance has been trying to contain. God is targeting the container."
+  };
+
+  /* ============================================================
+     DIAGNOSTIC ENGINE
+  ============================================================ */
+
+  const QUESTIONS = [
+    {
+      text: "When you think about God right now — honestly, not how you're supposed to feel — what's closest to the truth?",
+      answers: [
+        { text: "I believe He's real. I just don't feel anything when I think about Him anymore.", condition: "numb" },
+        { text: "Honestly? There was a time He felt close. Now there's a distance I didn't choose and haven't been able to close.", condition: "withdrawn" },
+        { text: "Something in me wants more of Him than I know what to do with. I can't explain it.", condition: "unsettled" },
+        { text: "In certain moments, genuinely close. In others, like I'm talking to Someone who can see exactly what I'm hiding.", condition: "split" }
+      ]
+    },
+    {
+      text: "If the people closest to you could see your spiritual life exactly as it is — not how you present it — what would they find?",
+      answers: [
+        { text: "Probably the same thing they already see. I'm not hiding anything. I'm just not feeling much either.", condition: "numb" },
+        { text: "Someone who is hungry for something they can't fully articulate yet.", condition: "unsettled" },
+        { text: "Someone more guarded than they let on. There are rooms I don't let anyone into.", condition: "withdrawn" },
+        { text: "A significant gap between who I am when I'm seen and who I am when I'm not.", condition: "split" }
+      ]
+    },
+    {
+      text: "Has there ever been a moment where God felt genuinely real to you — not something you believed, but something you actually experienced?",
+      answers: [
+        { text: "Not really. Or if there was, I can't access it anymore. It's like trying to remember a dream.", condition: "numb" },
+        { text: "Yes. And then something happened — disappointment, hurt, silence — and something in me closed. I haven't fully opened it since.", condition: "withdrawn" },
+        { text: "Yes — and it left me wanting something I haven't been able to find since. Like a hunger that nothing satisfies.", condition: "unsettled" },
+        { text: "There have been moments. But they feel distant from the version of me that shows up in public. Like they happened to someone else.", condition: "split" }
+      ]
+    },
+    {
+      text: "Right now, without thinking about it theologically — where do you carry your spiritual life in your body?",
+      answers: [
+        { text: "Nowhere I can feel. It lives in my head. It stopped reaching the rest of me a long time ago.", condition: "numb" },
+        { text: "In my chest mostly. Like something pressing outward that hasn't found a way out yet.", condition: "unsettled" },
+        { text: "Behind my sternum. A dull ache that flares up when I get too close to something real.", condition: "withdrawn" },
+        { text: "In my throat. The thing I almost say but don't. The version of me I almost show but pull back.", condition: "split" }
+      ]
+    },
+    {
+      text: "If God moved in your life right now — specifically, tangibly — what would you most need that movement to do?",
+      answers: [
+        { text: "Wake something up in me. Prove to me that what I've believed all this time is actually real and not just habit.", condition: "numb", weight: 2 },
+        { text: "Release whatever is building inside me. Give it a name, a direction, a purpose.", condition: "unsettled", weight: 2 },
+        { text: "Reach past the place where I stopped letting Him in. Get through the wall without me having to explain how it got there.", condition: "withdrawn", weight: 2 },
+        { text: "See all of me — the private version, the real one — and not turn away.", condition: "split", weight: 2 }
+      ]
+    }
+  ];
+
+  /* Shuffle answer order for each question */
+  function shuffle(arr) {
+    const a = [...arr];
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  let scores = { numb: 0, unsettled: 0, withdrawn: 0, split: 0 };
+  let currentQ = 0;
+  let shuffledAnswers = [];
+  let primaryCondition = '';
+  let secondaryCondition = '';
+
+  function startDiagnostic() {
+    scores = { numb: 0, unsettled: 0, withdrawn: 0, split: 0 };
+    currentQ = 0;
+    shuffledAnswers = QUESTIONS.map(q => shuffle(q.answers));
+    transitionTo('screen-questions');
+    renderQuestion();
+  }
+
+  function buildProgressDots() {
+    const dots = document.getElementById('progress-dots');
+    dots.innerHTML = '';
+    for (let i = 0; i < QUESTIONS.length; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === currentQ ? ' active' : i < currentQ ? ' done' : '');
+      dots.appendChild(d);
+    }
+  }
+
+  function renderQuestion() {
+    buildProgressDots();
+    const q = QUESTIONS[currentQ];
+    document.getElementById('question-text').textContent = q.text;
+    const container = document.getElementById('answers-container');
+    container.innerHTML = '';
+    shuffledAnswers[currentQ].forEach((ans, idx) => {
+      const btn = document.createElement('button');
+      btn.className = 'answer-btn';
+      btn.textContent = ans.text;
+      btn.setAttribute('data-condition', ans.condition);
+      btn.setAttribute('data-weight', ans.weight || 1);
+      btn.onclick = () => selectAnswer(btn);
+      container.appendChild(btn);
+    });
+  }
+
+  function selectAnswer(btn) {
+    if (btn.classList.contains('selected')) return;
+    document.querySelectorAll('.answer-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    const condition = btn.getAttribute('data-condition');
+    const weight = parseInt(btn.getAttribute('data-weight'));
+    scores[condition] += weight;
+    setTimeout(() => {
+      currentQ++;
+      if (currentQ < QUESTIONS.length) {
+        renderQuestion();
+        const qs = document.getElementById('screen-questions');
+        qs.style.animation = 'none';
+        void qs.offsetWidth;
+        qs.style.animation = 'screenIn 0.4s ease forwards';
+      } else {
+        calculateResult();
+        transitionTo('screen-transition');
+      }
+    }, 380);
+  }
+
+  function calculateResult() {
+    const sorted = Object.entries(scores).sort((a, b) => b[1] - a[1]);
+    primaryCondition = sorted[0][0];
+
+    /* Tiebreaker: if top two scores are equal, Q5 answer wins */
+    if (sorted[0][1] === sorted[1][1]) {
+      const q5answer = shuffledAnswers[4].find(a => document.querySelector(`[data-condition="${a.condition}"].selected`));
+      if (q5answer) primaryCondition = q5answer.condition;
+    }
+
+    secondaryCondition = sorted.find(s => s[0] !== primaryCondition)?.[0] || '';
+  }
+
+  function handleConsent(ready) {
+    if (ready) {
+      showResult();
+    } else {
+      transitionTo('screen-hesitation');
+    }
+  }
+
+  function showResult() {
+    const content = RESULT_CONTENT[primaryCondition];
+    const conditionEl = document.getElementById('result-condition-name');
+    const declarationEl = document.getElementById('result-declaration');
+    const secondaryEl = document.getElementById('result-secondary');
+    const invitationEl = document.getElementById('result-invitation');
+
+    conditionEl.textContent = content.name;
+
+    declarationEl.textContent = content.declaration;
+    if (content.isPlaceholder) {
+      declarationEl.classList.add('placeholder-text');
+    } else {
+      declarationEl.classList.remove('placeholder-text');
+    }
+
+    const pairKey = primaryCondition + '-' + secondaryCondition;
+    const secondaryText = SECONDARY_TEXT[pairKey] || '';
+    secondaryEl.textContent = secondaryText;
+    secondaryEl.style.display = secondaryText ? 'block' : 'none';
+
+    invitationEl.textContent = content.invitation;
+
+    transitionTo('screen-result');
+  }
+
+  function joinCommunity() {
+    /* REPLACE THIS URL WITH YOUR COMMUNITY LINK */
+    const communityUrl = 'https://YOUR-COMMUNITY-LINK-HERE';
+    window.open(communityUrl, '_blank');
+    setTimeout(() => transitionTo('screen-postjoin'), 300);
+  }
+
+  function shareResult() {
+    const content = RESULT_CONTENT[primaryCondition];
+    const shareUrl = window.location.href;
+    const shareText = `God is targeting "${content.name}" in my life right now. Find out what He's targeting in yours →`;
+
+    if (navigator.share) {
+      navigator.share({ title: 'Seraph Ministry Diagnostic', text: shareText, url: shareUrl });
+    } else {
+      const encoded = encodeURIComponent(shareText + ' ' + shareUrl);
+      window.open('https://twitter.com/intent/tweet?text=' + encoded, '_blank');
+    }
+  }
+
+  function selectPost(btn) {
+    document.querySelectorAll('.post-btn').forEach(b => b.classList.remove('selected'));
+    btn.classList.add('selected');
+    document.getElementById('post-continue').style.display = 'inline-flex';
+  }
+
+  function completeDiagnostic() {
+    transitionTo('screen-complete');
+  }
+
+  /* ── SCREEN TRANSITION ── */
+  function transitionTo(nextId) {
+    const current = document.querySelector('.screen.active');
+    const next = document.getElementById(nextId);
+    if (!current || !next || current === next) return;
+
+    current.classList.add('leaving');
+    current.classList.remove('active');
+
+    setTimeout(() => {
+      current.classList.remove('leaving');
+      current.style.display = 'none';
+      next.style.display = 'flex';
+      next.classList.add('active');
+      next.style.animation = 'none';
+      void next.offsetWidth;
+      next.style.animation = 'screenIn 0.5s ease forwards';
+      window.scrollTo(0, 0);
+    }, 280);
+  }
+</script>
+</body>
+</html>

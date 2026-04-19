@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,27 +89,122 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .scroll-bar{width:1px;height:0;background:var(--fire);opacity:0.4;}
 
 @media(max-width:768px){
-  .word-seraph{font-size:25vw;top:42%;}
-  .word-ministry{font-size:5.5vw;}
-  .a1{display:none;}
-  .logo-wrap{width:88vw;top:48%;}
-  .sm4,.sm8,.sm10{display:none;}
-  .fire-phrase{font-size:5.8vw;left:6%;top:16%;}
-  .xm1{width:18vw;}
-  .crown-main{width:clamp(60px,13vw,100px);}
+  /* Hero — ensure nothing bleeds */
+  .hero{overflow:hidden;}
+
+  /* SERAPH — contained, left-anchored, no overflow */
+  .word-seraph{
+    font-size:clamp(4.2rem,22vw,7rem);
+    left:0;
+    top:auto;
+    bottom:28%;
+    transform:rotate(-4deg);
+    width:100%;
+    text-align:left;
+    padding-left:0.02em;
+  }
+
+  /* MINISTRY — right-anchored, visible, reduced size */
+  .word-ministry{
+    font-size:clamp(0.85rem,4.2vw,1.6rem);
+    right:0;
+    bottom:19%;
+    letter-spacing:0.22em;
+  }
+
+  /* LOGO (seraph creature) — centered, full-width */
+  .logo-wrap{
+    width:82vw;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-52%);
+  }
+
+  /* Fire phrase — above creature, clear of SERAPH */
+  .fire-phrase{
+    font-size:clamp(1.4rem,5.5vw,2.2rem);
+    left:5%;
+    top:13%;
+    transform:rotate(-2deg);
+  }
+
+  /* HOLY tag — top-left, tightened */
   .holy-tag{top:1.5rem;left:1.2rem;}
-  .cta-block{bottom:2rem;left:1.5rem;}
-  .woe-mark{font-size:clamp(0.6rem,2.5vw,1rem);top:6%;}
-  .sm7{width:clamp(18px,4vw,32px);}
-  .sm9{display:none;}
+
+  /* Numbers */
+  .n6{font-size:clamp(2.8rem,11vw,5rem);top:3%;right:15%;}
+  .n1{font-size:clamp(3rem,12vw,5.5rem);top:6%;right:5%;}
+  .n3{font-size:clamp(1.2rem,4vw,2rem);bottom:20%;right:16%;}
+
+  /* WOE IS ME — above X mark */
+  .woe-mark{font-size:clamp(0.55rem,2.2vw,0.85rem);top:5%;right:4%;}
+
+  /* X mark — scale down */
+  .xm1{width:16vw;top:2%;right:2%;}
+  .xm2{width:clamp(28px,7vw,48px);}
+
+  /* Crown — scale appropriately */
+  .crown-main{width:clamp(56px,12vw,88px);top:15%;}
+  .crown-small{width:clamp(32px,6vw,52px);bottom:11%;}
+
+  /* HOLY background SVG — contain to left half */
+  .holy-bg-svg{width:72%;height:60%;}
+
+  /* HOLY mid ghost */
+  .holy-mid{font-size:clamp(2rem,8vw,4rem);right:1%;bottom:8%;}
+
+  /* Scatter marks — hide most, keep key ones */
+  .sm4,.sm8,.sm9,.sm10{display:none;}
+  .sm1{width:clamp(26px,5.5vw,40px);top:10%;right:18%;}
+  .sm2{width:clamp(18px,4vw,30px);bottom:25%;right:4%;}
+  .sm3{width:clamp(12px,3vw,20px);top:52%;right:12%;}
+  .sm5{width:clamp(14px,3.5vw,24px);top:7%;right:35%;}
+  .sm6{display:none;}
+  .sm7{width:clamp(18px,4vw,30px);top:20%;right:7%;}
+
+  /* Annotations */
+  .a1{display:none;}
+  .a2{font-size:0.42rem;}
+
+  /* CTA block — bottom-left, breathing room */
+  .cta-block{bottom:2rem;left:1.2rem;}
+  .cta-word{font-size:clamp(1.6rem,7vw,2.6rem);}
+
+  /* Scroll mark */
+  .scroll-mark{bottom:2rem;right:1.2rem;}
 }
+
 @media(max-width:480px){
-  .word-seraph{font-size:28vw;}
-  .fire-phrase{font-size:6.5vw;left:4%;}
-  .logo-wrap{width:92vw;}
-  .sm1,.sm2,.sm3{width:clamp(28px,6vw,40px);}
-  .n6{font-size:12vw;}.n1{font-size:13vw;}
+  /* SERAPH — tighter on small screens */
+  .word-seraph{
+    font-size:clamp(3.8rem,21vw,5.5rem);
+    bottom:27%;
+  }
+
+  .word-ministry{
+    font-size:clamp(0.75rem,3.8vw,1.1rem);
+    bottom:18%;
+    letter-spacing:0.18em;
+  }
+
+  .logo-wrap{width:86vw;}
+
+  .fire-phrase{
+    font-size:clamp(1.2rem,5.2vw,1.8rem);
+    top:11%;
+    left:4%;
+  }
+
+  .n6{font-size:clamp(2.4rem,10vw,3.8rem);right:12%;}
+  .n1{font-size:clamp(2.6rem,11vw,4rem);}
+
   .xm1{width:14vw;}
+
+  .crown-main{width:clamp(48px,11vw,72px);}
+
+  .sm1,.sm2,.sm3{width:clamp(22px,5vw,34px);}
+
+  .cta-word{font-size:clamp(1.5rem,6.5vw,2.2rem);}
 }
 </style>
 </head>

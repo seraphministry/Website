@@ -89,122 +89,138 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .scroll-bar{width:1px;height:0;background:var(--fire);opacity:0.4;}
 
 @media(max-width:768px){
-  /* Hero — ensure nothing bleeds */
-  .hero{overflow:hidden;}
+  /* Hero — contain everything, respect iOS safe areas */
+  .hero{
+    overflow:hidden;
+    min-height:100svh;
+  }
 
-  /* SERAPH — contained, left-anchored, no overflow */
+  /* SERAPH — dominant, anchored below creature */
   .word-seraph{
     font-size:clamp(4.2rem,22vw,7rem);
     left:0;
     top:auto;
-    bottom:28%;
+    bottom:26%;
     transform:rotate(-4deg);
     width:100%;
     text-align:left;
     padding-left:0.02em;
   }
 
-  /* MINISTRY — right-anchored, visible, reduced size */
+  /* MINISTRY — pulled inward, never clips */
   .word-ministry{
     font-size:clamp(0.85rem,4.2vw,1.6rem);
-    right:0;
-    bottom:19%;
-    letter-spacing:0.22em;
+    right:1.5rem;
+    bottom:18%;
+    letter-spacing:0.18em;
+    max-width:50vw;
+    overflow:hidden;
+    white-space:nowrap;
   }
 
-  /* LOGO (seraph creature) — centered, full-width */
+  /* LOGO (seraph creature) — higher, commands center */
   .logo-wrap{
-    width:82vw;
-    top:50%;
+    width:78vw;
+    top:44%;
     left:50%;
-    transform:translate(-50%,-52%);
+    transform:translate(-50%,-50%);
   }
 
-  /* Fire phrase — above creature, clear of SERAPH */
+  /* Fire phrase — right side, above creature midpoint, not stacked with HOLY */
   .fire-phrase{
-    font-size:clamp(1.4rem,5.5vw,2.2rem);
-    left:5%;
-    top:13%;
+    font-size:clamp(1.3rem,5.2vw,2rem);
+    left:auto;
+    right:5%;
+    top:30%;
     transform:rotate(-2deg);
+    text-align:right;
   }
 
-  /* HOLY tag — top-left, tightened */
-  .holy-tag{top:1.5rem;left:1.2rem;}
+  /* HOLY tag — top-left corner only */
+  .holy-tag{top:1.2rem;left:1.2rem;}
 
   /* Numbers */
-  .n6{font-size:clamp(2.8rem,11vw,5rem);top:3%;right:15%;}
-  .n1{font-size:clamp(3rem,12vw,5.5rem);top:6%;right:5%;}
-  .n3{font-size:clamp(1.2rem,4vw,2rem);bottom:20%;right:16%;}
+  .n6{font-size:clamp(2.4rem,10vw,4rem);top:3%;right:14%;}
+  .n1{font-size:clamp(2.6rem,11vw,4.5rem);top:7%;right:4%;}
+  .n3{font-size:clamp(1.1rem,3.5vw,1.8rem);bottom:19%;right:14%;}
 
-  /* WOE IS ME — above X mark */
-  .woe-mark{font-size:clamp(0.55rem,2.2vw,0.85rem);top:5%;right:4%;}
+  /* WOE IS ME */
+  .woe-mark{font-size:clamp(0.52rem,2vw,0.8rem);top:4%;right:4%;}
 
-  /* X mark — scale down */
-  .xm1{width:16vw;top:2%;right:2%;}
-  .xm2{width:clamp(28px,7vw,48px);}
+  /* X marks */
+  .xm1{width:15vw;top:2%;right:1%;}
+  .xm2{width:clamp(26px,6.5vw,44px);}
 
-  /* Crown — scale appropriately */
-  .crown-main{width:clamp(56px,12vw,88px);top:15%;}
-  .crown-small{width:clamp(32px,6vw,52px);bottom:11%;}
+  /* Crown */
+  .crown-main{width:clamp(52px,11vw,80px);top:24%;left:1.5vw;}
+  .crown-small{width:clamp(30px,5.5vw,48px);bottom:10%;}
 
-  /* HOLY background SVG — contain to left half */
-  .holy-bg-svg{width:72%;height:60%;}
+  /* HOLY background SVG */
+  .holy-bg-svg{width:70%;height:55%;}
 
   /* HOLY mid ghost */
-  .holy-mid{font-size:clamp(2rem,8vw,4rem);right:1%;bottom:8%;}
+  .holy-mid{font-size:clamp(1.8rem,7vw,3.5rem);right:0;bottom:7%;}
 
-  /* Scatter marks — hide most, keep key ones */
-  .sm4,.sm8,.sm9,.sm10{display:none;}
-  .sm1{width:clamp(26px,5.5vw,40px);top:10%;right:18%;}
-  .sm2{width:clamp(18px,4vw,30px);bottom:25%;right:4%;}
-  .sm3{width:clamp(12px,3vw,20px);top:52%;right:12%;}
-  .sm5{width:clamp(14px,3.5vw,24px);top:7%;right:35%;}
-  .sm6{display:none;}
-  .sm7{width:clamp(18px,4vw,30px);top:20%;right:7%;}
+  /* Scatter marks — minimal, intentional */
+  .sm4,.sm6,.sm8,.sm9,.sm10{display:none;}
+  .sm1{width:clamp(24px,5vw,38px);top:9%;right:17%;}
+  .sm2{width:clamp(16px,3.8vw,28px);bottom:24%;right:3%;}
+  .sm3{width:clamp(11px,2.8vw,18px);top:50%;right:11%;}
+  .sm5{width:clamp(13px,3.2vw,22px);top:6%;right:33%;}
+  .sm7{width:clamp(16px,3.8vw,28px);top:19%;right:6%;}
 
   /* Annotations */
   .a1{display:none;}
-  .a2{font-size:0.42rem;}
+  .a2{font-size:0.4rem;}
 
-  /* CTA block — bottom-left, breathing room */
-  .cta-block{bottom:2rem;left:1.2rem;}
+  /* CTA block — safe area aware for iPhone home bar */
+  .cta-block{
+    bottom:calc(2rem + env(safe-area-inset-bottom));
+    left:1.2rem;
+  }
   .cta-word{font-size:clamp(1.6rem,7vw,2.6rem);}
 
-  /* Scroll mark */
-  .scroll-mark{bottom:2rem;right:1.2rem;}
+  /* Scroll mark — safe area aware */
+  .scroll-mark{
+    bottom:calc(2rem + env(safe-area-inset-bottom));
+    right:1.2rem;
+  }
 }
 
 @media(max-width:480px){
-  /* SERAPH — tighter on small screens */
   .word-seraph{
     font-size:clamp(3.8rem,21vw,5.5rem);
-    bottom:27%;
+    bottom:25%;
   }
 
   .word-ministry{
-    font-size:clamp(0.75rem,3.8vw,1.1rem);
-    bottom:18%;
-    letter-spacing:0.18em;
+    font-size:clamp(0.72rem,3.6vw,1rem);
+    bottom:17%;
+    letter-spacing:0.15em;
+    right:1rem;
   }
 
-  .logo-wrap{width:86vw;}
+  .logo-wrap{
+    width:84vw;
+    top:43%;
+  }
 
   .fire-phrase{
-    font-size:clamp(1.2rem,5.2vw,1.8rem);
-    top:11%;
-    left:4%;
+    font-size:clamp(1.1rem,4.8vw,1.6rem);
+    top:28%;
+    right:4%;
   }
 
-  .n6{font-size:clamp(2.4rem,10vw,3.8rem);right:12%;}
-  .n1{font-size:clamp(2.6rem,11vw,4rem);}
+  .n6{font-size:clamp(2rem,9vw,3.2rem);right:12%;}
+  .n1{font-size:clamp(2.2rem,10vw,3.6rem);}
 
-  .xm1{width:14vw;}
+  .xm1{width:13vw;}
 
-  .crown-main{width:clamp(48px,11vw,72px);}
+  .crown-main{width:clamp(44px,10vw,64px);}
 
-  .sm1,.sm2,.sm3{width:clamp(22px,5vw,34px);}
+  .sm1,.sm2,.sm3{width:clamp(18px,4.5vw,30px);}
 
-  .cta-word{font-size:clamp(1.5rem,6.5vw,2.2rem);}
+  .cta-word{font-size:clamp(1.4rem,6.5vw,2rem);}
 }
 </style>
 </head>

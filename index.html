@@ -250,7 +250,49 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   letter-spacing:0.08em;opacity:0;display:block;
 }
 .threshold-year{color:var(--fire);}
-
+.threshold-promise{
+  text-align:center;
+  position:relative;
+  z-index:3;
+}
+.tp-line{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(1.4rem,2.8vw,3rem);
+  color:var(--ash);
+  display:block;
+  line-height:1.7;
+  opacity:0;
+}
+.tp-divider{
+  display:block;
+  width:clamp(28px,3vw,44px);
+  height:1px;
+  background:var(--fire);
+  opacity:0.4;
+  margin:clamp(1.8rem,3vw,3rem) auto;
+}
+.tp-marker{
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:clamp(1.8rem,3.8vw,4.5rem);
+  color:var(--ash);
+  display:block;
+  line-height:1.1;
+  filter:url(#roughen);
+  opacity:0;
+}
+.tp-sub{
+  font-family:'Space Mono',monospace;
+  font-size:clamp(0.6rem,1vw,0.8rem);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--fire);
+  display:block;
+  margin-top:clamp(1.2rem,2vw,2rem);
+  opacity:0;
+}
+  
 /* ======================
    THE BEHOLDING
    ====================== */
@@ -611,41 +653,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .bb-mono{font-family:'Space Mono',monospace;font-size:clamp(0.65rem,1.15vw,0.9rem);color:var(--fire);letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:0.6rem;}
 .bb-emphasis{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.8rem,6vw,7.5rem);color:var(--ash);line-height:0.92;display:block;filter:url(#roughen);letter-spacing:-0.02em;}
 .bb-turn{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.55rem);color:var(--bone);line-height:1.9;display:block;margin-top:0.7rem;font-weight:400;max-width:54ch;}
-
-.hero-promise{
-  position:absolute;
-  bottom:clamp(3.5rem,8vw,6rem);
-  left:50%;
-  transform:translateX(-50%);
-  text-align:center;
-  z-index:15;
-  opacity:0;
-  pointer-events:none;
-  white-space:nowrap;
-}
-.hp-line{
-  font-family:'IM Fell English',serif;
-  font-style:italic;
-  font-size:clamp(0.85rem,1.5vw,1.2rem);
-  color:var(--bone);
-  opacity:0.72;
-  display:block;
-  line-height:2;
-  letter-spacing:0.04em;
-}
-.hp-marker{
-  color:var(--gold);
-  opacity:1;
-  font-style:normal;
-  font-family:'Space Mono',monospace;
-  font-size:clamp(0.62rem,1.1vw,0.85rem);
-  letter-spacing:0.18em;
-  text-transform:uppercase;
-  margin-top:0.3rem;
-}
-@media(max-width:768px){
-  .hero-promise{white-space:normal;width:90vw;text-align:center;}
-}
 </style>
 </head>
 <body>
@@ -854,15 +861,23 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <div class="scroll-bar" id="scroll-bar"></div>
     <span>Scroll</span>
   </div>
-
-  <div class="hero-promise" id="hero-promise">
-  <span class="hp-line">You've never quite fit.</span>
-  <span class="hp-line">Not in the church. Not outside of it.</span>
-  <span class="hp-line hp-marker">That's not a flaw. That's a marker.</span>
-  </div>
 </section>
 
-
+<!-- ========================
+     THRESHOLD
+     ======================== -->
+<section class="threshold" id="threshold">
+  <div class="section-inner">
+    <div class="threshold-promise" id="threshold-promise">
+      <span class="tp-line">You've never quite fit.</span>
+      <span class="tp-line">Not in the church. Not outside of it.</span>
+      <span class="tp-divider" aria-hidden="true"></span>
+      <span class="tp-marker">That's not a flaw. That's a marker.</span>
+      <span class="tp-sub">A ministry for the ones God won't stop reaching for.</span>
+    </div>
+  </div>
+</section>
+  
 <!-- ========================
      THE BEHOLDING
      ======================== -->
@@ -1272,8 +1287,7 @@ tl.to(".splat",{opacity:1,duration:0.08,stagger:{each:0.05,from:"random"}},1.15)
 tl.fromTo("#cta-block",{opacity:0,y:10},{opacity:1,y:0,duration:0.5,ease:"power2.out"},2.0);
 tl.to("#scroll-mark",{opacity:1,duration:0.4},2.15);
 tl.to("#scroll-bar",{height:56,duration:1.0,ease:"power2.out"},2.3);
-tl.to("#hero-promise", {opacity:1, duration:0.8, ease:"power2.out"}, "-=0.3");
-  
+
 }
 
 const logoImgEl=document.getElementById('logo-img-main');
@@ -1363,6 +1377,19 @@ seraph.addEventListener("click",()=>{
 const reducedMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
 
 if(!reducedMotion){
+
+  // THRESHOLD
+  gsap.utils.toArray('.tp-line').forEach(function(el, i){
+  gsap.to(el, {opacity:1, y:0, duration:0.9, ease:'power2.out', delay:i*0.15,
+    scrollTrigger:{trigger:'.threshold-promise', start:'top 72%'}});
+});
+gsap.to('.tp-divider', {opacity:0.4, duration:0.6, ease:'power2.out', delay:0.35,
+  scrollTrigger:{trigger:'.threshold-promise', start:'top 72%'}});
+gsap.to('.tp-marker', {opacity:1, duration:1, ease:'power3.out', delay:0.45,
+  scrollTrigger:{trigger:'.threshold-promise', start:'top 68%'}});
+gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
+  scrollTrigger:{trigger:'.threshold-promise', start:'top 68%'}});
+  
   // THE BEHOLDING
   gsap.fromTo('#beholding-eyebrow',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
     scrollTrigger:{trigger:'.beholding',start:'top 78%'}});

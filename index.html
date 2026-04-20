@@ -8,6 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
 :root{--ink:#0C0B09;--fire:#FF3300;--gold:#D4A017;--ash:#F2EDE4;--bone:#E8DFD0;}
@@ -17,7 +22,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 #cursor.big{width:44px;height:44px;}
 .filters{position:absolute;width:0;height:0;overflow:hidden;}
 .hero{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--fire);contain:layout style;}
-#fire-canvas{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16vw;max-width:180px;opacity:0;z-index:5;pointer-events:none;}
+#fire-canvas{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16vw;max-width:180px;opacity:0;z-index:5;pointer-events:none;will-change:opacity;backface-visibility:hidden;}
 .bg-ink{position:absolute;inset:0;background:var(--ink);transform:scaleY(0);transform-origin:bottom center;z-index:1;}
 .logo-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-34%);width:54vw;max-width:640px;z-index:4;opacity:0;mix-blend-mode:screen;pointer-events:none;filter:url(#roughen);will-change:transform,opacity;}
 .logo-wrap img{width:100%;height:auto;display:block;}
@@ -54,11 +59,18 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .sm8{width:clamp(12px,1.8vw,24px);top:65%;right:18%;transform:rotate(60deg);}
 .sm9{width:clamp(16px,2.2vw,30px);top:45%;left:18%;transform:rotate(-15deg);}
 .sm10{width:clamp(8px,1.2vw,16px);bottom:18%;right:42%;transform:rotate(45deg);}
+.sm11{width:clamp(20px,2.8vw,38px);bottom:12%;left:12%;transform:rotate(-35deg);}
+.sm12{width:clamp(28px,3.8vw,52px);top:35%;right:28%;transform:rotate(25deg);}
+.sm13{width:clamp(16px,2.2vw,30px);bottom:35%;right:18%;transform:rotate(-50deg);}
+.sm14{width:clamp(32px,4.2vw,58px);top:18%;left:22%;transform:rotate(40deg);}
+.sm15{width:clamp(12px,1.6vw,22px);bottom:55%;left:4%;transform:rotate(12deg);}
 
 /* SVG X MARKS */
 .xmark-svg{position:absolute;z-index:9;opacity:0;}
 .xm1{width:clamp(80px,13vw,170px);top:4%;right:5%;transform:rotate(15deg);}
 .xm2{width:clamp(36px,5vw,65px);bottom:35%;left:3%;transform:rotate(-10deg);}
+.xm3{width:clamp(28px,3.8vw,52px);top:42%;right:12%;transform:rotate(22deg);}
+.xm4{width:clamp(18px,2.4vw,38px);bottom:28%;right:8%;transform:rotate(-18deg);}
 
 .annot{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;position:absolute;z-index:12;opacity:0;}
 .a1{color:var(--gold);top:40%;right:2.5%;transform:rotate(90deg);font-style:italic;}
@@ -73,6 +85,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .s4{width:10px;height:4px;background:var(--gold);top:12%;left:52%;}
 .s5{width:5px;height:5px;background:var(--fire);bottom:16%;right:20%;}
 .s6{width:15px;height:5px;background:var(--gold);bottom:10%;left:30%;transform:rotate(10deg);border-radius:50%;}
+.s7{width:8px;height:8px;background:var(--fire);top:22%;right:44%;opacity:0.7;}
+.s8{width:11px;height:6px;background:var(--gold);top:62%;left:31%;transform:rotate(-25deg);border-radius:40% 60% 50% 50%;opacity:0.6;}
+.s9{width:6px;height:4px;background:var(--fire);bottom:24%;right:15%;opacity:0.65;}
+.s10{width:9px;height:9px;background:var(--gold);top:48%;right:5%;opacity:0.5;}
 
 .cta-block{position:absolute;bottom:3.5rem;left:2.5rem;z-index:15;opacity:0;}
 .cta-label{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.25em;color:var(--bone);opacity:0.45;text-transform:uppercase;display:block;margin-bottom:0.3rem;}
@@ -127,6 +143,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     transform:translate(-50%,-50%);
   }
 
+  /* Fire canvas — smaller on mobile */
+  #fire-canvas{
+    width:12vw;
+    max-width:120px;
+  }
+
   /* Fire phrase — right side, above creature midpoint, not stacked with HOLY */
   .fire-phrase{
     font-size:clamp(1.7rem,6vw,2.6rem);
@@ -165,6 +187,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
   /* Scatter marks — minimal, intentional */
   .sm4,.sm6,.sm8,.sm9,.sm10{display:none;}
+  /* Hide secondary background elements on mobile for perf */
+  .sm11,.sm12,.sm13,.sm14,.sm15,.xm3,.xm4,.s7,.s8,.s9,.s10{display:none;}
   .sm1{width:clamp(24px,5vw,38px);top:9%;right:17%;}
   .sm2{width:clamp(16px,3.8vw,28px);bottom:24%;right:3%;}
   .sm3{width:clamp(11px,2.8vw,18px);top:50%;right:11%;}
@@ -235,6 +259,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @keyframes sg-a{0%,100%{translate:0 0}50%{translate:0 -10px}}
 @keyframes sg-b{0%,100%{translate:0 0}50%{translate:2px 8px}}
 @keyframes sg-c{0%,100%{translate:-3px -4px}50%{translate:3px 6px}}
+@keyframes breathe{0%,100%{transform:scale(1);letter-spacing:0.15em}50%{transform:scale(1.018);letter-spacing:0.18em}}
 .sg{position:absolute;pointer-events:none;z-index:2;will-change:translate;}
 .sg.fa{animation:sg-a var(--d,8s) ease-in-out infinite var(--dl,0s);}
 .sg.fb{animation:sg-b var(--d,10s) ease-in-out infinite var(--dl,0s);}
@@ -296,7 +321,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ======================
    THE BEHOLDING
    ====================== */
-.beholding{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;}
+.beholding{background:var(--ink);padding:clamp(12rem,18vw,22rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;}
 .beholding-eyebrow{
   font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;
   text-transform:uppercase;color:var(--fire);display:block;
@@ -304,8 +329,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .beholding-verse{
   font-family:'IM Fell English',serif;font-style:italic;
-  font-size:clamp(1.4rem,2.8vw,3.2rem);color:var(--ash);line-height:1.6;
-  opacity:0;display:block;margin-bottom:clamp(1.5rem,2.5vw,2.5rem);
+  font-size:clamp(1.8rem,7vw,2.8rem);color:var(--ash);line-height:1.8;
+  opacity:0;display:block;margin-bottom:clamp(1.8rem,3vw,3rem);letter-spacing:0.04em;
 }
 .beholding-verse em{font-style:normal;color:var(--gold);}
 .beholding-ref{
@@ -573,13 +598,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @media(max-width:480px){
   .undoing-text-primary{font-size:clamp(1.7rem,7vw,3rem);}
   .undoing-text-climax{font-size:clamp(2.5rem,10vw,5rem);}
-  .beholding-verse{font-size:clamp(1.2rem,5vw,2rem);}
+  .beholding-verse{font-size:clamp(1.4rem,5vw,2.2rem);}
+  .bb-fire{font-size:clamp(2.2rem,5.5vw,6.5rem);}
+  .bb-emphasis{font-size:clamp(2.4rem,5.5vw,6rem);}
   .coal-text-primary{font-size:clamp(1.5rem,6.5vw,3rem);}
   .coal-text-fire{font-size:clamp(2rem,8vw,4.5rem);}
   .coal-mark-label{font-size:clamp(1.4rem,5.5vw,2rem);}
   .sending-text-primary{font-size:clamp(1.5rem,6.5vw,3rem);}
   .sending-here{font-size:clamp(2.8rem,9vw,5rem);}
   .inv-headline{font-size:clamp(2.2rem,8vw,3.5rem);}
+  /* Reduce breathing animation on mobile for battery */
+  @keyframes breathe{0%,100%{transform:scale(1);letter-spacing:0.15em}50%{transform:scale(1.01);letter-spacing:0.17em}}
 }
 @media(prefers-reduced-motion:reduce){
   .sg{animation:none!important;}
@@ -649,9 +678,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .beholding-beat.center{text-align:center;}
 .bb-large{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.7rem,3.4vw,4rem);color:var(--ash);line-height:1.2;display:block;filter:url(#roughen);}
 .bb-medium{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1.1rem,2.1vw,2.2rem);color:var(--ash);line-height:1.55;display:block;margin-bottom:0.3em;}
-.bb-fire{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.5rem,5.5vw,7rem);color:var(--fire);line-height:0.9;display:block;filter:url(#roughen);letter-spacing:-0.02em;}
+.bb-fire{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.8rem,6.5vw,8.5rem);color:var(--fire);line-height:0.88;display:block;filter:url(#roughen);letter-spacing:0.08em;text-transform:uppercase;}
 .bb-mono{font-family:'Space Mono',monospace;font-size:clamp(0.65rem,1.15vw,0.9rem);color:var(--fire);letter-spacing:0.2em;text-transform:uppercase;display:block;margin-bottom:0.6rem;}
-.bb-emphasis{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.8rem,6vw,7.5rem);color:var(--ash);line-height:0.92;display:block;filter:url(#roughen);letter-spacing:-0.02em;}
+.bb-emphasis{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(3rem,7vw,8.5rem);color:var(--ash);line-height:0.88;display:block;filter:url(#roughen);letter-spacing:0.06em;text-transform:uppercase;}
 .bb-turn{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.55rem);color:var(--bone);line-height:1.9;display:block;margin-top:0.7rem;font-weight:400;max-width:54ch;}
 </style>
 </head>
@@ -702,7 +731,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   </svg>
 
   <div class="logo-wrap" id="logo">
-    <img id="logo-img-main" src="seraph-logo.png" alt="Seraph">
+    <img id="logo-img-main" src="" data-src="seraph-logo.png" alt="Seraph" loading="lazy">
   </div>
 
   <!-- PRIMARY CROWN — Basquiat W, filled gold + rough stroke overpainting -->
@@ -840,12 +869,68 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     </g>
   </svg>
 
+  <svg class="sm-wrap sm11" id="sm11" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.15">
+      <line x1="40" y1="4" x2="40" y2="76"/>
+      <line x1="4" y1="20" x2="76" y2="60"/>
+      <line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+
+  <svg class="sm-wrap sm12" id="sm12" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#D4A017" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.16">
+      <line x1="40" y1="4" x2="40" y2="76"/>
+      <line x1="4" y1="20" x2="76" y2="60"/>
+      <line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+
+  <svg class="sm-wrap sm13" id="sm13" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.14">
+      <line x1="40" y1="4" x2="40" y2="76"/>
+      <line x1="4" y1="20" x2="76" y2="60"/>
+      <line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+
+  <svg class="sm-wrap sm14" id="sm14" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.17">
+      <line x1="40" y1="4" x2="40" y2="76"/>
+      <line x1="4" y1="20" x2="76" y2="60"/>
+      <line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+
+  <svg class="sm-wrap sm15" id="sm15" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.13">
+      <line x1="40" y1="4" x2="40" y2="76"/>
+      <line x1="4" y1="20" x2="76" y2="60"/>
+      <line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+
+  <svg class="xmark-svg xm3" id="xm3" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" filter="url(#heavyRoughen)">
+    <g stroke="#F2EDE4" stroke-width="8" stroke-linecap="square" fill="none" opacity="0.12">
+      <line x1="8" y1="8" x2="92" y2="92"/>
+      <line x1="92" y1="8" x2="8" y2="92"/>
+    </g>
+  </svg>
+
+  <svg class="xmark-svg xm4" id="xm4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" filter="url(#heavyRoughen)">
+    <g stroke="#D4A017" stroke-width="8" stroke-linecap="square" fill="none" opacity="0.14">
+      <line x1="8" y1="8" x2="92" y2="92"/>
+      <line x1="92" y1="8" x2="8" y2="92"/>
+    </g>
+  </svg>
+
   <div class="annot a1" id="a1">Burning Ones</div>
   <div class="annot a2" id="a2">Is. 6 : 1</div>
 
   <div class="splat s1"></div><div class="splat s2"></div>
   <div class="splat s3"></div><div class="splat s4"></div>
   <div class="splat s5"></div><div class="splat s6"></div>
+  <div class="splat s7"></div><div class="splat s8"></div>
+  <div class="splat s9"></div><div class="splat s10"></div>
 
   <div class="cta-block" id="cta-block">
     <div class="bottom-annots">
@@ -920,10 +1005,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="bb-mono">Burning ones. Six wings each.</span>
       <span class="bb-turn">Two to cover their face — even they cannot look directly. Two for reverence. Two to fly.</span>
     </div>
-    <div class="beholding-beat center" id="bb-5">
-      <span class="bb-fire" style="font-size:clamp(3.5rem,8vw,9rem);">Holy.</span>
-      <span class="bb-fire" style="font-size:clamp(3.5rem,8vw,9rem);color:var(--gold);">Holy.</span>
-      <span class="bb-fire" style="font-size:clamp(3.5rem,8vw,9rem);">Holy.</span>
+    <div class="beholding-beat center" id="bb-5" style="animation:breathe 4.5s ease-in-out infinite;">
+      <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);">Holy.</span>
+      <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);color:var(--gold);">Holy.</span>
+      <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);">Holy.</span>
     </div>
     <div class="beholding-beat" id="bb-6">
       <span class="bb-large">Three times.</span>
@@ -1214,7 +1299,15 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <script>
 const logoSrc="seraph-logo.png"
 gsap.registerPlugin(ScrollTrigger);
-document.getElementById("logo-img-main").src=logoSrc;
+
+// Lazy-load logo on hero animation
+const logoImg=document.getElementById("logo-img-main");
+let logoLoaded=false;
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    if(!logoLoaded){logoImg.src=logoSrc;logoLoaded=true;}
+  },800);
+});
 // seraph marks: pure SVG, no PNG instances
 
 const fc=document.getElementById('fire-canvas');
@@ -1280,10 +1373,10 @@ tl.fromTo("#woe-mark",{opacity:0,x:15},{opacity:1,x:0,duration:0.4,ease:"power2.
 tl.fromTo("#word-ministry",{x:"9vw",opacity:0},{x:0,opacity:1,duration:0.6,ease:"power3.out"},1.2);
 tl.fromTo("#fire-phrase",{opacity:0,y:-14},{opacity:1,y:0,duration:0.65,ease:"power2.out"},1.32);
 tl.to("#holy-tag",{opacity:1,duration:0.4},1.42);
-tl.fromTo(["#sm1","#sm2","#sm3","#sm4","#sm5","#sm6","#sm7","#sm8","#sm9","#sm10"],{scale:0,opacity:0},{scale:1,opacity:1,duration:0.35,stagger:0.07,ease:"back.out(2)"},1.5);
-tl.fromTo(["#xm1","#xm2"],{opacity:0,scale:1.4},{opacity:1,scale:1,duration:0.4,stagger:0.12,ease:"power4.out"},1.25);
+tl.fromTo(["#sm1","#sm2","#sm3","#sm4","#sm5","#sm6","#sm7","#sm8","#sm9","#sm10","#sm11","#sm12","#sm13","#sm14","#sm15"],{scale:0,opacity:0},{scale:1,opacity:1,duration:0.35,stagger:0.07,ease:"back.out(2)"},1.5);
+tl.fromTo(["#xm1","#xm2","#xm3","#xm4"],{opacity:0,scale:1.4},{opacity:1,scale:1,duration:0.4,stagger:0.12,ease:"power4.out"},1.25);
 tl.to(["#a1","#a2"],{opacity:1,duration:0.25,stagger:0.12},1.65);
-tl.to(".splat",{opacity:1,duration:0.08,stagger:{each:0.05,from:"random"}},1.15);
+if(!isMobile){tl.to(".splat",{opacity:1,duration:0.06,stagger:{each:0.04,from:"random"}},1.15);}
 tl.fromTo("#cta-block",{opacity:0,y:10},{opacity:1,y:0,duration:0.5,ease:"power2.out"},2.0);
 tl.to("#scroll-mark",{opacity:1,duration:0.4},2.15);
 tl.to("#scroll-bar",{height:56,duration:1.0,ease:"power2.out"},2.3);
@@ -1310,6 +1403,11 @@ const smFloats=[
   {id:"#sm8", y:-6,  rot:-28, dur:5.8, rotDur:18, delay:0.9},
   {id:"#sm9", y:-8,  rot:20,  dur:8.6, rotDur:26, delay:1.5},
   {id:"#sm10",y:-4,  rot:-15, dur:7.4, rotDur:30, delay:2.0},
+  {id:"#sm11",y:-9,  rot:18,  dur:6.5, rotDur:25, delay:2.3},
+  {id:"#sm12",y:-6,  rot:-22, dur:8.1, rotDur:20, delay:1.9},
+  {id:"#sm13",y:-7,  rot:28,  dur:7.9, rotDur:32, delay:2.5},
+  {id:"#sm14",y:-8,  rot:-16, dur:6.3, rotDur:19, delay:1.6},
+  {id:"#sm15",y:-5,  rot:14,  dur:8.8, rotDur:27, delay:2.2},
 ];
 smFloats.forEach(function(m){
   // Float up/down

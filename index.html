@@ -105,6 +105,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .scroll-mark span{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.22em;color:var(--bone);opacity:0.35;text-transform:uppercase;writing-mode:vertical-rl;}
 .scroll-bar{width:1px;height:0;background:var(--fire);opacity:0.4;}
 
+.hero-cta-scroll{position:absolute;bottom:clamp(8rem,15vw,12rem);left:50%;transform:translateX(-50%);z-index:14;opacity:0;}
+.hero-cta-scroll a{font-family:'Space Mono',monospace;font-size:clamp(0.55rem,0.9vw,0.75rem);letter-spacing:0.2em;text-transform:uppercase;color:var(--ash);text-decoration:none;border:1px solid rgba(242,237,228,0.35);padding:0.8rem 1.2rem;display:inline-block;transition:all 0.3s ease;}
+.hero-cta-scroll a:hover{border-color:var(--fire);color:var(--fire);background:rgba(255,51,0,0.08);}
+
 @media(max-width:768px){
   /* Hero — contain everything, respect iOS safe areas */
   .hero{
@@ -504,8 +508,20 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   color:var(--fire);letter-spacing:0.16em;text-transform:uppercase;
   display:block;opacity:0;margin-bottom:clamp(2.5rem,4vw,4rem);
 }
+
+.inv-stats{font-family:'Space Mono',monospace;font-size:clamp(0.48rem,0.75vw,0.62rem);color:var(--bone);opacity:0.55;letter-spacing:0.1em;display:block;margin-bottom:clamp(1.5rem,2.5vw,2rem);text-transform:uppercase;}
 .inv-form{
   display:flex;max-width:500px;margin:0 auto;opacity:0;
+}
+
+/* Desktop split layout */
+@media(min-width:1024px){
+  .invitation-inner{
+    display:grid;grid-template-columns:1fr 1fr;gap:clamp(3rem,6vw,5rem);align-items:start;
+  }
+  .inv-content{grid-column:2;}
+  .inv-content .inv-headline{font-size:clamp(3rem,7vw,8rem);}
+  .vsl-frame-wrap{grid-column:1;grid-row:1 / 3;}
 }
 .inv-form input[type="email"]{
   flex:1;background:transparent;
@@ -540,6 +556,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   color:var(--bone);opacity:0.22;text-transform:uppercase;
   display:block;margin-top:1.8rem;
 }
+
+.inv-bridge-cta{margin-top:clamp(2rem,4vw,3rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid rgba(242,237,228,0.15);}
+.bridge-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--ash);display:block;line-height:1.1;margin-bottom:1rem;}
+.bridge-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(0.95rem,1.6vw,1.3rem);color:var(--bone);display:block;line-height:1.6;}
 
 /* ======================
    FOOTER
@@ -582,6 +602,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   opacity:0;text-transform:uppercase;text-align:center;
 }
 
+.footer-secondary-cta{margin-top:clamp(3rem,6vw,5rem);padding-top:clamp(2rem,4vw,3rem);border-top:1px solid rgba(242,237,228,0.1);opacity:0;text-align:center;}
+.fsc-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.4rem,3vw,2rem);color:var(--ash);display:block;margin-bottom:0.6rem;}
+.fsc-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(0.9rem,1.5vw,1.1rem);color:var(--bone);display:block;margin-bottom:1.5rem;line-height:1.7;}
+.fsc-form{display:flex;max-width:400px;margin:0 auto;}
+.fsc-form input[type="email"]{flex:1;background:transparent;border:1px solid rgba(242,237,228,0.22);border-right:none;padding:0.75rem 1rem;font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--ash);outline:none;}
+.fsc-form input[type="email"]:focus{border-color:var(--fire);}
+.fsc-form button{background:var(--fire);border:1px solid var(--fire);padding:0.75rem 1.2rem;font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ash);cursor:pointer;}
+
 /* ======================
    MOBILE — sections
    ====================== */
@@ -610,7 +638,33 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   /* Reduce breathing animation on mobile for battery */
   @keyframes breathe{0%,100%{transform:scale(1);letter-spacing:0.15em}50%{transform:scale(1.01);letter-spacing:0.17em}}
 }
-@media(prefers-reduced-motion:reduce){
+
+/* Exit Intent Modal */
+.exit-modal{position:fixed;right:-400px;top:50%;transform:translateY(-50%);width:380px;background:var(--ink);border:1px solid rgba(255,51,0,0.2);padding:clamp(1.5rem,3vw,2.5rem);z-index:9998;transition:right 0.35s cubic-bezier(0.16,1,0.3,1);box-shadow:-20px 0 60px rgba(0,0,0,0.8);}
+.exit-modal.visible{right:clamp(1rem,3vw,2rem);}
+.exit-modal-close{position:absolute;top:1rem;right:1rem;background:none;border:none;color:var(--ash);font-size:2rem;cursor:pointer;opacity:0.5;transition:opacity 0.2s;}
+.exit-modal-close:hover{opacity:1;}
+.exit-modal-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.4rem,2.5vw,2rem);color:var(--fire);display:block;margin-bottom:0.8rem;line-height:1.2;}
+.exit-modal-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(0.85rem,1.3vw,1rem);color:var(--bone);display:block;margin-bottom:1.5rem;line-height:1.6;}
+.exit-form{display:flex;flex-direction:column;gap:0.8rem;}
+.exit-form input[type="email"]{background:transparent;border:1px solid rgba(242,237,228,0.22);padding:0.75rem 1rem;font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--ash);outline:none;transition:border-color 0.3s;}
+.exit-form input[type="email"]:focus{border-color:var(--fire);}
+.exit-form button{background:var(--fire);border:none;padding:0.75rem;font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ash);cursor:pointer;transition:opacity 0.2s;}
+.exit-form button:hover{opacity:0.85;}
+@media(max-width:768px){.exit-modal{right:-100vw;width:100%;top:auto;bottom:0;transform:none;border:1px solid rgba(255,51,0,0.2) none none none;}.exit-modal.visible{right:0;}}
+
+/* Form focus micro-animations */
+.inv-form input[type="email"]:focus,
+.exit-form input[type="email"]:focus{background:rgba(255,51,0,0.04);border-color:rgba(255,51,0,0.55);box-shadow:0 0 20px rgba(255,51,0,0.15);}
+
+/* Glow intensification on form interaction */
+.invitation-section .vsl-frame-wrap::before{transition:opacity 0.3s,transform 0.3s;}
+.inv-form input[type="email"]:focus~.vsl-frame-wrap::before{opacity:0.9;transform:scale(1.12);}
+
+/* Keyboard navigation focus states */
+button:focus-visible,input:focus-visible{outline:2px solid var(--fire);outline-offset:2px;}
+a:focus-visible{outline:2px solid var(--fire);outline-offset:3px;}
+
   .sg{animation:none!important;}
   .section-glow{animation:none!important;}
   .threshold-line,.beholding-eyebrow,.beholding-verse,.beholding-beat,
@@ -631,6 +685,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .vsl-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.5rem,5.5vw,6.5rem);color:var(--ash);line-height:0.95;margin:0 0 clamp(3rem,6vw,6rem);filter:url(#roughen);opacity:0;display:block;}
 .vsl-headline em{font-style:italic;color:var(--fire);}
 .vsl-frame-wrap{position:relative;max-width:900px;margin:0 auto;opacity:0;}
+.vsl-frame-wrap::before{
+  content:'';position:absolute;inset:-40px;
+  background:radial-gradient(circle at center,rgba(255,51,0,0.4) 0%,rgba(255,51,0,0.2) 30%,rgba(255,51,0,0) 70%);
+  filter:blur(60px);z-index:-1;pointer-events:none;
+  animation:fireGlow 4s ease-in-out infinite;
+}
+@keyframes fireGlow{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:0.8;transform:scale(1.08)}}
 .vsl-frame{position:relative;padding-bottom:56.25%;border-radius:12px;overflow:hidden;background:#000;}
 .vsl-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 .vsl-corner{position:absolute;z-index:5;width:36px;pointer-events:none;}
@@ -946,6 +1007,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <div class="scroll-bar" id="scroll-bar"></div>
     <span>Scroll</span>
   </div>
+
+  <div class="hero-cta-scroll" id="hero-cta-scroll">
+    <a href="#invitation-inner">Get integrated →</a>
+  </div>
 </section>
 
 <!-- ========================
@@ -988,38 +1053,32 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <span class="beholding-verse" id="bv-3">And one cried unto another, and said, <em>Holy, holy, holy, is the Lord of hosts: the whole earth is full of his glory.</em></span>
     <span class="beholding-verse beholding-ref" id="bv-ref">Isaiah 6:1–3 · KJV</span>
     <div class="beholding-divider" aria-hidden="true"></div>
-    <div class="beholding-beat" id="bb-1">
-      <span class="bb-large">He wasn't looking for this.</span>
-      <span class="bb-turn">He walked into the temple on the worst day. The king was dead, the nation was shaken, and he had no answers.</span>
-    </div>
     <div class="beholding-beat right" id="bb-2">
       <span class="bb-emphasis">And the room<br>was already full.</span>
     </div>
     <div class="beholding-beat" id="bb-3">
       <span class="bb-mono">Not standing.</span>
       <span class="bb-fire">Sitting.</span>
-      <span class="bb-turn">Enthroned. Unmoved. The train of his robe filled the entire temple. There was no room left for anything else.</span>
+      <span class="bb-turn">Enthroned. The train of his robe filled the entire temple.</span>
     </div>
     <div class="beholding-beat" id="bb-4">
-      <span class="bb-large">Above him: the seraphim.</span>
-      <span class="bb-mono">Burning ones. Six wings each.</span>
-      <span class="bb-turn">Two to cover their face — even they cannot look directly. Two for reverence. Two to fly.</span>
+      <span class="bb-large">Above: the seraphim.</span>
+      <span class="bb-mono">Six wings each. Two covering their face. Two for reverence. Two to fly.</span>
     </div>
     <div class="beholding-beat center" id="bb-5" style="animation:breathe 4.5s ease-in-out infinite;">
       <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);">Holy.</span>
       <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);color:var(--gold);">Holy.</span>
       <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);">Holy.</span>
     </div>
-    <div class="beholding-beat" id="bb-6">
-      <span class="bb-large">Three times.</span>
-      <span class="bb-turn">Hebrew has no superlative. This is the ceiling of language — pressed against something that has no ceiling.</span>
-    </div>
-    <div class="beholding-beat right" id="bb-7">
+    <div class="beholding-beat right" id="bb-6">
       <span class="bb-medium">The posts of the door moved at the sound.</span>
       <span class="bb-medium">The house filled with smoke.</span>
     </div>
-    <div class="beholding-beat center" id="bb-8">
+    <div class="beholding-beat center" id="bb-7">
       <span class="bb-emphasis"><em>Isaiah was inside this.</em></span>
+    </div>
+    <div class="beholding-beat center" id="bb-reciprocity" style="margin-top:clamp(2.5rem,5vw,4rem);">
+      <span class="bb-emphasis" style="font-size:clamp(1.4rem,3vw,2.2rem);">The Oracle's Preparation System is only shared with the committed few.</span>
     </div>
   </div>
 </section>
@@ -1030,34 +1089,44 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
      ======================== -->
 <section class="section vsl" id="vsl">
   <div class="section-glow" style="animation-delay:-4s;" aria-hidden="true"></div>
-  <div class="section-inner vsl-inner" style="position:relative;z-index:3;">
-    <span class="vsl-eyebrow">Watch · Free on YouTube</span>
-    <span class="vsl-headline"><em>Hear it.</em> Then decide.</span>
-    <div class="vsl-frame-wrap">
-      <div class="vsl-corner vsl-corner--tl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
-      <div class="vsl-corner vsl-corner--tr" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
-      <div class="vsl-corner vsl-corner--bl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
-      <div class="vsl-corner vsl-corner--br" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
-      <div class="vsl-frame">
-        <iframe
-          src="https://www.youtube.com/embed/VIDEO_ID"
-          title="Seraph Ministry Teaching"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
+  <div class="section-inner vsl-inner invitation-section" style="position:relative;z-index:3;">
+    <div class="invitation-inner">
+      <div class="vsl-frame-wrap">
+        <div class="vsl-corner vsl-corner--tl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
+        <div class="vsl-corner vsl-corner--tr" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
+        <div class="vsl-corner vsl-corner--bl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
+        <div class="vsl-corner vsl-corner--br" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
+        <div class="vsl-frame">
+          <iframe
+            src="https://www.youtube.com/embed/VIDEO_ID"
+            title="Seraph Ministry Teaching"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+      <div class="inv-content">
+        <span class="inv-eyebrow">Ready?</span>
+        <span class="inv-headline">Get integrated<br>into the fire.</span>
+        <span class="inv-sub">Weekly teachings + the oracle's preparation system. No noise. Only clarity.</span>
+        <span class="inv-offer">Join 5,000+ leaders building in the spirit realm</span>
+        <span class="inv-stats">5,000+ leaders • 40+ countries • One message</span>
+        <form class="inv-form" id="inv-form" novalidate>
+          <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+          <button type="submit">Here am I</button>
+        </form>
+        <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
+        <span class="inv-note">No spam. Leave anytime.</span>
+        <div class="inv-bridge-cta">
+          <span class="bridge-headline">You've seen the message.<br>Now join those building it.</span>
+          <span class="bridge-sub">Get weekly teachings + the oracle's preparation system. No fluff. Only fire.</span>
+        </div>
       </div>
     </div>
-    <a href="https://www.youtube.com/@seraphministryglobal" class="vsl-yt-cta" target="_blank" rel="noopener noreferrer">More teachings on YouTube →</a>
   </div>
 </section>
-
-
-<!-- ========================
-     THE UNDOING
-     ======================== -->
-<section class="section undoing" id="undoing">
   <div class="section-glow" style="animation-delay:-3s;" aria-hidden="true"></div>
   <div class="section-holy-ghost gold" style="top:-2%;right:-5%;transform:rotate(6deg);" aria-hidden="true">WOE</div>
   <span class="section-num" style="bottom:8%;left:3%;color:rgba(212,160,23,0.05);transform:rotate(4deg);" aria-hidden="true">1</span>
@@ -1243,33 +1312,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </section>
 
 <!-- ========================
-     THE INVITATION
-     ======================== -->
-<section class="section invitation" id="invitation">
-  <div class="section-glow" style="animation-delay:-2s;" aria-hidden="true"></div>
-  <div class="section-holy-ghost gold" style="top:-2%;left:-3%;transform:rotate(-4deg);font-size:clamp(5rem,15vw,19rem);" aria-hidden="true">HERE</div>
-  <div class="sg fa" style="width:42px;top:15%;left:5%;rotate:-20deg;opacity:0.06;--d:9s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:26px;bottom:20%;right:7%;rotate:35deg;opacity:0.05;--d:12s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:18px;top:55%;right:3%;rotate:-50deg;opacity:0.04;--d:10s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="section-inner" style="position:relative;z-index:3;">
-    <span class="inv-eyebrow">The Invitation</span>
-    <span class="inv-headline">The coal is waiting.<br><em>It's already on YouTube.</em></span>
-    <span class="inv-sub">Watch once. You'll know if this is for you.</span>
-    <a href="https://www.youtube.com/@seraphministryglobal" class="inv-yt-btn" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      Watch on YouTube
-    </a>
-    <span class="inv-or">or get weekly teachings →</span>
-    <form class="inv-form" id="inv-form" novalidate>
-      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
-      <button type="submit">Here am I</button>
-    </form>
-    <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
-    <span class="inv-note">No noise. No performance. Only fire. Leave at any time.</span>
-  </div>
-</section>
-
-<!-- ========================
      FOOTER
      ======================== -->
 <footer class="site-footer" id="site-footer">
@@ -1285,6 +1327,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       </a>
     </div>
     <p class="footer-copy">© 2026 Seraph Ministry · All rights reserved.</p>
+    <div class="footer-secondary-cta">
+      <span class="fsc-headline">Still exploring?</span>
+      <span class="fsc-sub">Join 5,000 leaders building in the spirit realm. Get weekly clarity.</span>
+      <form class="fsc-form" id="fsc-form" novalidate>
+        <input type="email" name="email" placeholder="Your email" autocomplete="email" required aria-label="Enter your email for weekly clarity">
+        <button type="submit" aria-label="Submit and join the community">Here am I</button>
+      </form>
+    </div>
   </div>
 </footer>
 
@@ -1380,6 +1430,7 @@ if(!isMobile){tl.to(".splat",{opacity:1,duration:0.06,stagger:{each:0.04,from:"r
 tl.fromTo("#cta-block",{opacity:0,y:10},{opacity:1,y:0,duration:0.5,ease:"power2.out"},2.0);
 tl.to("#scroll-mark",{opacity:1,duration:0.4},2.15);
 tl.to("#scroll-bar",{height:56,duration:1.0,ease:"power2.out"},2.3);
+tl.to("#hero-cta-scroll",{opacity:1,duration:0.4},2.3);
 
 }
 
@@ -1567,6 +1618,8 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
     scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
   gsap.to('.footer-copy',{opacity:1,duration:0.5,ease:'power2.out',delay:0.5,
     scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
+  gsap.to('.footer-secondary-cta',{opacity:1,duration:0.5,ease:'power2.out',delay:0.65,
+    scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
 }
 
 // EMAIL FORM
@@ -1576,12 +1629,45 @@ if(invFormEl){
     e.preventDefault();
     const v=this.querySelector('input[type="email"]').value.trim();
     if(v&&v.indexOf('@')>0){
-      this.style.opacity='0';
-      this.style.pointerEvents='none';
-      document.getElementById('inv-confirm').classList.add('visible');
+      window.location.href='/thankyou.html?email='+encodeURIComponent(v);
     }
   });
 }
+
+// Exit intent modal
+const exitModal=document.getElementById('exit-modal');
+const exitForm=document.getElementById('exit-form');
+const exitClose=document.getElementById('exit-modal-close');
+let exitModalShown=false;
+document.addEventListener('mouseleave',(e)=>{
+  if(!exitModalShown&&e.clientY<=0){
+    exitModal.classList.add('visible');
+    exitModalShown=true;
+  }
+});
+exitClose.addEventListener('click',()=>{exitModal.classList.remove('visible');});
+exitForm.addEventListener('submit',(e)=>{
+  e.preventDefault();
+  const email=exitForm.querySelector('input[type="email"]').value.trim();
+  if(email&&email.indexOf('@')>0){
+    exitForm.style.opacity='0';
+    exitForm.style.pointerEvents='none';
+    exitForm.innerHTML='<span style="display:block;text-align:center;font-size:0.9rem;color:var(--gold);">The fire finds those who answer.</span>';
+    setTimeout(()=>exitModal.classList.remove('visible'),2000);
+  }
+});
 </script>
+<div class="exit-modal" id="exit-modal" aria-hidden="true">
+  <div class="exit-modal-inner">
+    <button class="exit-modal-close" id="exit-modal-close" aria-label="Close">&times;</button>
+    <span class="exit-modal-headline">Wait — the fire's still here.</span>
+    <span class="exit-modal-sub">Get access to the oracle's preparation system + weekly teachings before you go.</span>
+    <form class="exit-form" id="exit-form" novalidate>
+      <input type="email" name="email" placeholder="Your email" autocomplete="email" required aria-label="Enter your email to receive teachings">
+      <button type="submit" aria-label="Submit email and receive access">Here am I</button>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>

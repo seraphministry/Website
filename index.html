@@ -505,15 +505,16 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   display:block;opacity:0;margin-bottom:clamp(2.5rem,4vw,4rem);
 }
 .inv-form{
-  display:flex;max-width:500px;margin:0 auto;opacity:0;
+  display:flex;flex-direction:column;gap:0.8rem;
+  max-width:480px;width:100%;margin:0 auto;opacity:0;
 }
 .inv-form input[type="email"]{
-  flex:1;background:transparent;
-  border:1px solid rgba(242,237,228,0.22);border-right:none;
-  padding:clamp(0.85rem,1.4vw,1.1rem) clamp(1rem,2vw,1.4rem);
+  background:transparent;
+  border:1px solid rgba(242,237,228,0.22);
+  padding:1.2rem 1.5rem;
   font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--ash);
   outline:none;letter-spacing:0.05em;transition:border-color 0.3s;
-  -webkit-appearance:none;border-radius:0;min-width:0;
+  -webkit-appearance:none;border-radius:0;width:100%;
 }
 .inv-form input[type="email"]::placeholder{
   color:rgba(242,237,228,0.28);letter-spacing:0.12em;
@@ -521,12 +522,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .inv-form input[type="email"]:focus{border-color:rgba(255,51,0,0.55);}
 .inv-form button{
+  width:100%;
   background:var(--fire);border:1px solid var(--fire);
-  padding:clamp(0.85rem,1.4vw,1.1rem) clamp(1.2rem,2vw,2rem);
-  font-family:'Space Mono',monospace;font-size:0.62rem;
+  padding:1.3rem 2rem;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
   letter-spacing:0.22em;text-transform:uppercase;
   color:var(--ash);cursor:pointer;transition:background 0.25s,color 0.25s;
-  -webkit-appearance:none;border-radius:0;white-space:nowrap;flex-shrink:0;
+  -webkit-appearance:none;border-radius:0;
 }
 .inv-form button:hover{background:transparent;color:var(--fire);border-color:var(--fire);}
 .inv-confirm{
@@ -540,10 +542,52 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   color:var(--bone);opacity:0.22;text-transform:uppercase;
   display:block;margin-top:1.8rem;
 }
+.inv-bullets{
+  list-style:none;padding:0;margin:0 auto clamp(2.5rem,5vw,5rem);
+  display:flex;flex-direction:column;gap:1.4rem;max-width:58ch;
+  text-align:left;
+}
+.inv-bullets li{
+  font-family:'Space Mono',monospace;font-style:normal;
+  font-size:clamp(0.72rem,1.2vw,0.9rem);color:var(--bone);
+  letter-spacing:0.04em;
+  line-height:1.8;padding-left:1.6rem;position:relative;opacity:0.85;
+}
+.inv-bullets li::before{
+  content:'—';position:absolute;left:0;color:var(--fire);
+}
 
 /* ======================
-   FOOTER
+   P.S. SECTION
    ====================== */
+.ps-section{background:var(--ink);padding:clamp(6rem,10vw,10rem) 0;border-top:1px solid rgba(255,51,0,0.12);}
+.ps-inner{max-width:640px;text-align:center;}
+.ps-label{
+  font-family:'Space Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.32em;text-transform:uppercase;
+  color:var(--fire);display:block;margin-bottom:clamp(1.5rem,3vw,3rem);
+}
+.ps-body{
+  font-family:'IM Fell English',serif;font-style:italic;
+  font-size:clamp(1.1rem,2vw,1.5rem);color:var(--bone);
+  line-height:1.75;margin:0 0 1.5rem;
+}
+.ps-close{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(1.3rem,2.5vw,2rem);color:var(--ash);
+  line-height:1.3;margin:0 0 clamp(2rem,4vw,4rem);
+  filter:url(#roughen);
+}
+.ps-cta{
+  display:inline-block;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ash);background:var(--fire);
+  padding:1.1rem 2.6rem;text-decoration:none;
+  transition:background 0.25s,color 0.25s;
+}
+.ps-cta:hover{background:transparent;color:var(--fire);outline:1px solid var(--fire);}
+
 .site-footer{
   background:var(--ink);border-top:1px solid rgba(255,51,0,0.12);
   padding:clamp(5rem,10vw,10rem) 0 clamp(3rem,5vw,5rem);
@@ -588,7 +632,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @media(max-width:768px){
   .coal-marks{flex-direction:column;gap:clamp(2.5rem,6vw,4rem);}
   .coal-mark-divider{width:clamp(40px,6vw,60px);height:1px;align-self:auto;}
-  .inv-form{flex-direction:column;max-width:360px;}
+  .inv-form{flex-direction:column;max-width:400px;}
   .inv-form input[type="email"]{
     border-right:1px solid rgba(242,237,228,0.22);border-bottom:none;
   }
@@ -668,7 +712,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .inv-yt-btn{display:inline-flex;align-items:center;gap:0.6rem;font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ash);text-decoration:none;background:var(--fire);padding:1rem 2.4rem;margin-bottom:clamp(1.5rem,3vw,3rem);opacity:0;transition:background 0.25s,color 0.25s;}
 .inv-yt-btn:hover{background:transparent;color:var(--fire);outline:1px solid var(--fire);}
 .inv-yt-btn svg{width:16px;height:16px;flex-shrink:0;}
-.inv-or{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--bone);opacity:0.35;display:block;margin-bottom:clamp(1.5rem,3vw,3rem);}
+.inv-or{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--bone);opacity:0.35;display:block;margin-top:clamp(2rem,4vw,4rem);margin-bottom:clamp(1rem,2vw,1.5rem);}
 .section-xmark{position:absolute;pointer-events:none;z-index:2;}
 .section-num{position:absolute;font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(5rem,14vw,18rem);pointer-events:none;z-index:1;line-height:1;filter:url(#roughen);user-select:none;}
 /* BEHOLDING BEATS */
@@ -957,8 +1001,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="tp-line">You've never quite fit.</span>
       <span class="tp-line">Not in the church. Not outside of it.</span>
       <span class="tp-divider" aria-hidden="true"></span>
+      <span class="tp-line">You're not alone in that.</span>
+      <span class="tp-line">Something is shifting — and the hunger you feel is part of it.</span>
+      <span class="tp-divider" aria-hidden="true"></span>
       <span class="tp-marker">That's not a flaw. That's a marker.</span>
-      <span class="tp-sub">A ministry for the ones God won't stop reaching for.</span>
+      <span class="tp-sub">God doesn't stop reaching for the ones He's marked for fire.</span>
     </div>
   </div>
 </section>
@@ -998,12 +1045,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <div class="beholding-beat" id="bb-3">
       <span class="bb-mono">Not standing.</span>
       <span class="bb-fire">Sitting.</span>
-      <span class="bb-turn">Enthroned. Unmoved. The train of his robe filled the entire temple. There was no room left for anything else.</span>
-    </div>
-    <div class="beholding-beat" id="bb-4">
-      <span class="bb-large">Above him: the seraphim.</span>
-      <span class="bb-mono">Burning ones. Six wings each.</span>
-      <span class="bb-turn">Two to cover their face — even they cannot look directly. Two for reverence. Two to fly.</span>
+      <span class="bb-turn">Enthroned. Unmoved. There was no room left for anything else.</span>
     </div>
     <div class="beholding-beat center" id="bb-5" style="animation:breathe 4.5s ease-in-out infinite;">
       <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);">Holy.</span>
@@ -1091,10 +1133,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <div class="undoing-line" id="ul-5">
         <span class="undoing-text-turn">It shows you what you are — and what He is — at the same moment.</span>
         <span class="undoing-text-primary">That gap is the beginning.</span>
-      </div>
-      <div class="undoing-line right" id="ul-6">
-        <span class="undoing-text-turn">The hunger that feels like grief. The suspicion that the faith you were handed was not the whole thing.</span>
-        <span class="undoing-text-secondary">You were right. That suspicion is mercy.</span>
       </div>
     </div>
   </div>
@@ -1201,7 +1239,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       </div>
     </div>
     <div class="sending-coda" id="sending-coda">
-      <p>For people hungry enough to enter the room — willing enough to let the fire do <strong>what fire does.</strong></p>
+      <p>This is for the ones who answer.</p>
     </div>
   </div>
 </section>
@@ -1218,24 +1256,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <div class="gap-lines">
       <div class="gap-line" id="gl-1">
         <span class="gap-text-primary">I grew up in church.</span>
-        <span class="gap-text-secondary">Every Sunday. I knew the songs, the language.</span>
-      </div>
-      <div class="gap-line" id="gl-2">
         <span class="gap-text-climax">I did not know God.</span>
       </div>
-      <div class="gap-line" id="gl-3">
+      <div class="gap-line" id="gl-2">
         <span class="gap-text-primary">Not the weight of Him.</span>
-        <span class="gap-text-secondary">Not the fear of Him. Not what happens to a room when He actually shows up.</span>
+        <span class="gap-text-secondary">Not what happens to a room when He actually shows up.</span>
       </div>
-      <div class="gap-line" id="gl-4">
-        <span class="gap-text-prose">Then there was a moment. The room shifted — and I was never the same man again.</span>
+      <div class="gap-line" id="gl-3">
+        <span class="gap-text-prose">Then the room shifted. I was never the same man again.</span>
       </div>
-      <div class="gap-line right" id="gl-5">
-        <span class="gap-text-primary">I know what I was before that moment.</span>
-        <span class="gap-text-primary">I know what I am now.</span>
-      </div>
-      <div class="gap-line" id="gl-6">
-        <span class="gap-text-prose">And I know the difference between going to church and standing in the throne room.</span>
+      <div class="gap-line right" id="gl-4">
+        <span class="gap-text-primary">I know the difference between going to church<br>and standing in the throne room.</span>
         <span class="gap-text-climax">That difference is why Seraph exists.</span>
       </div>
     </div>
@@ -1251,21 +1282,41 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="sg fa" style="width:42px;top:15%;left:5%;rotate:-20deg;opacity:0.06;--d:9s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="sg fb" style="width:26px;bottom:20%;right:7%;rotate:35deg;opacity:0.05;--d:12s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="sg fc" style="width:18px;top:55%;right:3%;rotate:-50deg;opacity:0.04;--d:10s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="section-inner" style="position:relative;z-index:3;">
-    <span class="inv-eyebrow">The Invitation</span>
-    <span class="inv-headline">The coal is waiting.<br><em>It's already on YouTube.</em></span>
-    <span class="inv-sub">Watch once. You'll know if this is for you.</span>
+  <div class="section-inner vsl-inner" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;">
+    <span class="inv-eyebrow">The Fire Letters</span>
+    <span class="inv-headline">For the ones God won't<br><em>stop reaching for.</em></span>
+    <span class="inv-sub">Weekly letters that carry weight — scripture-anchored teaching, raw audio, occasional prophetic words. The kind of content you'd pay for. Free, because you shouldn't have to.</span>
+    <ul class="inv-bullets">
+      <li>Why the emptiness you feel in church isn't a faith problem — and what it's actually telling you.</li>
+      <li>Why most worship experiences produce emotion but not encounter — and the single shift that changes that.</li>
+      <li>What God was doing in Isaiah's worst year — and why your worst season might be the same thing.</li>
+      <li>Why "here am I" is the most dangerous sentence a human being can say — and what happens to the ones who mean it.</li>
+      <li>The one thing Isaiah did after the coal that most believers never attempt — and why it's available to you right now.</li>
+    </ul>
+    <form class="inv-form" id="inv-form" novalidate>
+      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+      <button type="submit">Here am I — it's free</button>
+    </form>
+    <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
+    <span class="inv-note">No noise. No performance. Only fire.</span>
+    <span class="inv-or">or watch on YouTube →</span>
     <a href="https://www.youtube.com/@seraphministryglobal" class="inv-yt-btn" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
       Watch on YouTube
     </a>
-    <span class="inv-or">or get weekly teachings →</span>
-    <form class="inv-form" id="inv-form" novalidate>
-      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
-      <button type="submit">Here am I</button>
-    </form>
-    <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
-    <span class="inv-note">No noise. No performance. Only fire. Leave at any time.</span>
+  </div>
+</section>
+
+<!-- ========================
+     P.S.
+     ======================== -->
+<section class="section ps-section" id="ps">
+  <div class="section-inner ps-inner">
+    <span class="ps-label">P.S.</span>
+    <p class="ps-body">Something is moving in this generation. A hunger for what's real — for weight, for fire instead of fog. People are leaving performances behind. Searching for the thing that was actually handed down. The early church didn't have a show. They had an encounter.</p>
+    <p class="ps-body">The Fire Letters exist because that hunger deserves an answer.</p>
+    <p class="ps-close">It's free. The only cost is answering.</p>
+    <a href="#invitation" class="ps-cta">Here am I — it's free</a>
   </div>
 </section>
 
@@ -1559,6 +1610,16 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
     .to('.inv-sub',{opacity:1,duration:0.6,ease:'power2.out'},'-=0.3')
     .to('.inv-yt-btn',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.25')
     .to('.inv-form',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2');
+
+  // P.S.
+  gsap.fromTo('.ps-label',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
+    scrollTrigger:{trigger:'.ps-section',start:'top 78%'}});
+  gsap.fromTo('.ps-body',{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.15,
+    scrollTrigger:{trigger:'.ps-section',start:'top 75%'}});
+  gsap.fromTo('.ps-close',{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.35,
+    scrollTrigger:{trigger:'.ps-section',start:'top 75%'}});
+  gsap.fromTo('.ps-cta',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',delay:0.55,
+    scrollTrigger:{trigger:'.ps-section',start:'top 72%'}});
 
   // FOOTER
   gsap.to('.footer-verse',{opacity:1,duration:0.9,ease:'power2.out',

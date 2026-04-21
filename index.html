@@ -353,6 +353,24 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .beholding-copy em{color:var(--gold);}
 
 /* ======================
+   JOIN SECTION (EMAIL CAPTURE)
+   ====================== */
+.join-section{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;overflow:hidden;}
+.join-inner{text-align:center;}
+.join-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(1.2rem,2vw,2rem);opacity:0;}
+.join-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.2rem,5.5vw,6.5rem);color:var(--ash);line-height:0.95;margin:0 0 clamp(1.5rem,3vw,2.5rem);filter:url(#roughen);opacity:0;display:block;}
+.join-headline em{font-style:italic;color:var(--fire);}
+.join-sub{font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--bone);display:block;margin-bottom:clamp(2rem,4vw,3.5rem);opacity:0;}
+.join-form{display:flex;flex-direction:column;gap:0.8rem;max-width:420px;margin:0 auto clamp(2rem,3vw,2.5rem);opacity:0;}
+.join-form input{font-family:'Space Mono',monospace;font-size:0.75rem;padding:0.85rem 1.2rem;background:rgba(242,237,228,0.06);border:1px solid rgba(255,51,0,0.35);color:var(--ash);letter-spacing:0.05em;transition:border-color 0.25s,background 0.25s;}
+.join-form input::placeholder{color:rgba(242,237,228,0.25);}
+.join-form input:focus{outline:none;border-color:var(--fire);background:rgba(255,51,0,0.04);}
+.join-form button{font-family:'Playfair Display',serif;font-weight:900;font-size:1.1rem;padding:1rem 2rem;background:var(--fire);color:var(--ash);border:none;cursor:pointer;transition:background 0.25s,transform 0.3s cubic-bezier(0.16,1,0.3,1);filter:url(#roughen);position:relative;}
+.join-form button:hover{background:#FF5522;transform:scale(1.02);}
+.join-confirm{font-family:'IM Fell English',serif;font-style:italic;font-size:0.95rem;color:var(--bone);display:none;opacity:0;}
+.join-confirm.visible{display:block;opacity:1;}
+.join-note{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(242,237,228,0.22);display:block;margin-top:1.5rem;}
+/* ======================
    THE UNDOING
    ====================== */
 .undoing{background:var(--ink);padding:clamp(8rem,15vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;}
@@ -651,9 +669,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .gap-text-secondary{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.6rem);color:var(--bone);line-height:1.8;display:block;margin-top:0.5rem;max-width:50ch;}
 .gap-text-prose{font-family:'Playfair Display',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.55rem);color:var(--bone);line-height:1.9;display:block;max-width:54ch;font-weight:400;}
 .gap-text-climax{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.2rem,4.5vw,5.5rem);color:var(--fire);line-height:0.92;display:block;filter:url(#roughen);letter-spacing:-0.02em;margin-top:0.5em;}
-/* AMBIENT GLOW */
-@keyframes pulse-glow{0%,100%{opacity:0}50%{opacity:1}}
-.section-glow{position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(255,51,0,0.10) 0%,transparent 70%);animation:pulse-glow 7s ease-in-out infinite;}
+/* AMBIENT GLOW — AGGRESSIVE FIRE */
+@keyframes pulse-glow{0%{opacity:0.08}35%{opacity:0.35}65%{opacity:0.28}100%{opacity:0.12}}
+.section-glow{position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(255,51,0,0.32) 0%,rgba(255,150,0,0.08) 35%,transparent 70%);animation:pulse-glow 5.5s cubic-bezier(0.25,0.1,0.25,1) infinite;filter:blur(45px);}
+.section-glow::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 35% at 50% 50%,rgba(255,200,0,0.15) 0%,transparent 60%);animation:pulse-glow 2.8s cubic-bezier(0.43,0.13,0.23,0.96) infinite;filter:blur(30px);}
 /* GHOST ELEMENTS */
 .section-holy-ghost{position:absolute;font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(8rem,22vw,26rem);color:transparent;-webkit-text-stroke:1px rgba(242,237,228,0.08);pointer-events:none;z-index:1;line-height:0.85;letter-spacing:-0.02em;white-space:nowrap;user-select:none;}
 .section-holy-ghost.fire{-webkit-text-stroke:1px rgba(255,51,0,0.10);}
@@ -1055,6 +1074,25 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 
 <!-- ========================
+     JOIN (EMAIL CAPTURE)
+     ======================== -->
+<section class="section join-section" id="join">
+  <div class="section-glow" style="animation-delay:-5s;" aria-hidden="true"></div>
+  <div class="section-inner join-inner" style="position:relative;z-index:3;">
+    <span class="join-eyebrow">The Next Step</span>
+    <span class="join-headline">You know what you're looking for.<br><em>Join the Burning Ones.</em></span>
+    <span class="join-sub">Weekly teachings. No noise. Only fire.</span>
+    <form class="join-form" id="inv-form" novalidate>
+      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+      <button type="submit">Here am I</button>
+    </form>
+    <span class="join-confirm" id="inv-confirm">The fire finds those who answer.</span>
+    <span class="join-note">You're now part of the Burning Ones. Welcome home.</span>
+  </div>
+</section>
+
+
+<!-- ========================
      THE UNDOING
      ======================== -->
 <section class="section undoing" id="undoing">
@@ -1259,11 +1297,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
       Watch on YouTube
     </a>
-    <span class="inv-or">or get weekly teachings →</span>
-    <form class="inv-form" id="inv-form" novalidate>
-      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
-      <button type="submit">Here am I</button>
-    </form>
     <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
     <span class="inv-note">No noise. No performance. Only fire. Leave at any time.</span>
   </div>
@@ -1476,18 +1509,6 @@ const reducedMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches
 
 if(!reducedMotion){
 
-  // THRESHOLD
-  gsap.utils.toArray('.tp-line').forEach(function(el, i){
-  gsap.to(el, {opacity:1, y:0, duration:0.9, ease:'power2.out', delay:i*0.15,
-    scrollTrigger:{trigger:'.threshold-promise', start:'top 72%'}});
-});
-gsap.to('.tp-divider', {opacity:0.4, duration:0.6, ease:'power2.out', delay:0.35,
-  scrollTrigger:{trigger:'.threshold-promise', start:'top 72%'}});
-gsap.to('.tp-marker', {opacity:1, duration:1, ease:'power3.out', delay:0.45,
-  scrollTrigger:{trigger:'.threshold-promise', start:'top 68%'}});
-gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
-  scrollTrigger:{trigger:'.threshold-promise', start:'top 68%'}});
-  
   // THE BEHOLDING
   gsap.fromTo('#beholding-eyebrow',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
     scrollTrigger:{trigger:'.beholding',start:'top 78%'}});
@@ -1505,6 +1526,14 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
        scrollTrigger:{trigger:sel,start:'top 88%',toggleActions:'play none none none'}}
     );
   });
+
+  // THE JOIN (EMAIL FORM)
+  var joinTl=gsap.timeline({scrollTrigger:{trigger:'.join-section',start:'top 72%'}});
+  joinTl
+    .to('.join-eyebrow',{opacity:1,duration:0.5,ease:'power2.out'})
+    .fromTo('.join-headline',{opacity:0,y:26},{opacity:1,y:0,duration:0.8,ease:'power3.out'},'-=0.25')
+    .to('.join-sub',{opacity:1,duration:0.6,ease:'power2.out'},'-=0.3')
+    .to('.join-form',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.25');
 
   // THE UNDOING
   gsap.utils.toArray('.undoing-line').forEach(function(el){
@@ -1572,13 +1601,35 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
 // EMAIL FORM
 const invFormEl=document.getElementById('inv-form');
 if(invFormEl){
+  // Magnetic button hover
+  const submitBtn=invFormEl.querySelector('button');
+  submitBtn.addEventListener('mousemove',(e)=>{
+    const rect=submitBtn.getBoundingClientRect();
+    const dx=(e.clientX-(rect.left+rect.width/2))*0.15;
+    const dy=(e.clientY-(rect.top+rect.height/2))*0.15;
+    gsap.to(submitBtn,{x:dx,y:dy,duration:0.3,overwrite:'auto'});
+  });
+  submitBtn.addEventListener('mouseleave',()=>{
+    gsap.to(submitBtn,{x:0,y:0,duration:0.5,ease:'elastic.out(1,0.4)'});
+  });
+  
   invFormEl.addEventListener('submit',function(e){
     e.preventDefault();
     const v=this.querySelector('input[type="email"]').value.trim();
     if(v&&v.indexOf('@')>0){
+      // Hide form, show confirmation
       this.style.opacity='0';
       this.style.pointerEvents='none';
-      document.getElementById('inv-confirm').classList.add('visible');
+      const confirm=document.getElementById('inv-confirm');
+      confirm.classList.add('visible');
+      
+      // Scroll to YouTube button after 1.2s
+      setTimeout(()=>{
+        const invYtBtn=document.querySelector('.inv-yt-btn');
+        if(invYtBtn){
+          lenis.scrollTo(invYtBtn,{duration:2,easing:(t)=>t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2});
+        }
+      },1200);
     }
   });
 }

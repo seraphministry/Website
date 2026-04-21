@@ -469,77 +469,51 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .sending-coda strong{font-style:normal;color:var(--fire);font-weight:900;}
 
 /* ======================
+   THE VOID
+   ====================== */
+.void{height:100vh;display:flex;align-items:center;justify-content:center;background:var(--ink);padding:0 8vw;}
+.void-statement{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.8rem,5vw,3.2rem);color:var(--ash);text-align:center;max-width:22ch;line-height:1.4;opacity:0;font-weight:400;}
+
+/* ======================
    THE INVITATION
    ====================== */
-.invitation{
-  background:var(--ink);padding:clamp(9rem,16vw,18rem) 0;
-  text-align:center;position:relative;overflow:hidden;
-  border-top:1px solid rgba(255,51,0,0.12);
-}
-.invitation::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 60% 50% at center,rgba(255,51,0,0.08) 0%,transparent 70%);
-  pointer-events:none;
-}
-.inv-eyebrow{
-  font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;
-  text-transform:uppercase;color:var(--fire);display:block;
-  margin-bottom:clamp(1.5rem,3vw,3rem);opacity:0;
-}
-.inv-headline{
-  font-family:'Playfair Display',serif;font-weight:900;
-  font-size:clamp(2.8rem,6.5vw,7.5rem);color:var(--ash);line-height:0.92;
-  margin-bottom:clamp(1.5rem,2.5vw,2.5rem);filter:url(#roughen);
-  opacity:0;display:block;
-}
-.inv-headline em{font-style:italic;color:var(--fire);}
-.inv-sub{
-  font-family:'IM Fell English',serif;font-style:italic;
-  font-size:clamp(1rem,1.8vw,1.55rem);color:var(--bone);
-  opacity:0;margin-bottom:clamp(0.8rem,1.5vw,1.5rem);display:block;
-  max-width:42ch;margin-left:auto;margin-right:auto;line-height:1.7;
-}
-.inv-offer{
-  font-family:'Space Mono',monospace;font-size:clamp(0.55rem,0.88vw,0.7rem);
-  color:var(--fire);letter-spacing:0.16em;text-transform:uppercase;
-  display:block;opacity:0;margin-bottom:clamp(2.5rem,4vw,4rem);
-}
-.inv-form{
-  display:flex;max-width:500px;margin:0 auto;opacity:0;
-}
-.inv-form input[type="email"]{
-  flex:1;background:transparent;
-  border:1px solid rgba(242,237,228,0.22);border-right:none;
-  padding:clamp(0.85rem,1.4vw,1.1rem) clamp(1rem,2vw,1.4rem);
-  font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--ash);
-  outline:none;letter-spacing:0.05em;transition:border-color 0.3s;
-  -webkit-appearance:none;border-radius:0;min-width:0;
-}
-.inv-form input[type="email"]::placeholder{
-  color:rgba(242,237,228,0.28);letter-spacing:0.12em;
-  text-transform:uppercase;font-size:0.6rem;
-}
-.inv-form input[type="email"]:focus{border-color:rgba(255,51,0,0.55);}
-.inv-form button{
-  background:var(--fire);border:1px solid var(--fire);
-  padding:clamp(0.85rem,1.4vw,1.1rem) clamp(1.2rem,2vw,2rem);
-  font-family:'Space Mono',monospace;font-size:0.62rem;
-  letter-spacing:0.22em;text-transform:uppercase;
-  color:var(--ash);cursor:pointer;transition:background 0.25s,color 0.25s;
-  -webkit-appearance:none;border-radius:0;white-space:nowrap;flex-shrink:0;
-}
-.inv-form button:hover{background:transparent;color:var(--fire);border-color:var(--fire);}
-.inv-confirm{
-  font-family:'IM Fell English',serif;font-style:italic;
-  font-size:1.05rem;color:var(--gold);
-  opacity:0;margin-top:1.5rem;display:block;transition:opacity 0.6s;
-}
+.invitation{background:var(--ink);padding:8rem 2.5rem;text-align:center;}
+.inv-container{max-width:720px;margin:0 auto;}
+.inv-eyebrow{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;opacity:0;}
+.inv-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,5vw,3.5rem);color:var(--ash);line-height:1.2;margin-bottom:1rem;opacity:0;}
+.inv-sub{font-family:'Space Mono',monospace;font-size:0.95rem;color:var(--bone);opacity:0.7;margin-bottom:2.5rem;opacity:0;max-width:60ch;margin-left:auto;margin-right:auto;}
+
+/* MICRO-COMMITMENT BUTTONS */
+.micro-commit{display:flex;gap:1.2rem;justify-content:center;margin-bottom:2rem;opacity:0;}
+.mc-btn{font-family:'Space Mono',monospace;font-size:0.85rem;letter-spacing:0.12em;text-transform:uppercase;padding:0.8rem 1.8rem;background:transparent;border:1px solid var(--ash);color:var(--ash);cursor:pointer;transition:all 0.3s ease;font-weight:700;}
+.mc-btn:hover{background:var(--ash);color:var(--ink);}
+.mc-btn.mc-no:hover{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+
+/* FORM SECTION */
+.inv-form-wrap{opacity:0;}
+.form-social-proof{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);margin-bottom:1.8rem;font-weight:700;}
+.inv-form{display:flex;flex-direction:column;gap:0.8rem;margin-bottom:1rem;}
+.inv-form input{font-family:'Space Mono',monospace;font-size:0.95rem;padding:0.9rem 1.2rem;background:var(--ink);border:1px solid var(--ash);color:var(--ash);letter-spacing:0.05em;}
+.inv-form input::placeholder{color:var(--bone);opacity:0.4;}
+.inv-form input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 2px rgba(212,160,23,0.1);}
+.inv-cta{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:1.3rem;padding:1rem 2rem;background:transparent;border:2px solid var(--gold);color:var(--gold);cursor:pointer;transition:all 0.35s cubic-bezier(0.16,1,0.3,1);letter-spacing:0.02em;}
+.inv-cta:hover{background:var(--gold);color:var(--ink);}
+.form-promise{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--bone);opacity:0.5;margin-top:0.8rem;}
+
+/* SOFT NO */
+.inv-soft-no{opacity:0;}
+.inv-soft-no p{font-family:'Space Mono',monospace;font-size:0.9rem;color:var(--bone);opacity:0.6;}
+.soft-no-link{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold);transition:all 0.3s ease;}
+.soft-no-link:hover{color:var(--ash);}
+
+/* SUCCESS STATE */
+.inv-confirm{opacity:0;text-align:center;}
+.confirm-icon{font-size:2.5rem;margin-bottom:1rem;color:var(--gold);}
+.inv-confirm h3{font-family:'Playfair Display',serif;font-weight:900;font-size:2.2rem;color:var(--ash);margin-bottom:0.8rem;}
+.inv-confirm p{font-family:'Space Mono',monospace;font-size:0.95rem;color:var(--bone);margin-bottom:0.5rem;}
+.confirm-sub{color:var(--gold);font-weight:700;margin-top:1.2rem;}
+
 .inv-confirm.visible{opacity:1;}
-.inv-note{
-  font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.18em;
-  color:var(--bone);opacity:0.22;text-transform:uppercase;
-  display:block;margin-top:1.8rem;
-}
 
 /* ======================
    FOOTER
@@ -1242,6 +1216,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   </div>
 </section>
 
+<!-- THE VOID -->
+<section class="void" id="void-section">
+  <div class="void-statement">You already know the decision. You're just looking for permission to make it.</div>
+</section>
+
 <!-- ========================
      THE INVITATION
      ======================== -->
@@ -1252,20 +1231,40 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="sg fb" style="width:26px;bottom:20%;right:7%;rotate:35deg;opacity:0.05;--d:12s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="sg fc" style="width:18px;top:55%;right:3%;rotate:-50deg;opacity:0.04;--d:10s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="section-inner" style="position:relative;z-index:3;">
-    <span class="inv-eyebrow">The Invitation</span>
-    <span class="inv-headline">The coal is waiting.<br><em>It's already on YouTube.</em></span>
-    <span class="inv-sub">Watch once. You'll know if this is for you.</span>
-    <a href="https://www.youtube.com/@seraphministryglobal" class="inv-yt-btn" target="_blank" rel="noopener noreferrer">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-      Watch on YouTube
-    </a>
-    <span class="inv-or">or get weekly teachings →</span>
-    <form class="inv-form" id="inv-form" novalidate>
-      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
-      <button type="submit">Here am I</button>
-    </form>
-    <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
-    <span class="inv-note">No noise. No performance. Only fire. Leave at any time.</span>
+    <div class="inv-container">
+      <div class="inv-eyebrow">The Next Step</div>
+      <h2 class="inv-headline">Are you ready to move from feeling seen to being used?</h2>
+      <p class="inv-sub">Weekly teaching. No performance. No institution. Just depth that builds you.</p>
+      
+      <!-- MICRO-COMMITMENT TOGGLE -->
+      <div class="micro-commit" id="micro-commit">
+        <button class="mc-btn mc-yes" data-choice="yes">Yes, I'm in</button>
+        <button class="mc-btn mc-no" data-choice="no">Not yet</button>
+      </div>
+
+      <!-- EMAIL FORM (hidden until yes) -->
+      <div class="inv-form-wrap" id="inv-form-wrap" style="display:none;">
+        <div class="form-social-proof">3,847 people on the list. Moving together.</div>
+        <form id="inv-form" class="inv-form">
+          <input type="email" placeholder="Your email" required>
+          <button type="submit" class="inv-cta">Here am I</button>
+        </form>
+        <div class="form-promise">A voice memo from me lands in your inbox within 24 hours.</div>
+      </div>
+
+      <!-- SOFT NO FALLBACK -->
+      <div class="inv-soft-no" id="inv-soft-no" style="display:none;">
+        <p>No pressure. When you're ready, <a href="#" class="soft-no-link">the door stays open</a>.</p>
+      </div>
+
+      <!-- SUCCESS STATE -->
+      <div class="inv-confirm" id="inv-confirm" style="display:none;">
+        <div class="confirm-icon">✦</div>
+        <h3>You're in.</h3>
+        <p>Check your inbox in 24 hours for a voice memo from me.</p>
+        <p class="confirm-sub">Welcome to The Burning Ones.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1488,6 +1487,10 @@ gsap.to('.tp-marker', {opacity:1, duration:1, ease:'power3.out', delay:0.45,
 gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
   scrollTrigger:{trigger:'.threshold-promise', start:'top 68%'}});
   
+// THE VOID
+gsap.fromTo('.void-statement',{opacity:0},{opacity:1,duration:1.2,ease:'power2.out',
+  scrollTrigger:{trigger:'.void',start:'top 60%'}});
+  
   // THE BEHOLDING
   gsap.fromTo('#beholding-eyebrow',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
     scrollTrigger:{trigger:'.beholding',start:'top 78%'}});
@@ -1557,8 +1560,7 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
     .to('.inv-eyebrow',{opacity:1,duration:0.5,ease:'power2.out'})
     .fromTo('.inv-headline',{opacity:0,y:26},{opacity:1,y:0,duration:0.8,ease:'power3.out'},'-=0.25')
     .to('.inv-sub',{opacity:1,duration:0.6,ease:'power2.out'},'-=0.3')
-    .to('.inv-yt-btn',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.25')
-    .to('.inv-form',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2');
+    .to('.micro-commit',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.25');
 
   // FOOTER
   gsap.to('.footer-verse',{opacity:1,duration:0.9,ease:'power2.out',
@@ -1569,16 +1571,38 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
     scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
 }
 
-// EMAIL FORM
+// MICRO-COMMITMENT
+document.querySelectorAll('.mc-btn').forEach(btn=>{
+  btn.addEventListener('click',function(){
+    const choice=this.dataset.choice;
+    document.getElementById('micro-commit').style.pointerEvents='none';
+    gsap.to('.mc-btn',{opacity:0.3,duration:0.3});
+    if(choice==='yes'){
+      setTimeout(()=>{
+        document.getElementById('inv-form-wrap').style.display='block';
+        gsap.fromTo('#inv-form-wrap',{opacity:0,y:20},{opacity:1,y:0,duration:0.6,ease:'power2.out'});
+      },300);
+    }else{
+      setTimeout(()=>{
+        document.getElementById('inv-soft-no').style.display='block';
+        gsap.fromTo('#inv-soft-no',{opacity:0,y:20},{opacity:1,y:0,duration:0.6,ease:'power2.out'});
+      },300);
+    }
+  });
+});
+
+// EMAIL FORM SUBMIT
 const invFormEl=document.getElementById('inv-form');
 if(invFormEl){
   invFormEl.addEventListener('submit',function(e){
     e.preventDefault();
     const v=this.querySelector('input[type="email"]').value.trim();
     if(v&&v.indexOf('@')>0){
-      this.style.opacity='0';
-      this.style.pointerEvents='none';
-      document.getElementById('inv-confirm').classList.add('visible');
+      gsap.to('#inv-form-wrap',{opacity:0,y:-20,duration:0.5,onComplete:()=>{
+        document.getElementById('inv-form-wrap').style.display='none';
+        document.getElementById('inv-confirm').style.display='block';
+        gsap.fromTo('#inv-confirm',{opacity:0,y:20},{opacity:1,y:0,duration:0.7,ease:'power2.out'});
+      }});
     }
   });
 }

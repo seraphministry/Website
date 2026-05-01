@@ -1293,10 +1293,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <li>Why "here am I" is the most dangerous sentence a human being can say — and what happens to the ones who mean it.</li>
       <li>The one thing Isaiah did after the coal that most believers never attempt — and why it's available to you right now.</li>
     </ul>
-    <form class="inv-form" id="inv-form" novalidate>
-      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
-      <button type="submit">Here am I — it's free</button>
-    </form>
+    <div class="inv-form beehiiv-embed">
+  <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="e355e8ef-5304-4bed-83a9-7c6bb89c491b"></script>
+    </div>
     <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
     <span class="inv-note">No noise. No performance. Only fire.</span>
     <span class="inv-or">or watch on YouTube →</span>
@@ -1630,19 +1629,6 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
     scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
 }
 
-// EMAIL FORM
-const invFormEl=document.getElementById('inv-form');
-if(invFormEl){
-  invFormEl.addEventListener('submit',function(e){
-    e.preventDefault();
-    const v=this.querySelector('input[type="email"]').value.trim();
-    if(v&&v.indexOf('@')>0){
-      this.style.opacity='0';
-      this.style.pointerEvents='none';
-      document.getElementById('inv-confirm').classList.add('visible');
-    }
-  });
-}
 </script>
 </body>
 </html>

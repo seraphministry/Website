@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Encounter Protocol — Seraph Ministry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --ink: #0C0B09;
+  --fire: #FF3300;
+  --gold: #D4A017;
+  --ash: #F2EDE4;
+  --bone: #E8DFD0;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: clip;
+}
+body {
+  background: var(--ink);
+  color: var(--ash);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
+}
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: .052;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform;
+}
+
+/* ── GATE ── */
+.gate {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem 5rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.gate-ghost {
+  position: absolute;
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(6rem, 22vw, 20rem);
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,51,0,.05);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  letter-spacing: -.03em;
+  user-select: none;
+}
+.gate-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  width: 100%;
+}
+.gate-label {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.72rem, 1.6vw, .82rem);
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 2rem;
+  display: block;
+}
+.gate-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(3.2rem, 11vw, 7.5rem);
+  line-height: .88;
+  letter-spacing: -.03em;
+  color: var(--ash);
+  margin-bottom: .5rem;
+}
+.gate-title em { font-style: italic; color: var(--fire); }
+.gate-sub {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.68rem, 1.4vw, .78rem);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 2.4rem;
+  display: block;
+}
+.gate-scripture {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.22rem);
+  color: var(--bone);
+  line-height: 1.65;
+  margin-bottom: .5rem;
+  padding: 0 .5rem;
+}
+.gate-scripture-ref {
+  font-family: 'Space Mono', monospace;
+  font-style: normal;
+  font-size: clamp(.65rem, 1.1vw, .72rem);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 2.6rem;
+}
+.gate-promise {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.05rem, 2vw, 1.18rem);
+  color: var(--bone);
+  line-height: 1.72;
+  margin-bottom: 2.2rem;
+  opacity: .82;
+}
+.gate-form {
+  display: flex;
+  flex-direction: column;
+  gap: .9rem;
+  align-items: center;
+  width: 100%;
+}
+.gate-form input {
+  width: 100%;
+  max-width: 380px;
+  background: transparent;
+  border: none;
+  border-bottom: 1.5px solid rgba(242,237,228,.18);
+  color: var(--ash);
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.05rem, 1.9vw, 1.15rem);
+  padding: .85rem 0;
+  outline: none;
+  text-align: center;
+  transition: border-color .2s;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.gate-form input::placeholder {
+  color: rgba(242,237,228,.26);
+  font-style: italic;
+}
+.gate-form input:focus { border-bottom-color: var(--fire); }
+.gate-btn {
+  margin-top: .5rem;
+  background: var(--fire);
+  color: var(--ink);
+  border: none;
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.72rem, 1.4vw, .8rem);
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 1rem 2.8rem;
+  cursor: pointer;
+  transition: background .2s, transform .12s;
+  -webkit-appearance: none;
+  border-radius: 0;
+  min-height: 52px;
+  touch-action: manipulation;
+  width: 100%;
+  max-width: 380px;
+}
+.gate-btn:hover { background: #e02e00; }
+.gate-btn:active { transform: scale(.97); }
+.gate-btn.loading { opacity: .6; pointer-events: none; }
+.gate-note {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.62rem, 1.1vw, .68rem);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: .3;
+  margin-top: .2rem;
+}
+.gate-error {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.65rem, 1.1vw, .7rem);
+  letter-spacing: .08em;
+  color: var(--fire);
+  opacity: 0;
+  transition: opacity .2s;
+  margin-top: -.3rem;
+}
+.gate-error.show { opacity: 1; }
+.gate-success {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  opacity: 0;
+}
+.gate-success.visible { opacity: 1; }
+.gate-success-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(1.8rem, 5vw, 3rem);
+  letter-spacing: -.02em;
+  color: var(--ash);
+}
+.gate-success-body {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 1.9vw, 1.18rem);
+  color: var(--bone);
+  line-height: 1.72;
+  max-width: 360px;
+}
+.gate-download-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 380px;
+  margin-top: .3rem;
+  background: var(--gold);
+  color: var(--ink);
+  border: none;
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.72rem, 1.4vw, .8rem);
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  padding: 1rem 2.8rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .2s, transform .12s;
+  touch-action: manipulation;
+  min-height: 52px;
+  border-radius: 0;
+}
+.gate-download-btn:hover { background: #c49012; }
+.gate-download-btn:active { transform: scale(.97); }
+.scroll-cue {
+  margin-top: 3rem;
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.65rem, 1.1vw, .72rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: 0;
+}
+
+/* ── DIVIDERS ── */
+.divider {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,51,0,.14), transparent);
+}
+
+/* ── DISTINCTION ── */
+.distinction {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 7rem 1.5rem 5rem;
+  text-align: center;
+  opacity: 0;
+}
+.section-pre {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.68rem, 1.3vw, .75rem);
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 1.8rem;
+  display: block;
+}
+.distinction-body {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.3rem, 2.8vw, 1.85rem);
+  line-height: 1.74;
+  color: var(--ash);
+}
+.distinction-body em { font-style: italic; color: var(--bone); }
+.distinction-body strong {
+  font-weight: 400;
+  color: var(--fire);
+  text-decoration: underline;
+  text-decoration-color: rgba(255,51,0,.25);
+  text-underline-offset: 5px;
+}
+.distinction-verse {
+  margin-top: 2.5rem;
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.7vw, 1.15rem);
+  color: var(--bone);
+  border-left: 2px solid var(--fire);
+  padding-left: 1.3rem;
+  text-align: left;
+  display: inline-block;
+  line-height: 1.7;
+}
+.distinction-verse span {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-style: normal;
+  font-size: clamp(.65rem, 1.1vw, .72rem);
+  letter-spacing: .14em;
+  color: var(--gold);
+  margin-top: .5rem;
+  text-transform: uppercase;
+}
+
+/* ── MOVEMENTS HEADER ── */
+.movements-header {
+  text-align: center;
+  padding: 3rem 1.5rem 1rem;
+  opacity: 0;
+}
+.movements-header-label {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.68rem, 1.3vw, .75rem);
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: .9rem;
+  display: block;
+}
+.movements-header-title {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(2.4rem, 7vw, 6rem);
+  color: var(--ash);
+  letter-spacing: -.02em;
+  line-height: .9;
+}
+
+/* ── MOVEMENT BLOCKS ── */
+.movement {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem;
+  opacity: 0;
+}
+.movement-top {
+  display: flex;
+  align-items: baseline;
+  gap: 1.2rem;
+  margin-bottom: 1.6rem;
+  flex-wrap: wrap;
+}
+.movement-num {
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  color: var(--fire);
+  font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+  line-height: 1;
+  flex-shrink: 0;
+}
+.movement[data-m="7"] .movement-num { color: var(--gold); }
+.movement-name {
+  font-family: 'Playfair Display', serif;
+  font-weight: 900;
+  font-size: clamp(1.4rem, 3.2vw, 2.3rem);
+  letter-spacing: -.02em;
+  color: var(--ash);
+  line-height: 1;
+}
+.movement-purpose {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.68rem, 1.2vw, .74rem);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: .5;
+  margin-bottom: 1.4rem;
+  display: block;
+}
+.movement-body {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.18rem, 2vw, 1.32rem);
+  line-height: 1.82;
+  color: var(--bone);
+  margin-bottom: .9rem;
+}
+.movement-body em { font-style: italic; color: var(--ash); }
+.movement-verse {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(1.08rem, 1.8vw, 1.2rem);
+  color: var(--ash);
+  border-left: 2px solid var(--fire);
+  padding-left: 1rem;
+  margin: 1.4rem 0;
+  line-height: 1.65;
+}
+.movement-verse-ref {
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-style: normal;
+  font-size: clamp(.65rem, 1.1vw, .72rem);
+  letter-spacing: .14em;
+  color: var(--gold);
+  margin-top: .4rem;
+  text-transform: uppercase;
+}
+.hidden-gem {
+  position: relative;
+  margin-top: 1.4rem;
+  padding: 1.1rem 1.2rem 1.1rem 1.6rem;
+  border-left: 2px solid var(--gold);
+  background: rgba(212,160,23,.04);
+}
+.hidden-gem::before {
+  content: '◆';
+  position: absolute;
+  left: -.38rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: .5rem;
+  background: var(--ink);
+  padding: .12rem 0;
+}
+.hidden-gem-label {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.65rem, 1.1vw, .72rem);
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .6;
+  display: block;
+  margin-bottom: .45rem;
+}
+.hidden-gem-text {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(1.08rem, 1.8vw, 1.18rem);
+  color: var(--ash);
+  line-height: 1.62;
+}
+.movement-separator {
+  width: 100%;
+  max-width: 780px;
+  margin: 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,51,0,.1), transparent);
+}
+
+/* ── COMMISSION ── */
+.commission {
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 6rem 1.5rem 3rem;
+  text-align: center;
+  opacity: 0;
+}
+.commission-pre {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.68rem, 1.3vw, .75rem);
+  letter-spacing: .24em;
+  text-transform: uppercase;
+  color: var(--fire);
+  margin-bottom: 2rem;
+  display: block;
+}
+.commission-body {
+  font-family: 'IM Fell English', serif;
+  font-size: clamp(1.15rem, 2.3vw, 1.6rem);
+  line-height: 1.82;
+  color: var(--ash);
+}
+.commission-body em { font-style: italic; color: var(--bone); }
+.commission-body strong { font-weight: 400; color: var(--fire); }
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid rgba(242,237,228,.06);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  opacity: 0;
+}
+.footer-verse {
+  font-family: 'IM Fell English', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 1.6vw, 1.12rem);
+  color: var(--bone);
+  opacity: .5;
+  max-width: 440px;
+  margin: 0 auto .9rem;
+  line-height: 1.65;
+}
+.footer-ref {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.65rem, 1.1vw, .72rem);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: .4;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+.footer-link {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.68rem, 1.2vw, .74rem);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--bone);
+  opacity: .28;
+  text-decoration: none;
+  transition: opacity .2s;
+}
+.footer-link:hover { opacity: .55; }
+.footer-copy {
+  display: block;
+  margin-top: .9rem;
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(.6rem, 1vw, .65rem);
+  letter-spacing: .12em;
+  color: var(--bone);
+  opacity: .16;
+  text-transform: uppercase;
+}
+
+/* ── MOBILE ── */
+@media (max-width: 600px) {
+  .gate { padding: 3.5rem 1.4rem 4.5rem; }
+  .gate-inner { max-width: 100%; }
+  .gate-ghost { font-size: clamp(5rem, 28vw, 10rem); }
+
+  .gate-label { font-size: .75rem; letter-spacing: .18em; margin-bottom: 1.6rem; }
+  .gate-title { font-size: clamp(3rem, 16vw, 5rem); line-height: .9; }
+  .gate-sub { font-size: .72rem; letter-spacing: .14em; margin-bottom: 2rem; }
+  .gate-scripture { font-size: 1.08rem; padding: 0; }
+  .gate-scripture-ref { font-size: .68rem; letter-spacing: .12em; margin-bottom: 2rem; }
+  .gate-promise { font-size: 1.08rem; margin-bottom: 2rem; }
+
+  .gate-form { gap: 1rem; }
+  .gate-form input {
+    font-size: 1.08rem;
+    padding: 1rem 0;
+    max-width: 100%;
+  }
+  .gate-btn,
+  .gate-download-btn {
+    max-width: 100%;
+    font-size: .75rem;
+    letter-spacing: .18em;
+    min-height: 54px;
+    padding: 1rem 1.5rem;
+  }
+  .gate-note { font-size: .68rem; }
+  .gate-error { font-size: .68rem; }
+
+  .gate-success-title { font-size: clamp(1.8rem, 10vw, 2.4rem); }
+  .gate-success-body { font-size: 1.05rem; }
+  .scroll-cue { font-size: .7rem; margin-top: 2rem; }
+
+  .distinction { padding: 5rem 1.4rem 3.5rem; }
+  .section-pre { font-size: .72rem; letter-spacing: .18em; }
+  .distinction-body { font-size: 1.3rem; line-height: 1.7; }
+  .distinction-verse { font-size: 1rem; }
+  .distinction-verse span { font-size: .68rem; }
+
+  .movements-header { padding: 3rem 1.4rem 1rem; }
+  .movements-header-label { font-size: .72rem; letter-spacing: .18em; }
+  .movements-header-title { font-size: clamp(2.4rem, 12vw, 4rem); }
+
+  .movement { padding: 3rem 1.4rem; }
+  .movement-num { font-size: clamp(1.5rem, 7vw, 2rem); }
+  .movement-name { font-size: clamp(1.35rem, 6vw, 1.8rem); }
+  .movement-purpose { font-size: .7rem; letter-spacing: .13em; }
+  .movement-body { font-size: 1.18rem; line-height: 1.78; }
+  .movement-verse { font-size: 1.08rem; padding-left: .9rem; }
+  .movement-verse-ref { font-size: .68rem; }
+  .hidden-gem { padding: 1rem 1rem 1rem 1.3rem; }
+  .hidden-gem-label { font-size: .68rem; }
+  .hidden-gem-text { font-size: 1.08rem; }
+
+  .commission { padding: 4.5rem 1.4rem 2.5rem; }
+  .commission-pre { font-size: .72rem; letter-spacing: .18em; }
+  .commission-body { font-size: 1.15rem; }
+
+  footer { padding: 3rem 1.4rem; }
+  .footer-verse { font-size: 1rem; }
+  .footer-ref { font-size: .68rem; }
+  .footer-link { font-size: .7rem; }
+  .footer-copy { font-size: .62rem; }
+}
+</style>
+</head>
+<body>
+<div class="noise-overlay" aria-hidden="true"></div>
+
+<!-- EMAIL GATE -->
+<section class="gate" id="gate">
+  <div class="gate-ghost" aria-hidden="true">ENCOUNTER</div>
+  <div class="gate-inner">
+
+    <span class="gate-label">Seraph Ministry &nbsp;·&nbsp; Free Resource</span>
+
+    <h1 class="gate-title">The<br><em>Encounter</em><br>Protocol</h1>
+    <span class="gate-sub">How to approach scripture until Christ is revealed</span>
+
+    <p class="gate-scripture">
+      "Did not our heart burn within us, while he talked with us by the way,<br>
+      and while he opened to us the scriptures?"
+    </p>
+    <span class="gate-scripture-ref">Luke 24:32 · KJV</span>
+
+    <p class="gate-promise">
+      Seven movements. One encounter.<br>
+      Enter your name and email to download the full protocol — free.
+    </p>
+
+    <form class="gate-form" id="gate-form">
+      <input type="text"  id="fname"  name="name"  placeholder="Your first name" autocomplete="given-name">
+      <input type="email" id="femail" name="email" placeholder="Your email" required autocomplete="email">
+      <span class="gate-error" id="gate-error">Please enter a valid email address.</span>
+      <button type="submit" class="gate-btn" id="gate-btn">Download Free</button>
+      <span class="gate-note">No noise. No performance. Only fire.</span>
+    </form>
+
+    <div class="gate-success" id="gate-success">
+      <h2 class="gate-success-title">Here am I.</h2>
+      <p class="gate-success-body">
+        Your download is ready. Save it, print it, and use it every time you open your Bible from this point forward.
+      </p>
+      <a
+        href="https://drive.google.com/uc?export=download&id=1Tc4UIrd2Sr0PJVuYaMMYYhJfr7X9YUq-"
+        class="gate-download-btn"
+        id="download-link"
+      >
+        ↓ Download The Protocol
+      </a>
+      <span class="gate-note" style="margin-top:.6rem;">Scroll down to read the full system below.</span>
+    </div>
+
+    <p class="scroll-cue" id="scroll-cue">Scroll to read the protocol</p>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DISTINCTION -->
+<section class="distinction" id="distinction">
+  <span class="section-pre">Before you open the text</span>
+  <p class="distinction-body">
+    You are not here to study.<br>
+    You are here to <strong>encounter</strong>.<br><br>
+    The Pharisees had the scriptures memorized.<br>
+    They missed the Person entirely.<br><br>
+    <em>The text is the vessel. The living Christ is the content.</em><br>
+    Every reading session is an appointment with the One the text testifies to.
+  </p>
+  <blockquote class="distinction-verse">
+    "Search the scriptures; for in them ye think ye have eternal life:<br>
+    and they are they which testify of me."
+    <span>John 5:39 · KJV</span>
+  </blockquote>
+</section>
+
+<!-- MOVEMENTS HEADER -->
+<div class="movements-header" id="movements-header">
+  <span class="movements-header-label">Seven Movements &nbsp;·&nbsp; One Encounter</span>
+  <h2 class="movements-header-title">The Protocol</h2>
+</div>
+
+<!-- M1 -->
+<article class="movement" data-m="1">
+  <div class="movement-top">
+    <span class="movement-num">01</span>
+    <h3 class="movement-name">Still the Instrument</h3>
+  </div>
+  <span class="movement-purpose">Body &nbsp;·&nbsp; 2–5 minutes</span>
+  <p class="movement-body">The body carries noise. Cortisol, unfinished conversations, the residue of screens — all of it is static on the frequency you are trying to receive on. You cannot encounter what you have not arrived for.</p>
+  <p class="movement-body">Find silence. Hands open, palms up — a posture of receiving, not grasping. Three slow breaths. <em>Not a technique. A declaration: I am arriving.</em></p>
+  <blockquote class="movement-verse">
+    "Be still, and know that I am God."
+    <span class="movement-verse-ref">Psalm 46:10 · KJV</span>
+  </blockquote>
+  <div class="hidden-gem">
+    <span class="hidden-gem-label">Hidden Gem</span>
+    <p class="hidden-gem-text">Arrival is the first act of faith — you cannot encounter what you have not yet come to.</p>
+  </div>
+</article>
+<div class="movement-separator"></div>
+
+<!-- M2 -->
+<article class="movement" data-m="2">
+  <div class="movement-top">
+    <span class="movement-num">02</span>
+    <h3 class="movement-name">Purge the Inner Atmosphere</h3>
+  </div>
+  <span class="movement-purpose">Soul &nbsp;·&nbsp; 3–5 minutes</span>
+  <p class="movement-body">The priests of Israel did not approach the sanctuary carrying the residue of ordinary life. You must not either. One honest question to the Spirit before the text opens: <em>Is there anything between us right now?</em></p>
+  <p class="movement-body">If something surfaces — confess it. Release any agenda for what the passage should say. Come with open hands, not a prepared verdict.</p>
+  <blockquote class="movement-verse">
+    "Who shall ascend into the hill of the LORD? He that hath clean hands, and a pure heart."
+    <span class="movement-verse-ref">Psalm 24:3–4 · KJV</span>
+  </blockquote>
+  <div class="hidden-gem">
+    <span class="hidden-gem-label">Hidden Gem</span>
+    <p class="hidden-gem-text">The condition of the heart you bring determines what the text can unlock — the same passage produces revelation in one person and silence in another.</p>
+  </div>
+</article>
+<div class="movement-separator"></div>
+
+<!-- M3 -->
+<article class="movement" data-m="3">
+  <div class="movement-top">
+    <span class="movement-num">03</span>
+    <h3 class="movement-name">Invoke the Teacher</h3>
+  </div>
+  <span class="movement-purpose">Spirit &nbsp;·&nbsp; 2–3 minutes</span>
+  <p class="movement-body">This is the most neglected step in Western Bible reading. You are not studying an ancient text with your natural mind. You are entering a living conversation that requires a living Interpreter.</p>
+  <p class="movement-body">Speak to the Holy Spirit — not as a formality, but as a real address to a real Person. Then pause. Give the Spirit a moment before you give the text your eyes. <em>The first signal often comes in the silence before the reading begins.</em></p>
+  <blockquote class="movement-verse">
+    "Open thou mine eyes, that I may behold wondrous things out of thy law."
+    <span class="movement-verse-ref">Psalm 119:18 · KJV</span>
+  </blockquote>
+  <div class="hidden-gem">
+    <span class="hidden-gem-label">Hidden Gem</span>
+    <p class="hidden-gem-text">You cannot interpret what you have not invited — the Spirit is not a commentary, He is the Author still present in His text.</p>
+  </div>
+</article>
+<div class="movement-separator"></div>
+
+<!-- M4 -->
+<article class="movement" data-m="4">
+  <div class="movement-top">
+    <span class="movement-num">04</span>
+    <h3 class="movement-name">Cross the Threshold</h3>
+  </div>
+  <span class="movement-purpose">Faith &nbsp;·&nbsp; 1–2 minutes</span>
+  <p class="movement-body">Faith is not a feeling that precedes reading — it is a posture you choose before you feel anything. Speak a short declaration before the text opens. Not a formula. A genuine affirmation of expectation, not passivity.</p>
+  <p class="movement-body"><em>You are not hoping to encounter. You are expecting to.</em> Announce what kind of session this is before it begins. The declaration aligns your soul with truth before your emotions confirm it.</p>
+  <blockquote class="movement-verse">
+    "According to your faith be it unto you."
+    <span class="movement-verse-ref">Matthew 9:29 · KJV</span>
+  </blockquote>
+  <div class="hidden-gem">
+    <span class="hidden-gem-label">Hidden Gem</span>
+    <p class="hidden-gem-text">Faith is not a feeling — it is a posture you choose before you feel anything, and the posture determines what the session becomes.</p>
+  </div>
+</article>
+<div class="movement-separator"></div>
+
+<!-- M5 -->
+<article class="movement" data-m="5">
+  <div class="movement-top">
+    <span class="movement-num">05</span>
+    <h3 class="movement-name">Read Until It Catches</h3>
+  </div>
+  <span class="movement-purpose">Encounter &nbsp;·&nbsp; 10–30 minutes</span>
+  <p class="movement-body">Read aloud when possible. The Hebrew word for meditate — <em>hagah</em> — means to murmur, mutter, speak under the breath. Your voice activates something in your soul that silent reading bypasses.</p>
+  <p class="movement-body">Read slowly. Stop at any word or phrase where something catches — where something in you says: wait. That catch is signal. Do not push past it. The goal is not coverage. It is penetration. Five verses encountered is worth more than five chapters consumed.</p>
+  <blockquote class="movement-verse">
+    "This book of the law shall not depart out of thy mouth; but thou shalt meditate therein day and night."
+    <span class="movement-verse-ref">Joshua 1:8 · KJV</span>
+  </blockquote>
+  <div class="hidden-gem">
+    <span class="hidden-gem-label">Hidden Gem</span>
+    <p class="hidden-gem-text">The catch is the signal — where the text arrests your momentum is exactly where the Spirit is knocking. Stay there.</p>
+  </div>
+</article>
+<div class="movement-separator"></div>
+
+<!-- M6 -->
+<article class="movement" data-m="6">
+  <div class="movement-top">
+    <span class="movement-num">06</span>
+    <h3 class="movement-name">Stay Where It Burns</h3>
+  </div>
+  <span class="movement-purpose">Furnace &nbsp;·&nbsp; 5–15 minutes</span>
+  <p class="movement-body">Take the phrase that caught you and turn it over. Ask: Lord, what are You showing me here? Speak it back to God. Let it become prayer — no forced transition. Then let the silence do work.</p>
+  <p class="movement-body"><em>The return signal comes in the quiet after the speaking.</em> Write what surfaces — even single words, half-formed sentences. The act of writing is reverence: it says what You gave me is worth keeping. If nothing in you burned, you moved too quickly.</p>
+  <blockquote class="movement-verse">
+    "Did not our heart burn within us, while he talked with us by the way, and while he opened to us the scriptures?"
+    <span class="movement-verse-ref">Luke 24:32 · KJV</span>
+  </blockquote>
+  <div class="hidden-gem">
+    <span class="hidden-gem-label">Hidden Gem</span>
+    <p class="hidden-gem-text">The mark of a true encounter session is not that you understood more — it is that something in you burned.</p>
+  </div>
+</article>
+<div class="movement-separator"></div>
+
+<!-- M7 -->
+<article class="movement" data-m="7">
+  <div class="movement-top">
+    <span class="movement-num">07</span>
+    <h3 class="movement-name">Obey What Comes</h3>
+  </div>
+  <span class="movement-purpose">Obedience as Worship &nbsp;·&nbsp; 3–5 minutes</span>
+  <p class="movement-body">Encounter without response is spiritual consumption. The session must close with a concrete act of response — not because it earns anything, but because obedience is the language of love in this covenant.</p>
+  <p class="movement-body">Name one thing. Specifically. <em>"I felt challenged"</em> is not response. <em>"I will forgive this person today"</em> — that is response. Carry one phrase from the session through the rest of your day. Let the encounter extend beyond the room.</p>
+  <blockquote class="movement-verse">
+    "But be ye doers of the word, and not hearers only, deceiving your own selves."
+    <span class="movement-verse-ref">James 1:22 · KJV</span>
+  </blockquote>
+  <div class="hidden-gem">
+    <span class="hidden-gem-label">Hidden Gem</span>
+    <p class="hidden-gem-text">Obedience is the language of love in this covenant — every specific act of response deepens the capacity for the next encounter.</p>
+  </div>
+</article>
+
+<div class="divider" style="margin: 2rem auto;"></div>
+
+<!-- COMMISSION -->
+<section class="commission" id="commission">
+  <span class="commission-pre">The Sending</span>
+  <p class="commission-body">
+    Go to the Word the way Moses went to the burning bush —
+    shoes off, because the ground is holy,
+    and do not rush past what is on fire.<br><br>
+    His presence is the constant.
+    <strong>Your preparation is the variable.</strong><br><br>
+    He is already there. Already speaking. Already waiting.
+    <em>Your only task is to arrive prepared enough to recognize His voice when it comes.</em>
+  </p>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <p class="footer-verse">"Also I heard the voice of the Lord, saying, Whom shall I send, and who will go for us? Then said I, Here am I; send me."</p>
+  <span class="footer-ref">Isaiah 6:8 · KJV</span>
+  <a href="https://seraphministry.com" class="footer-link">seraphministry.com</a>
+  <span class="footer-copy">© 2026 Seraph Ministry · All rights reserved</span>
+</footer>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero entrance
+gsap.set(['.gate-label','.gate-title','.gate-sub','.gate-scripture','.gate-scripture-ref','.gate-promise','#gate-form','#scroll-cue'], { y: 22, opacity: 0 });
+gsap.timeline({ delay: 0.2, defaults: { ease: 'power3.out' }})
+  .to('.gate-label',         { opacity: 1, y: 0, duration: 0.7 })
+  .to('.gate-title',         { opacity: 1, y: 0, duration: 1.0 }, '-=0.4')
+  .to('.gate-sub',           { opacity: 1, y: 0, duration: 0.7 }, '-=0.5')
+  .to('.gate-scripture',     { opacity: 1, y: 0, duration: 0.7 }, '-=0.4')
+  .to('.gate-scripture-ref', { opacity: 1, y: 0, duration: 0.5 }, '-=0.3')
+  .to('.gate-promise',       { opacity: 1, y: 0, duration: 0.7 }, '-=0.3')
+  .to('#gate-form',          { opacity: 1, y: 0, duration: 0.7 }, '-=0.3')
+  .to('#scroll-cue',         { opacity: 0.28, y: 0, duration: 0.5 }, '-=0.2');
+
+// Scroll reveals
+['#distinction','#movements-header','#commission','#footer'].forEach(sel => {
+  gsap.set(sel, { y: 20, opacity: 0 });
+  gsap.to(sel, { y: 0, opacity: 1, duration: 0.85, ease: 'power3.out',
+    scrollTrigger: { trigger: sel, start: 'top 88%', toggleActions: 'play none none none' }
+  });
+});
+
+document.querySelectorAll('.movement').forEach(el => {
+  gsap.set(el, { y: 28, opacity: 0 });
+  gsap.to(el, { y: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+    scrollTrigger: { trigger: el, start: 'top 86%', toggleActions: 'play none none none' }
+  });
+});
+
+// Form submission
+const form    = document.getElementById('gate-form');
+const btn     = document.getElementById('gate-btn');
+const errEl   = document.getElementById('gate-error');
+const success = document.getElementById('gate-success');
+const scrollCue = document.getElementById('scroll-cue');
+
+form.addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const email = document.getElementById('femail').value.trim();
+  const name  = document.getElementById('fname').value.trim();
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errEl.classList.add('show');
+    return;
+  }
+  errEl.classList.remove('show');
+
+  btn.textContent = 'Sending...';
+  btn.classList.add('loading');
+
+  try {
+    const res = await fetch('https://formspree.io/f/mnjwvqvw', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: name || '(not provided)',
+        email,
+        _subject: 'Encounter Protocol Download — ' + (name || email)
+      })
+    });
+
+    if (res.ok) {
+      form.style.display = 'none';
+      scrollCue.style.display = 'none';
+      success.style.display = 'flex';
+
+      gsap.fromTo(success, { y: 16, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65, ease: 'power3.out',
+        onComplete: () => {
+          // auto-trigger download after brief delay
+          setTimeout(() => {
+            const a = document.createElement('a');
+            a.href = 'https://drive.google.com/uc?export=download&id=1Tc4UIrd2Sr0PJVuYaMMYYhJfr7X9YUq-';
+            a.download = 'The-Encounter-Protocol-Seraph-Ministry.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          }, 600);
+        }
+      });
+    } else {
+      btn.textContent = 'Try Again';
+      btn.classList.remove('loading');
+      errEl.textContent = 'Something went wrong. Please try again.';
+      errEl.classList.add('show');
+    }
+  } catch(err) {
+    btn.textContent = 'Try Again';
+    btn.classList.remove('loading');
+    errEl.textContent = 'Connection error. Please try again.';
+    errEl.classList.add('show');
+  }
+});
+</script>
+</body>
+</html>

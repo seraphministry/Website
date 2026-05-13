@@ -250,6 +250,122 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 
 /* ======================
+   NAVBAR
+   ====================== */
+.site-nav{
+  background:var(--ink);
+  position:relative;
+  z-index:50;
+  border-top:1px solid rgba(255,51,0,0.22);
+  border-bottom:1px solid rgba(255,51,0,0.22);
+}
+.nav-inner{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 clamp(1.5rem,5vw,6rem);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  height:clamp(52px,6vw,72px);
+}
+.nav-mark{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:var(--fire);
+  opacity:0.55;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:clamp(1.2rem,3vw,3.5rem);
+  list-style:none;
+}
+.nav-sep{
+  width:1px;
+  height:clamp(14px,2vw,22px);
+  background:rgba(255,51,0,0.18);
+  flex-shrink:0;
+}
+.nav-links a{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(0.85rem,1.4vw,1.15rem);
+  color:var(--bone);
+  text-decoration:none;
+  letter-spacing:0.04em;
+  position:relative;
+  cursor:none;
+  transition:color .22s ease, text-shadow .22s ease;
+  white-space:nowrap;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  bottom:-3px;
+  left:0;
+  width:0;
+  height:1px;
+  background:var(--fire);
+  transition:width .28s cubic-bezier(.16,1,.3,1);
+}
+.nav-links a:hover{
+  color:var(--fire);
+  text-shadow:0 0 18px rgba(255,51,0,0.55), 0 0 36px rgba(255,51,0,0.22);
+}
+.nav-links a:hover::after{
+  width:100%;
+}
+.nav-hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:none;
+  padding:6px;
+  background:none;
+  border:none;
+}
+.nav-hamburger span{
+  display:block;
+  width:22px;
+  height:1px;
+  background:var(--bone);
+  transition:transform .25s ease, opacity .25s ease;
+}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
+.nav-hamburger.open span:nth-child(2){opacity:0;}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
+@media(max-width:768px){
+  .nav-mark{display:none;}
+  .nav-hamburger{display:flex;}
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:100%;
+    left:0;
+    right:0;
+    background:var(--ink);
+    border-bottom:1px solid rgba(255,51,0,0.22);
+    flex-direction:column;
+    align-items:center;
+    gap:0;
+    padding:0;
+    z-index:100;
+  }
+  .nav-links.open{display:flex;}
+  .nav-sep{display:none;}
+  .nav-links li{width:100%;text-align:center;border-top:1px solid rgba(255,51,0,0.1);}
+  .nav-links a{
+    display:block;
+    padding:1rem 0;
+    font-size:clamp(1rem,4vw,1.2rem);
+  }
+}
+
+/* ======================
    SHARED
    ====================== */
 .section{position:relative;width:100%;overflow:hidden;}
@@ -993,6 +1109,27 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </section>
 
 <!-- ========================
+     SITE NAV
+     ======================== -->
+<nav class="site-nav" id="site-nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <span class="nav-mark">Seraph Ministry · Is. 6:1</span>
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="/encounter">Encounter</a></li>
+      <li class="nav-sep" aria-hidden="true"></li>
+      <li><a href="/prayer">Prayer</a></li>
+      <li class="nav-sep" aria-hidden="true"></li>
+      <li><a href="/partner">Partner</a></li>
+      <li class="nav-sep" aria-hidden="true"></li>
+      <li><a href="https://letters.seraphministry.com" target="_blank" rel="noopener noreferrer">Letters</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ========================
      THRESHOLD
      ======================== -->
 <section class="threshold" id="threshold">
@@ -1651,6 +1788,25 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
     })
     .catch(function(){ /* fallback already set on iframe src */ });
 })();
+
+// NAV HAMBURGER
+const navBtn=document.getElementById('nav-hamburger');
+const navLinks=document.getElementById('nav-links');
+if(navBtn&&navLinks){
+  navBtn.addEventListener('click',function(){
+    const open=navLinks.classList.toggle('open');
+    navBtn.classList.toggle('open',open);
+    navBtn.setAttribute('aria-expanded',open);
+  });
+  // Close on link tap (mobile)
+  navLinks.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click',function(){
+      navLinks.classList.remove('open');
+      navBtn.classList.remove('open');
+      navBtn.setAttribute('aria-expanded','false');
+    });
+  });
+}
 
 // EMAIL FORM
 const invFormEl=document.getElementById('inv-form');

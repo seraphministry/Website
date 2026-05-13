@@ -366,6 +366,184 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 
 /* ======================
+   SOCIAL PROOF
+   ====================== */
+.proof{
+  background:var(--ink);
+  padding:clamp(6rem,10vw,10rem) 0;
+  border-top:1px solid rgba(255,51,0,0.1);
+  position:relative;
+}
+.proof-inner{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 clamp(1.5rem,5vw,6rem);
+}
+.proof-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.32em;
+  text-transform:uppercase;
+  color:var(--fire);
+  display:block;
+  margin-bottom:clamp(2.5rem,5vw,4.5rem);
+  opacity:0;
+}
+.proof-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(1rem,2.5vw,2rem);
+}
+.proof-card{
+  background:var(--fire);
+  padding:clamp(1.8rem,3vw,2.8rem);
+  position:relative;
+  opacity:0;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+}
+.proof-card:nth-child(2){
+  background:transparent;
+  border:1px solid rgba(255,51,0,0.35);
+}
+.proof-card:nth-child(3){
+  background:transparent;
+  border-left:2px solid var(--fire);
+  padding-left:clamp(1.5rem,2.5vw,2.2rem);
+}
+.proof-quote-mark{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,6vw,5rem);
+  line-height:0.7;
+  color:var(--ash);
+  opacity:0.18;
+  font-weight:900;
+  display:block;
+  margin-bottom:0.2rem;
+}
+.proof-card:nth-child(1) .proof-quote-mark{color:var(--ash);opacity:0.22;}
+.proof-text{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(1.05rem,1.9vw,1.45rem);
+  line-height:1.65;
+  color:var(--ash);
+  margin:0;
+  flex:1;
+}
+.proof-card:nth-child(1) .proof-text{color:#fff;}
+.proof-source{
+  font-family:'Space Mono',monospace;
+  font-size:0.42rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--ash);
+  opacity:0.45;
+  display:block;
+  margin-top:auto;
+  padding-top:0.8rem;
+  border-top:1px solid rgba(242,237,228,0.12);
+}
+.proof-card:nth-child(1) .proof-source{
+  color:#fff;
+  opacity:0.55;
+  border-top-color:rgba(255,255,255,0.2);
+}
+@media(max-width:768px){
+  .proof-grid{grid-template-columns:1fr;}
+  .proof-card:nth-child(2){border:1px solid rgba(255,51,0,0.35);}
+}
+
+/* ======================
+   COAL INLINE CTA
+   ====================== */
+.coal-inline-cta{
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--fire);
+  text-decoration:none;
+  display:inline-block;
+  margin-top:clamp(1.5rem,3vw,2.5rem);
+  opacity:0.7;
+  transition:opacity .22s ease;
+  border-bottom:1px solid rgba(255,51,0,0.3);
+  padding-bottom:2px;
+}
+.coal-inline-cta:hover{opacity:1;}
+
+/* ======================
+   VSL LETTER CTA
+   ====================== */
+.vsl-letter-cta{
+  display:inline-block;
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--fire);
+  text-decoration:none;
+  margin-top:clamp(1.5rem,3vw,2.5rem);
+  margin-bottom:0.5rem;
+  opacity:0.8;
+  border-bottom:1px solid rgba(255,51,0,0.35);
+  padding-bottom:2px;
+  transition:opacity .22s ease;
+}
+.vsl-letter-cta:hover{opacity:1;}
+
+/* ======================
+   BEEHIIV EMBED + TRUST LINE
+   ====================== */
+.inv-embed-wrap{
+  width:100%;
+  max-width:480px;
+  margin:clamp(1.5rem,3vw,2.5rem) auto 0;
+  overflow:hidden;
+}
+.inv-embed-wrap iframe{
+  width:100%;
+  display:block;
+  min-height:52px;
+}
+.inv-trust{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--bone);
+  opacity:0.35;
+  display:block;
+  margin-top:0.8rem;
+}
+
+/* ======================
+   RESOURCES PRIMARY CARD
+   ====================== */
+.resource-card--primary{
+  border-top:1px solid var(--fire) !important;
+}
+.resource-card--primary .resource-title{
+  color:var(--fire);
+}
+.resource-card--primary::after{
+  background:var(--fire);
+  width:100% !important;
+}
+
+/* ======================
+   SPACE MONO SIZE FLOOR
+   ====================== */
+.nav-mark{font-size:0.62rem;}
+.proof-eyebrow,.teachings-eyebrow,.resources-eyebrow,
+.landing-eyebrow,.beholding-eyebrow,.inv-eyebrow,
+.ps-label{font-size:0.62rem;}
+.beholding-ref,.footer-cite,.inv-note,.inv-trust,
+.coal-mark-num,.teaching-meta,.proof-source{font-size:0.52rem;}
+
+/* ======================
    SHARED
    ====================== */
 .section{position:relative;width:100%;overflow:hidden;}
@@ -1049,6 +1227,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .sg{animation:none!important;}
   .section-glow{animation:none!important;}
   .landing-eyebrow,.landing-line,.landing-divider,.landing-turn,.landing-sub,
+  .proof-eyebrow,.proof-card,
   .threshold-line,.beholding-eyebrow,.beholding-verse,.beholding-beat,
   .undoing-line,.coal-line,.coal-marks,.sending-line,.sending-coda,
   .vsl-eyebrow,.vsl-headline,.vsl-frame-wrap,.vsl-scroll-cue,
@@ -1502,6 +1681,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         ></iframe>
       </div>
     </div>
+    <a href="#invitation" class="vsl-letter-cta">Get the weekly letter — free →</a>
     <a href="https://www.youtube.com/@seraphministryglobal" class="vsl-yt-cta" target="_blank" rel="noopener noreferrer">More teachings on YouTube →</a>
   </div>
 </section>
@@ -1589,6 +1769,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <span class="coal-text-primary">He didn't do this to himself.</span>
         <span class="coal-text-secondary">He submitted to it.</span>
         <span class="coal-text-prose">The fire doesn't wait for you to clean up. It comes to you. Your part is — stay in the room.</span>
+        <a href="#invitation" class="coal-inline-cta">The fire doesn't wait for you to be ready. Neither does this →</a>
       </div>
     </div>
     <div class="coal-marks" id="coal-marks">
@@ -1651,6 +1832,32 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     </div>
     <div class="sending-coda" id="sending-coda">
       <p>This is for the ones who answer.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========================
+     SOCIAL PROOF
+     ======================== -->
+<section class="proof" id="proof">
+  <div class="proof-inner">
+    <span class="proof-eyebrow" id="proof-eyebrow">What people are saying</span>
+    <div class="proof-grid">
+      <div class="proof-card" id="pc-1">
+        <div class="proof-quote-mark" aria-hidden="true">"</div>
+        <p class="proof-text">Amen brother. I just went through all of this.</p>
+        <span class="proof-source">Why Did Everything Fall Apart After I Said Yes to God?</span>
+      </div>
+      <div class="proof-card" id="pc-2">
+        <div class="proof-quote-mark" aria-hidden="true">"</div>
+        <p class="proof-text">🔥🙏</p>
+        <span class="proof-source">Why Did Everything Fall Apart After I Said Yes to God?</span>
+      </div>
+      <div class="proof-card" id="pc-3">
+        <div class="proof-quote-mark" aria-hidden="true">"</div>
+        <p class="proof-text">God help us all.</p>
+        <span class="proof-source">Your Empty Tank Is a Sign God Is About to Move</span>
+      </div>
     </div>
   </div>
 </section>
@@ -1781,7 +1988,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="resource-desc">Bring what you're carrying. You don't need to clean it up first. Submit a request and we'll stand with you.</span>
       <span class="resource-link">Submit a request →</span>
     </a>
-    <a href="https://letters.seraphministry.com" class="resource-card" id="rc-3" target="_blank" rel="noopener noreferrer">
+    <a href="https://letters.seraphministry.com" class="resource-card resource-card--primary" id="rc-3" target="_blank" rel="noopener noreferrer">
       <div class="resource-mark" aria-hidden="true">
         <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
           <g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none">
@@ -1810,19 +2017,23 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="section-inner vsl-inner" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;">
     <span class="inv-eyebrow">The Fire Letters</span>
     <span class="inv-headline">For the ones God won't<br><em>stop reaching for.</em></span>
-    <span class="inv-sub">Weekly letters that carry weight — scripture-anchored teaching, raw audio, occasional prophetic words. The kind of content you'd pay for. Free, because you shouldn't have to.</span>
+    <span class="inv-sub">Weekly letters that carry weight — scripture-anchored teaching, occasional prophetic words. The kind of content you'd pay for. Free, because you shouldn't have to.</span>
     <ul class="inv-bullets">
       <li>Why the emptiness you feel in church isn't a faith problem — and what it's actually telling you.</li>
-      <li>Why most worship experiences produce emotion but not encounter — and the single shift that changes that.</li>
-      <li>What God was doing in Isaiah's worst year — and why your worst season might be the same thing.</li>
-      <li>Why "here am I" is the most dangerous sentence a human being can say — and what happens to the ones who mean it.</li>
-      <li>The one thing Isaiah did after the coal that most believers never attempt — and why it's available to you right now.</li>
+      <li>Why your worst season might be the same thing God was doing in Isaiah's worst year.</li>
+      <li>The one thing most believers never attempt after the coal — and why it's available to you right now.</li>
     </ul>
-    <form class="inv-form" id="inv-form" novalidate>
-      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
-      <button type="submit">Here am I — it's free</button>
-    </form>
-    <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
+    <div class="inv-embed-wrap">
+      <iframe
+        src="https://embeds.beehiiv.com/3bc3b7de-2483-4f1c-b83c-86e2961c1fe3?slim=true"
+        data-test-id="beehiiv-embed"
+        height="52"
+        frameborder="0"
+        scrolling="no"
+        style="margin:0;border-radius:0!important;background:transparent;"
+      ></iframe>
+    </div>
+    <span class="inv-trust">One letter a week. No noise. Unsubscribe any time.</span>
     <span class="inv-note">No noise. No performance. Only fire.</span>
     <span class="inv-or">or watch on YouTube →</span>
     <a href="https://www.youtube.com/@seraphministryglobal" class="inv-yt-btn" target="_blank" rel="noopener noreferrer">
@@ -1840,7 +2051,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <span class="ps-label">P.S.</span>
     <p class="ps-body">Something is moving in this generation. A hunger for what's real — for weight, for fire instead of fog. People are leaving performances behind. Searching for the thing that was actually handed down. The early church didn't have a show. They had an encounter.</p>
     <p class="ps-body">The Fire Letters exist because that hunger deserves an answer.</p>
-    <p class="ps-close">It's free. The only cost is answering.</p>
+    <p class="ps-close">It's free. The only thing it costs you is your email address.</p>
     <a href="#invitation" class="ps-cta">Here am I — it's free</a>
   </div>
 </section>
@@ -2066,6 +2277,14 @@ if(!reducedMotion){
   gsap.fromTo('#landing-sub',{opacity:0},{opacity:1,duration:0.7,ease:'power2.out',delay:0.55,
     scrollTrigger:{trigger:'#landing-sub',start:'top 84%'}});
 
+  // SOCIAL PROOF
+  gsap.fromTo('#proof-eyebrow',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
+    scrollTrigger:{trigger:'.proof',start:'top 78%'}});
+  ['#pc-1','#pc-2','#pc-3'].forEach(function(sel,i){
+    gsap.fromTo(sel,{opacity:0,y:30},{opacity:1,y:0,duration:0.85,ease:'power3.out',delay:i*0.18,
+      scrollTrigger:{trigger:'.proof-grid',start:'top 80%'}});
+  });
+
   // TEACHINGS STRIP
   gsap.fromTo('#teachings-header',{opacity:0,y:16},{opacity:1,y:0,duration:0.7,ease:'power2.out',
     scrollTrigger:{trigger:'.teachings',start:'top 78%'}});
@@ -2213,19 +2432,7 @@ if(navBtn&&navLinks){
   });
 }
 
-// EMAIL FORM
-const invFormEl=document.getElementById('inv-form');
-if(invFormEl){
-  invFormEl.addEventListener('submit',function(e){
-    e.preventDefault();
-    const v=this.querySelector('input[type="email"]').value.trim();
-    if(v&&v.indexOf('@')>0){
-      this.style.opacity='0';
-      this.style.pointerEvents='none';
-      document.getElementById('inv-confirm').classList.add('visible');
-    }
-  });
-}
+// EMAIL FORM — handled by Beehiiv embed iframe
 </script>
 </body>
 </html>

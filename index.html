@@ -337,20 +337,16 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   background:var(--bone);
   transition:transform .25s ease, opacity .25s ease;
 }
-.nav-hamburger::after{
-  content:'Menu';
+.nav-menu-label{
   font-family:'Space Mono',monospace;
   font-size:0.44rem;
   letter-spacing:0.28em;
   text-transform:uppercase;
+  font-style:normal;
   color:var(--bone);
   opacity:0.55;
-  display:block;
-  margin-top:5px;
+  margin-top:4px;
   transition:opacity .22s ease;
-}
-.nav-hamburger.open::after{
-  content:'Close';
 }
 .nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
 .nav-hamburger.open span:nth-child(2){opacity:0;}
@@ -1132,8 +1128,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="nav-inner">
     <span class="nav-mark">Seraph Ministry · Is. 6:1</span>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+  <span></span><span></span><span></span>
+  <em class="nav-menu-label">Menu</em>
+</button>
     <ul class="nav-links" id="nav-links">
       <li><a href="/encounter">Encounter</a></li>
       <li class="nav-sep" aria-hidden="true"></li>
@@ -1812,8 +1809,10 @@ const navLinks=document.getElementById('nav-links');
 if(navBtn&&navLinks){
   navBtn.addEventListener('click',function(){
     const open=navLinks.classList.toggle('open');
-    navBtn.classList.toggle('open',open);
-    navBtn.setAttribute('aria-expanded',open);
+navBtn.classList.toggle('open',open);
+navBtn.setAttribute('aria-expanded',open);
+const label=navBtn.querySelector('.nav-menu-label');
+if(label) label.textContent=open?'Close':'Menu';
   });
   // Close on link tap (mobile)
   navLinks.querySelectorAll('a').forEach(function(a){

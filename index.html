@@ -90,12 +90,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .s9{width:6px;height:4px;background:var(--fire);bottom:24%;right:15%;opacity:0.65;}
 .s10{width:9px;height:9px;background:var(--gold);top:48%;right:5%;opacity:0.5;}
 
-.cta-block{position:absolute;bottom:3.5rem;left:2.5rem;z-index:15;opacity:0;}
+.cta-block{position:absolute;bottom:3.5rem;left:50%;transform:translateX(-50%);z-index:15;opacity:0;display:flex;flex-direction:column;align-items:center;text-align:center;width:max-content;max-width:90vw;}
 .cta-label{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.25em;color:var(--bone);opacity:0.45;text-transform:uppercase;display:block;margin-bottom:0.3rem;}
 .cta-word{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:clamp(2rem,4vw,4rem);color:var(--ash);text-decoration:none;cursor:none;display:inline-block;position:relative;filter:url(#roughen);}
 .cta-word::after{content:'';position:absolute;bottom:2px;left:0;width:0;height:3px;background:var(--fire);transition:width .35s cubic-bezier(.16,1,.3,1);}
 .cta-word:hover::after{width:100%;}
-.bottom-annots{margin-bottom:0.6rem;}
+.bottom-annots{margin-bottom:0.6rem;text-align:center;}
 .ba-line{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;display:block;line-height:2.4;}
 .ba1{color:var(--fire);}.ba1 s{text-decoration:line-through;text-decoration-color:var(--ash);text-decoration-thickness:1px;}
 .ba2{color:var(--bone);margin-left:0.6rem;}.ba2 s{text-decoration:line-through;text-decoration-color:var(--fire);text-decoration-thickness:1px;}
@@ -318,15 +318,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .nav-links a:hover::after{
   width:100%;
-}
-.nav-hamburger{
-  display:none;
-  flex-direction:column;
-  gap:5px;
-  cursor:none;
-  padding:6px;
-  background:none;
-  border:none;
 }
 .nav-hamburger span{
   display:block;
@@ -584,6 +575,15 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   border-top:none;
   border-bottom:1px solid rgba(255,51,0,0.18);
   height:clamp(48px,6vw,56px);
+  opacity:0;
+  transform:translateY(-100%);
+  transition:opacity .35s ease, transform .35s cubic-bezier(.16,1,.3,1);
+  pointer-events:none;
+}
+.site-nav.nav-visible{
+  opacity:1;
+  transform:translateY(0);
+  pointer-events:all;
 }
 .nav-inner{height:100%;}
 .nav-home-mark{
@@ -595,7 +595,29 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   cursor:none;
 }
 .nav-home-mark:hover{opacity:1;}
-.hero{padding-top:clamp(48px,6vw,56px);}
+.nav-menu-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.44rem;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  font-style:normal;
+  color:var(--fire);
+  opacity:0.85;
+  display:block;
+  margin-top:5px;
+  transition:opacity .22s ease;
+}
+.nav-hamburger{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  gap:5px;
+  cursor:none;
+  padding:10px 16px;
+  background:none;
+  border:none;
+  margin:0 auto;
+}
 
 /* ======================
    INVITATION COPY — new elements
@@ -1475,7 +1497,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .undoing-line,.coal-line,.coal-marks,.sending-line,.sending-coda,
   .vsl-eyebrow,.vsl-headline,.vsl-frame-wrap,.vsl-scroll-cue,
   .gap-line,.teachings-header,.teachings-scroll,.teachings-footer,.resources-header,.resource-card,
-  .inv-eyebrow,.inv-headline,.inv-sub,.inv-promise,.inv-urgency,.inv-scarcity,.inv-yt-btn,.inv-embed-wrap,
+  .inv-eyebrow,.inv-headline,.inv-sub,.inv-promise,.inv-urgency,.inv-form,.inv-yt-btn,
   .exit-inner,.footer-verse,.footer-links,.footer-copy{
     opacity:1!important;transform:none!important;
   }
@@ -2026,25 +2048,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <a href="#invitation" class="coal-inline-cta">The fire doesn't wait for you to be ready. Neither does this →</a>
       </div>
     </div>
-    <div class="coal-marks" id="coal-marks">
-      <div class="coal-mark-item">
-        <span class="coal-mark-num">01</span>
-        <span class="coal-mark-label">Behold</span>
-        <span class="coal-mark-copy">Enter the throne room. Not as a student. As a witness.</span>
-      </div>
-      <div class="coal-mark-divider" aria-hidden="true"></div>
-      <div class="coal-mark-item">
-        <span class="coal-mark-num">02</span>
-        <span class="coal-mark-label">Be Undone</span>
-        <span class="coal-mark-copy">Let the weight of His holiness do what it does. The collapse is not the end.</span>
-      </div>
-      <div class="coal-mark-divider" aria-hidden="true"></div>
-      <div class="coal-mark-item">
-        <span class="coal-mark-num">03</span>
-        <span class="coal-mark-label">Be Sent</span>
-        <span class="coal-mark-copy">The coal changes everything. And the throne room has a door — it opens outward.</span>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -2252,7 +2255,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
           </g>
         </svg>
       </div>
-      <span class="resource-title">Fire Letters</span>
+      <span class="resource-title">The Fire Letters</span>
       <span class="resource-desc">Weekly letters that carry weight. Scripture-anchored teaching, raw and direct. The kind of content you'd pay for — free, because you shouldn't have to.</span>
       <span class="resource-link">Join the list →</span>
     </a>
@@ -2271,28 +2274,19 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="section-inner vsl-inner" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;">
     <span class="inv-headline">For the ones God won't<br><em>stop reaching for.</em></span>
     <span class="inv-eyebrow">The Fire Letters</span>
-    <span class="inv-sub">Weekly letters that carry weight — scripture-anchored teaching, occasional prophetic words. The kind of content you'd pay for. Free, because you shouldn't have to.</span>
     <span class="inv-promise">Every Tuesday, one letter. One scripture, taken apart until it moves. Three minutes to read. Free forever.</span>
     <span class="inv-urgency">The letter goes out Tuesday. If you're not on the list, this one won't reach you.</span>
-    <span class="inv-scarcity">This is a community of people who are genuinely hungry — not everyone who finds this page stays.</span>
     <ul class="inv-bullets">
       <li>Why the emptiness you feel in church isn't a faith problem — and what it's actually telling you.</li>
       <li>Why your worst season might be the same thing God was doing in Isaiah's worst year.</li>
       <li>The one thing most believers never attempt after the coal — and why it's available to you right now.</li>
     </ul>
     <span class="inv-skeptic">This isn't another devotional. If you want something soft and encouraging, this isn't it.</span>
-    <div class="inv-embed-wrap">
-      <iframe
-        src="https://embeds.beehiiv.com/3bc3b7de-2483-4f1c-b83c-86e2961c1fe3"
-        data-test-id="beehiiv-embed"
-        height="52"
-        frameborder="0"
-        scrolling="no"
-        style="margin:0;border-radius:0!important;background:transparent;width:100%;"
-      ></iframe>
-    </div>
+    <form class="inv-form" id="inv-form" action="https://www.letters.seraphministry.com/subscribe" method="POST" target="_blank" novalidate>
+      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+      <button type="submit">Send me The Fire Letters — free</button>
+    </form>
     <span class="inv-trust">One letter a week. No noise. Unsubscribe any time.</span>
-    <span class="inv-note">No noise. No performance. Only fire.</span>
     <span class="inv-or">or watch on YouTube →</span>
     <a href="https://www.youtube.com/@seraphministryglobal" class="inv-yt-btn" target="_blank" rel="noopener noreferrer">
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
@@ -2637,8 +2631,6 @@ if(!reducedMotion){
     gsap.fromTo(el,{opacity:0,y:30},{opacity:1,y:0,duration:0.85,ease:'power3.out',
       scrollTrigger:{trigger:el,start:'top 85%',toggleActions:'play none none none'}});
   });
-  gsap.fromTo('#coal-marks',{opacity:0,y:24},{opacity:1,y:0,duration:0.9,ease:'power2.out',
-    scrollTrigger:{trigger:'#coal-marks',start:'top 82%'}});
 
   // THE SENDING
   gsap.utils.toArray('.sending-line').forEach(function(el){
@@ -2671,12 +2663,10 @@ if(!reducedMotion){
   invTl
     .fromTo('.inv-headline',{opacity:0,y:26},{opacity:1,y:0,duration:0.8,ease:'power3.out'})
     .to('.inv-eyebrow',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.3')
-    .to('.inv-sub',{opacity:1,duration:0.6,ease:'power2.out'},'-=0.25')
     .to('.inv-promise',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2')
     .to('.inv-urgency',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.15')
-    .to('.inv-scarcity',{opacity:0.7,duration:0.5,ease:'power2.out'},'-=0.1')
-    .to('.inv-yt-btn',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2')
-    .to('.inv-embed-wrap',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2');
+    .to('.inv-form',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.1')
+    .to('.inv-yt-btn',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2');
 
   // EXIT PATH
   gsap.fromTo('.exit-inner',{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power2.out',
@@ -2722,6 +2712,19 @@ if(!reducedMotion){
     .catch(function(){ /* fallback already set on iframe src */ });
 })();
 
+// NAV SCROLL REVEAL — appears after hero
+(function(){
+  var nav=document.getElementById('site-nav');
+  var hero=document.getElementById('hero');
+  if(!nav||!hero) return;
+  ScrollTrigger.create({
+    trigger:hero,
+    start:'bottom top',
+    onEnter:function(){ nav.classList.add('nav-visible'); },
+    onLeaveBack:function(){ nav.classList.remove('nav-visible'); }
+  });
+})();
+
 // NAV HAMBURGER
 const navBtn=document.getElementById('nav-hamburger');
 const navLinks=document.getElementById('nav-links');
@@ -2744,14 +2747,21 @@ if(navBtn&&navLinks){
   });
 }
 
-// MOBILE BOTTOM BAR
+// MOBILE BOTTOM BAR — appears after landing section
 (function(){
   var bar=document.getElementById('mobile-bar');
   var closeBtn=document.getElementById('mobile-bar-close');
   var barBtn=document.getElementById('mobile-bar-btn');
   if(!bar) return;
   if(sessionStorage.getItem('seraph-bar-dismissed')) return;
-  setTimeout(function(){ bar.classList.add('visible'); }, 2200);
+  ScrollTrigger.create({
+    trigger:'#landing',
+    start:'bottom top',
+    once:true,
+    onEnter:function(){
+      setTimeout(function(){ bar.classList.add('visible'); }, 600);
+    }
+  });
   closeBtn.addEventListener('click',function(){
     bar.classList.remove('visible');
     sessionStorage.setItem('seraph-bar-dismissed','1');
@@ -2762,7 +2772,7 @@ if(navBtn&&navLinks){
   });
 })();
 
-// EMAIL FORM — handled by Beehiiv embed iframe
+// EMAIL FORM — handled by Beehiiv subscribe form
 </script>
 </body>
 </html>

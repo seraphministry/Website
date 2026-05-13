@@ -398,61 +398,45 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   background:var(--fire);
   padding:clamp(1.8rem,3vw,2.8rem);
   position:relative;
-  opacity:0;
   display:flex;
   flex-direction:column;
   gap:1rem;
-}
-.proof-card:nth-child(2){
-  background:transparent;
-  border:1px solid rgba(255,51,0,0.35);
-}
-.proof-card:nth-child(3){
-  background:transparent;
-  border-left:2px solid var(--fire);
-  padding-left:clamp(1.5rem,2.5vw,2.2rem);
+  clip-path:inset(0 100% 0 0);
 }
 .proof-quote-mark{
   font-family:'Playfair Display',serif;
   font-size:clamp(3rem,6vw,5rem);
   line-height:0.7;
   color:var(--ash);
-  opacity:0.18;
+  opacity:0.22;
   font-weight:900;
   display:block;
   margin-bottom:0.2rem;
 }
-.proof-card:nth-child(1) .proof-quote-mark{color:var(--ash);opacity:0.22;}
 .proof-text{
   font-family:'IM Fell English',serif;
   font-style:italic;
   font-size:clamp(1.05rem,1.9vw,1.45rem);
   line-height:1.65;
-  color:var(--ash);
+  color:#fff;
   margin:0;
   flex:1;
 }
-.proof-card:nth-child(1) .proof-text{color:#fff;}
 .proof-source{
   font-family:'Space Mono',monospace;
-  font-size:0.42rem;
+  font-size:0.48rem;
   letter-spacing:0.18em;
   text-transform:uppercase;
-  color:var(--ash);
-  opacity:0.45;
+  color:#fff;
+  opacity:0.55;
   display:block;
   margin-top:auto;
   padding-top:0.8rem;
-  border-top:1px solid rgba(242,237,228,0.12);
-}
-.proof-card:nth-child(1) .proof-source{
-  color:#fff;
-  opacity:0.55;
-  border-top-color:rgba(255,255,255,0.2);
+  border-top:1px solid rgba(255,255,255,0.2);
 }
 @media(max-width:768px){
   .proof-grid{grid-template-columns:1fr;}
-  .proof-card:nth-child(2){border:1px solid rgba(255,51,0,0.35);}
+  .proof-card{clip-path:inset(100% 0 0 0);}
 }
 
 /* ======================
@@ -542,6 +526,265 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .ps-label{font-size:0.62rem;}
 .beholding-ref,.footer-cite,.inv-note,.inv-trust,
 .coal-mark-num,.teaching-meta,.proof-source{font-size:0.52rem;}
+
+/* ======================
+   HERO CTA BUTTONS
+   ====================== */
+.cta-btns{
+  display:flex;
+  flex-direction:column;
+  gap:0.75rem;
+  margin-top:0.5rem;
+}
+.cta-btn{
+  display:inline-block;
+  font-family:'Space Mono',monospace;
+  font-size:clamp(0.62rem,1vw,0.78rem);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  text-decoration:none;
+  padding:0.9rem 1.8rem;
+  cursor:none;
+  transition:background .22s ease, color .22s ease;
+  white-space:nowrap;
+}
+.cta-btn--primary{
+  background:var(--fire);
+  color:var(--ash);
+  border:1px solid var(--fire);
+}
+.cta-btn--primary:hover{
+  background:transparent;
+  color:var(--fire);
+}
+.cta-btn--secondary{
+  background:transparent;
+  color:var(--bone);
+  border:1px solid rgba(232,223,208,0.35);
+}
+.cta-btn--secondary:hover{
+  border-color:var(--fire);
+  color:var(--fire);
+}
+@media(max-width:768px){
+  .cta-btns{width:clamp(180px,60vw,260px);}
+  .cta-btn{text-align:center;padding:1rem 1.4rem;}
+}
+
+/* ======================
+   FIXED NAV OVERRIDES
+   ====================== */
+.site-nav{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:200;
+  background:rgba(12,11,9,0.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  border-top:none;
+  border-bottom:1px solid rgba(255,51,0,0.18);
+  height:clamp(48px,6vw,56px);
+}
+.nav-inner{height:100%;}
+.nav-home-mark{
+  display:flex;
+  align-items:center;
+  flex-shrink:0;
+  opacity:0.7;
+  transition:opacity .22s ease;
+  cursor:none;
+}
+.nav-home-mark:hover{opacity:1;}
+.hero{padding-top:clamp(48px,6vw,56px);}
+
+/* ======================
+   INVITATION COPY — new elements
+   ====================== */
+.inv-headline{order:-1;}
+.inv-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.32em;
+  text-transform:uppercase;
+  color:var(--fire);
+  display:block;
+  margin-top:clamp(0.8rem,1.5vw,1.2rem);
+  margin-bottom:clamp(1.5rem,3vw,3rem);
+  opacity:0;
+}
+.inv-promise{
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--fire);
+  display:block;
+  margin:clamp(1.2rem,2vw,2rem) auto 0;
+  max-width:48ch;
+  line-height:1.8;
+  opacity:0;
+}
+.inv-urgency{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(0.9rem,1.5vw,1.2rem);
+  color:var(--bone);
+  display:block;
+  margin-top:clamp(1rem,2vw,1.5rem);
+  opacity:0;
+  max-width:44ch;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.7;
+}
+.inv-scarcity{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(0.9rem,1.5vw,1.2rem);
+  color:var(--bone);
+  display:block;
+  margin-top:0.4rem;
+  margin-bottom:clamp(1.5rem,3vw,2.5rem);
+  opacity:0;
+  max-width:44ch;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.7;
+  opacity:0.7;
+}
+.inv-skeptic{
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--bone);
+  opacity:0.45;
+  display:block;
+  margin-bottom:clamp(1.5rem,3vw,2.5rem);
+  max-width:44ch;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.9;
+}
+
+/* ======================
+   EXIT PATH
+   ====================== */
+.exit-path{
+  background:var(--ink);
+  border-top:1px solid rgba(255,51,0,0.18);
+  padding:clamp(4rem,8vw,8rem) 0;
+  position:relative;
+}
+.exit-inner{
+  max-width:640px;
+  margin:0 auto;
+  padding:0 clamp(1.5rem,5vw,4rem);
+  text-align:center;
+  opacity:0;
+}
+.exit-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.62rem;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:var(--fire);
+  display:block;
+  margin-bottom:clamp(1rem,2vw,1.5rem);
+}
+.exit-headline{
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:clamp(1.8rem,3.5vw,3.5rem);
+  color:var(--ash);
+  display:block;
+  line-height:1.05;
+  filter:url(#roughen);
+  margin-bottom:clamp(1rem,2vw,1.5rem);
+}
+.exit-desc{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(1rem,1.7vw,1.3rem);
+  color:var(--bone);
+  line-height:1.75;
+  opacity:0.8;
+  margin-bottom:clamp(1.5rem,3vw,2.5rem);
+}
+.exit-btn{
+  display:inline-block;
+  font-family:'Space Mono',monospace;
+  font-size:0.65rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--ash);
+  background:var(--fire);
+  border:1px solid var(--fire);
+  padding:1rem 2.2rem;
+  text-decoration:none;
+  transition:background .22s ease, color .22s ease;
+  cursor:pointer;
+}
+.exit-btn:hover{background:transparent;color:var(--fire);}
+
+/* ======================
+   MOBILE BOTTOM BAR
+   ====================== */
+.mobile-bar{
+  display:none;
+  position:fixed;
+  bottom:0;left:0;right:0;
+  z-index:150;
+  height:56px;
+  background:var(--ink);
+  border-top:1px solid rgba(255,51,0,0.3);
+  align-items:center;
+  justify-content:space-between;
+  padding:0 1.2rem;
+  gap:0.8rem;
+  transform:translateY(100%);
+  transition:transform .35s cubic-bezier(.16,1,.3,1);
+}
+.mobile-bar.visible{transform:translateY(0);}
+.mobile-bar-label{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;
+  letter-spacing:0.16em;
+  text-transform:uppercase;
+  color:var(--bone);
+  opacity:0.7;
+  flex:1;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.mobile-bar-btn{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--ash);
+  background:var(--fire);
+  border:none;
+  padding:0.55rem 1rem;
+  text-decoration:none;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.mobile-bar-close{
+  background:none;
+  border:none;
+  color:var(--bone);
+  opacity:0.4;
+  font-size:1.2rem;
+  cursor:pointer;
+  padding:0 0.2rem;
+  flex-shrink:0;
+  line-height:1;
+}
+@media(max-width:768px){
+  .mobile-bar{display:flex;}
+}
 
 /* ======================
    SHARED
@@ -1232,8 +1475,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .undoing-line,.coal-line,.coal-marks,.sending-line,.sending-coda,
   .vsl-eyebrow,.vsl-headline,.vsl-frame-wrap,.vsl-scroll-cue,
   .gap-line,.teachings-header,.teachings-scroll,.teachings-footer,.resources-header,.resource-card,
-  .inv-eyebrow,.inv-headline,.inv-sub,.inv-yt-btn,.inv-form,
-  .footer-verse,.footer-links,.footer-copy{
+  .inv-eyebrow,.inv-headline,.inv-sub,.inv-promise,.inv-urgency,.inv-scarcity,.inv-yt-btn,.inv-embed-wrap,
+  .exit-inner,.footer-verse,.footer-links,.footer-copy{
     opacity:1!important;transform:none!important;
   }
 }
@@ -1553,8 +1796,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="ba-line ba2"><s>silence</s> → fire</span>
       <span class="ba-line ba3"><s>unclean lips</s> → coal</span>
     </div>
-    <span class="cta-label">Watch on YouTube</span>
-    <a href="https://www.youtube.com/@seraphministryglobal" class="cta-word" id="cta" target="_blank" rel="noopener noreferrer">Watch Now</a>
+    <div class="cta-btns">
+      <a href="https://www.youtube.com/@seraphministryglobal" class="cta-btn cta-btn--primary" id="cta" target="_blank" rel="noopener noreferrer">Watch Now</a>
+      <a href="#invitation" class="cta-btn cta-btn--secondary">Get the Fire Letters →</a>
+    </div>
   </div>
 
   <div class="scroll-mark" id="scroll-mark">
@@ -1564,13 +1809,22 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </section>
 
 <!-- ========================
-     SITE NAV
+     SITE NAV — fixed top
      ======================== -->
 <nav class="site-nav" id="site-nav" aria-label="Site navigation">
   <div class="nav-inner">
-    <span class="nav-mark">Seraph Ministry · Is. 6:1</span>
+    <a href="/" class="nav-home-mark" aria-label="Seraph Ministry home">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
+        <g stroke="#FF3300" stroke-width="7" stroke-linecap="square" fill="none">
+          <line x1="40" y1="4" x2="40" y2="76"/>
+          <line x1="4" y1="20" x2="76" y2="60"/>
+          <line x1="76" y1="20" x2="4" y2="60"/>
+        </g>
+      </svg>
+    </a>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
       <span></span><span></span><span></span>
+      <em class="nav-menu-label">Menu</em>
     </button>
     <ul class="nav-links" id="nav-links">
       <li><a href="/encounter">Encounter</a></li>
@@ -1845,18 +2099,18 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <div class="proof-grid">
       <div class="proof-card" id="pc-1">
         <div class="proof-quote-mark" aria-hidden="true">"</div>
-        <p class="proof-text">Amen brother. I just went through all of this.</p>
-        <span class="proof-source">Why Did Everything Fall Apart After I Said Yes to God?</span>
+        <p class="proof-text">Love this word! God Bless!!</p>
+        <span class="proof-source">Heaven Didn't Withhold Christ. Why Do You Think It's Withholding Anything Else?</span>
       </div>
       <div class="proof-card" id="pc-2">
         <div class="proof-quote-mark" aria-hidden="true">"</div>
-        <p class="proof-text">🔥🙏</p>
-        <span class="proof-source">Why Did Everything Fall Apart After I Said Yes to God?</span>
+        <p class="proof-text">Good stuff!</p>
+        <span class="proof-source">Why the Holy Spirit Flows Through Some People and Not Others</span>
       </div>
       <div class="proof-card" id="pc-3">
         <div class="proof-quote-mark" aria-hidden="true">"</div>
-        <p class="proof-text">God help us all.</p>
-        <span class="proof-source">Your Empty Tank Is a Sign God Is About to Move</span>
+        <p class="proof-text">Great job!</p>
+        <span class="proof-source">How to Read the Bible Until Christ Is Revealed (The 7-Step Encounter Protocol)</span>
       </div>
     </div>
   </div>
@@ -2015,22 +2269,26 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="sg fb" style="width:26px;bottom:20%;right:7%;rotate:35deg;opacity:0.05;--d:12s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="sg fc" style="width:18px;top:55%;right:3%;rotate:-50deg;opacity:0.04;--d:10s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="section-inner vsl-inner" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;">
-    <span class="inv-eyebrow">The Fire Letters</span>
     <span class="inv-headline">For the ones God won't<br><em>stop reaching for.</em></span>
+    <span class="inv-eyebrow">The Fire Letters</span>
     <span class="inv-sub">Weekly letters that carry weight — scripture-anchored teaching, occasional prophetic words. The kind of content you'd pay for. Free, because you shouldn't have to.</span>
+    <span class="inv-promise">Every Tuesday, one letter. One scripture, taken apart until it moves. Three minutes to read. Free forever.</span>
+    <span class="inv-urgency">The letter goes out Tuesday. If you're not on the list, this one won't reach you.</span>
+    <span class="inv-scarcity">This is a community of people who are genuinely hungry — not everyone who finds this page stays.</span>
     <ul class="inv-bullets">
       <li>Why the emptiness you feel in church isn't a faith problem — and what it's actually telling you.</li>
       <li>Why your worst season might be the same thing God was doing in Isaiah's worst year.</li>
       <li>The one thing most believers never attempt after the coal — and why it's available to you right now.</li>
     </ul>
+    <span class="inv-skeptic">This isn't another devotional. If you want something soft and encouraging, this isn't it.</span>
     <div class="inv-embed-wrap">
       <iframe
-        src="https://embeds.beehiiv.com/3bc3b7de-2483-4f1c-b83c-86e2961c1fe3?slim=true"
+        src="https://embeds.beehiiv.com/3bc3b7de-2483-4f1c-b83c-86e2961c1fe3"
         data-test-id="beehiiv-embed"
         height="52"
         frameborder="0"
         scrolling="no"
-        style="margin:0;border-radius:0!important;background:transparent;"
+        style="margin:0;border-radius:0!important;background:transparent;width:100%;"
       ></iframe>
     </div>
     <span class="inv-trust">One letter a week. No noise. Unsubscribe any time.</span>
@@ -2055,6 +2313,27 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <a href="#invitation" class="ps-cta">Here am I — it's free</a>
   </div>
 </section>
+
+<!-- ========================
+     EXIT PATH — Encounter Protocol
+     ======================== -->
+<section class="exit-path" id="exit-path">
+  <div class="exit-inner">
+    <span class="exit-eyebrow">Before you go.</span>
+    <span class="exit-headline">The Encounter Protocol</span>
+    <p class="exit-desc">A one-page system for approaching Scripture until Christ is revealed. Seven movements. One encounter. Free — because you shouldn't have to pay to meet God.</p>
+    <a href="https://drive.google.com/uc?export=download&id=1Tc4UIrd2Sr0PJVuYaMMYYhJfr7X9YUq-" class="exit-btn" target="_blank" rel="noopener noreferrer">↓ Download Free</a>
+  </div>
+</section>
+
+<!-- ========================
+     MOBILE BOTTOM BAR
+     ======================== -->
+<div class="mobile-bar" id="mobile-bar" aria-label="Get the Fire Letters">
+  <span class="mobile-bar-label">Get the Fire Letters — free</span>
+  <a href="#invitation" class="mobile-bar-btn" id="mobile-bar-btn">Join →</a>
+  <button class="mobile-bar-close" id="mobile-bar-close" aria-label="Dismiss">×</button>
+</div>
 
 <!-- ========================
      FOOTER
@@ -2277,13 +2556,36 @@ if(!reducedMotion){
   gsap.fromTo('#landing-sub',{opacity:0},{opacity:1,duration:0.7,ease:'power2.out',delay:0.55,
     scrollTrigger:{trigger:'#landing-sub',start:'top 84%'}});
 
-  // SOCIAL PROOF
+  // SOCIAL PROOF — fire wipe
   gsap.fromTo('#proof-eyebrow',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
     scrollTrigger:{trigger:'.proof',start:'top 78%'}});
-  ['#pc-1','#pc-2','#pc-3'].forEach(function(sel,i){
-    gsap.fromTo(sel,{opacity:0,y:30},{opacity:1,y:0,duration:0.85,ease:'power3.out',delay:i*0.18,
-      scrollTrigger:{trigger:'.proof-grid',start:'top 80%'}});
-  });
+  if(!reducedMotion){
+    ['#pc-1','#pc-2','#pc-3'].forEach(function(sel,i){
+      var el=document.querySelector(sel);if(!el)return;
+      ScrollTrigger.create({
+        trigger:'.proof-grid',
+        start:'top 80%',
+        once:true,
+        onEnter:function(){
+          setTimeout(function(){
+            gsap.to(sel,{
+              clipPath:'inset(0 0% 0 0)',
+              duration:0.65,
+              ease:'power3.inOut',
+              onComplete:function(){
+                gsap.fromTo(sel+' .proof-text, '+sel+' .proof-quote-mark, '+sel+' .proof-source',
+                  {opacity:0},{opacity:1,duration:0.4,ease:'power2.out'});
+              }
+            });
+          },i*220);
+        }
+      });
+    });
+  } else {
+    document.querySelectorAll('.proof-card').forEach(function(el){
+      el.style.clipPath='inset(0 0% 0 0)';
+    });
+  }
 
   // TEACHINGS STRIP
   gsap.fromTo('#teachings-header',{opacity:0,y:16},{opacity:1,y:0,duration:0.7,ease:'power2.out',
@@ -2367,11 +2669,18 @@ if(!reducedMotion){
   // THE INVITATION
   var invTl=gsap.timeline({scrollTrigger:{trigger:'.invitation',start:'top 72%'}});
   invTl
-    .to('.inv-eyebrow',{opacity:1,duration:0.5,ease:'power2.out'})
-    .fromTo('.inv-headline',{opacity:0,y:26},{opacity:1,y:0,duration:0.8,ease:'power3.out'},'-=0.25')
-    .to('.inv-sub',{opacity:1,duration:0.6,ease:'power2.out'},'-=0.3')
-    .to('.inv-yt-btn',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.25')
-    .to('.inv-form',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2');
+    .fromTo('.inv-headline',{opacity:0,y:26},{opacity:1,y:0,duration:0.8,ease:'power3.out'})
+    .to('.inv-eyebrow',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.3')
+    .to('.inv-sub',{opacity:1,duration:0.6,ease:'power2.out'},'-=0.25')
+    .to('.inv-promise',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2')
+    .to('.inv-urgency',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.15')
+    .to('.inv-scarcity',{opacity:0.7,duration:0.5,ease:'power2.out'},'-=0.1')
+    .to('.inv-yt-btn',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2')
+    .to('.inv-embed-wrap',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2');
+
+  // EXIT PATH
+  gsap.fromTo('.exit-inner',{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power2.out',
+    scrollTrigger:{trigger:'.exit-path',start:'top 78%'}});
 
   // P.S.
   gsap.fromTo('.ps-label',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
@@ -2421,16 +2730,37 @@ if(navBtn&&navLinks){
     const open=navLinks.classList.toggle('open');
     navBtn.classList.toggle('open',open);
     navBtn.setAttribute('aria-expanded',open);
+    const label=navBtn.querySelector('.nav-menu-label');
+    if(label) label.textContent=open?'Close':'Menu';
   });
-  // Close on link tap (mobile)
   navLinks.querySelectorAll('a').forEach(function(a){
     a.addEventListener('click',function(){
       navLinks.classList.remove('open');
       navBtn.classList.remove('open');
       navBtn.setAttribute('aria-expanded','false');
+      const label=navBtn.querySelector('.nav-menu-label');
+      if(label) label.textContent='Menu';
     });
   });
 }
+
+// MOBILE BOTTOM BAR
+(function(){
+  var bar=document.getElementById('mobile-bar');
+  var closeBtn=document.getElementById('mobile-bar-close');
+  var barBtn=document.getElementById('mobile-bar-btn');
+  if(!bar) return;
+  if(sessionStorage.getItem('seraph-bar-dismissed')) return;
+  setTimeout(function(){ bar.classList.add('visible'); }, 2200);
+  closeBtn.addEventListener('click',function(){
+    bar.classList.remove('visible');
+    sessionStorage.setItem('seraph-bar-dismissed','1');
+  });
+  barBtn.addEventListener('click',function(){
+    bar.classList.remove('visible');
+    sessionStorage.setItem('seraph-bar-dismissed','1');
+  });
+})();
 
 // EMAIL FORM — handled by Beehiiv embed iframe
 </script>

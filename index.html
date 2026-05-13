@@ -336,6 +336,21 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   background:var(--bone);
   transition:transform .25s ease, opacity .25s ease;
 }
+.nav-hamburger::after{
+  content:'Menu';
+  font-family:'Space Mono',monospace;
+  font-size:0.38rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--bone);
+  opacity:0.5;
+  display:block;
+  margin-top:3px;
+  transition:opacity .22s ease;
+}
+.nav-hamburger.open::after{
+  content:'Close';
+}
 .nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
 .nav-hamburger.open span:nth-child(2){opacity:0;}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}

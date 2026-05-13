@@ -199,11 +199,15 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .a1{display:none;}
   .a2{font-size:0.4rem;}
 
-  /* CTA block — safe area aware for iPhone home bar */
+  /* CTA block — centered, safe area aware for iPhone home bar */
   .cta-block{
     bottom:calc(2rem + env(safe-area-inset-bottom));
-    left:1.2rem;
+    left:50%;
+    transform:translateX(-50%);
+    width:min(90vw, 320px);
   }
+  .cta-btns{width:100%;}
+  .cta-btn{width:100%;text-align:center;}
   .cta-word{font-size:clamp(1.6rem,7vw,2.6rem);}
 
   /* Scroll mark — safe area aware */
@@ -331,7 +335,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .nav-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg);}
 @media(max-width:768px){
   .nav-mark{display:none;}
-  .nav-hamburger{display:flex;}
+  .nav-hamburger{display:flex !important;}
+  .site-nav.nav-visible .nav-hamburger{display:flex !important;}
   .nav-links{
     display:none;
     position:absolute;
@@ -583,9 +588,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .site-nav.nav-visible{
   opacity:1;
   transform:translateY(0);
-  pointer-events:all;
+  pointer-events:auto;
 }
-.nav-inner{height:100%;}
+.nav-inner{
+  height:100%;
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 clamp(1.5rem,5vw,6rem);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
 .nav-home-mark{
   display:flex;
   align-items:center;
@@ -695,15 +708,26 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .exit-path{
   background:var(--ink);
   border-top:1px solid rgba(255,51,0,0.18);
-  padding:clamp(4rem,8vw,8rem) 0;
+  border-bottom:1px solid rgba(255,51,0,0.1);
+  padding:clamp(5rem,9vw,9rem) 0;
   position:relative;
+  overflow:hidden;
+}
+.exit-path::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:radial-gradient(ellipse 55% 50% at center,rgba(255,51,0,0.04) 0%,transparent 70%);
+  pointer-events:none;
 }
 .exit-inner{
-  max-width:640px;
+  max-width:680px;
   margin:0 auto;
   padding:0 clamp(1.5rem,5vw,4rem);
   text-align:center;
   opacity:0;
+  position:relative;
+  z-index:2;
 }
 .exit-eyebrow{
   font-family:'Space Mono',monospace;
@@ -717,21 +741,25 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .exit-headline{
   font-family:'Playfair Display',serif;
   font-weight:900;
-  font-size:clamp(1.8rem,3.5vw,3.5rem);
+  font-size:clamp(2rem,4vw,4.2rem);
   color:var(--ash);
   display:block;
   line-height:1.05;
   filter:url(#roughen);
-  margin-bottom:clamp(1rem,2vw,1.5rem);
+  margin-bottom:clamp(1.2rem,2.5vw,2rem);
+  letter-spacing:-0.02em;
 }
 .exit-desc{
   font-family:'IM Fell English',serif;
   font-style:italic;
-  font-size:clamp(1rem,1.7vw,1.3rem);
+  font-size:clamp(1rem,1.8vw,1.35rem);
   color:var(--bone);
   line-height:1.75;
-  opacity:0.8;
-  margin-bottom:clamp(1.5rem,3vw,2.5rem);
+  opacity:0.85;
+  margin-bottom:clamp(2rem,4vw,3rem);
+  max-width:52ch;
+  margin-left:auto;
+  margin-right:auto;
 }
 .exit-btn{
   display:inline-block;
@@ -742,12 +770,30 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   color:var(--ash);
   background:var(--fire);
   border:1px solid var(--fire);
-  padding:1rem 2.2rem;
+  padding:1.1rem 2.4rem;
   text-decoration:none;
   transition:background .22s ease, color .22s ease;
   cursor:pointer;
 }
 .exit-btn:hover{background:transparent;color:var(--fire);}
+.exit-sub{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  color:var(--bone);
+  opacity:0.4;
+  display:block;
+  margin-top:1.4rem;
+}
+.exit-link{
+  color:var(--bone);
+  opacity:0.6;
+  text-decoration:none;
+  border-bottom:1px solid rgba(232,223,208,0.25);
+  transition:color .22s ease, opacity .22s ease;
+}
+.exit-link:hover{color:var(--fire);opacity:1;border-bottom-color:rgba(255,51,0,0.4);}
 
 /* ======================
    MOBILE BOTTOM BAR
@@ -2045,7 +2091,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <span class="coal-text-primary">He didn't do this to himself.</span>
         <span class="coal-text-secondary">He submitted to it.</span>
         <span class="coal-text-prose">The fire doesn't wait for you to clean up. It comes to you. Your part is — stay in the room.</span>
-        <a href="#invitation" class="coal-inline-cta">The fire doesn't wait for you to be ready. Neither does this →</a>
+        <a href="#invitation" class="coal-inline-cta">If something in you just moved — that's the door. →</a>
       </div>
     </div>
   </div>
@@ -2282,7 +2328,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <li>The one thing most believers never attempt after the coal — and why it's available to you right now.</li>
     </ul>
     <span class="inv-skeptic">This isn't another devotional. If you want something soft and encouraging, this isn't it.</span>
-    <form class="inv-form" id="inv-form" action="https://www.letters.seraphministry.com/subscribe" method="POST" target="_blank" novalidate>
+    <form class="inv-form" id="inv-form" action="https://letters.seraphministry.com/subscribe" method="POST" target="_blank" novalidate>
       <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
       <button type="submit">Send me The Fire Letters — free</button>
     </form>
@@ -2296,6 +2342,19 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </section>
 
 <!-- ========================
+     THE ENCOUNTER PROTOCOL — exit offer
+     ======================== -->
+<section class="exit-path" id="exit-path">
+  <div class="exit-inner">
+    <span class="exit-eyebrow">Free Resource</span>
+    <span class="exit-headline">Not ready to subscribe?<br>Start here instead.</span>
+    <p class="exit-desc">The Encounter Protocol is a one-page system for approaching Scripture until Christ is revealed. Seven movements. One encounter. The difference between reading the Bible and being changed by it. Free — no email required.</p>
+    <a href="https://drive.google.com/uc?export=download&id=1Tc4UIrd2Sr0PJVuYaMMYYhJfr7X9YUq-" class="exit-btn" target="_blank" rel="noopener noreferrer">↓ Download The Protocol — Free</a>
+    <span class="exit-sub">Or <a href="/encounter" class="exit-link">read the full system online →</a></span>
+  </div>
+</section>
+
+<!-- ========================
      P.S.
      ======================== -->
 <section class="section ps-section" id="ps">
@@ -2304,19 +2363,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <p class="ps-body">Something is moving in this generation. A hunger for what's real — for weight, for fire instead of fog. People are leaving performances behind. Searching for the thing that was actually handed down. The early church didn't have a show. They had an encounter.</p>
     <p class="ps-body">The Fire Letters exist because that hunger deserves an answer.</p>
     <p class="ps-close">It's free. The only thing it costs you is your email address.</p>
-    <a href="#invitation" class="ps-cta">Here am I — it's free</a>
-  </div>
-</section>
-
-<!-- ========================
-     EXIT PATH — Encounter Protocol
-     ======================== -->
-<section class="exit-path" id="exit-path">
-  <div class="exit-inner">
-    <span class="exit-eyebrow">Before you go.</span>
-    <span class="exit-headline">The Encounter Protocol</span>
-    <p class="exit-desc">A one-page system for approaching Scripture until Christ is revealed. Seven movements. One encounter. Free — because you shouldn't have to pay to meet God.</p>
-    <a href="https://drive.google.com/uc?export=download&id=1Tc4UIrd2Sr0PJVuYaMMYYhJfr7X9YUq-" class="exit-btn" target="_blank" rel="noopener noreferrer">↓ Download Free</a>
+    <a href="#invitation" class="ps-cta">Send me The Fire Letters — free</a>
   </div>
 </section>
 
@@ -2669,7 +2716,7 @@ if(!reducedMotion){
     .to('.inv-yt-btn',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2');
 
   // EXIT PATH
-  gsap.fromTo('.exit-inner',{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power2.out',
+  gsap.fromTo('.exit-inner',{opacity:0,y:24},{opacity:1,y:0,duration:0.9,ease:'power3.out',
     scrollTrigger:{trigger:'.exit-path',start:'top 78%'}});
 
   // P.S.

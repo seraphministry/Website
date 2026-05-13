@@ -322,13 +322,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .nav-hamburger{
   display:none;
   flex-direction:column;
-  align-items:center;
   gap:5px;
   cursor:none;
-  padding:10px 16px;
+  padding:6px;
   background:none;
   border:none;
-  margin:0 auto;
 }
 .nav-hamburger span{
   display:block;
@@ -336,17 +334,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   height:1px;
   background:var(--bone);
   transition:transform .25s ease, opacity .25s ease;
-}
-.nav-menu-label{
-  font-family:'Space Mono',monospace;
-  font-size:0.44rem;
-  letter-spacing:0.28em;
-  text-transform:uppercase;
-  font-style:normal;
-  color:var(--bone);
-  opacity:0.55;
-  margin-top:4px;
-  transition:opacity .22s ease;
 }
 .nav-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg);}
 .nav-hamburger.open span:nth-child(2){opacity:0;}
@@ -395,56 +382,331 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .sg.fc{animation:sg-c var(--d,12s) ease-in-out infinite var(--dl,0s);}
 
 /* ======================
-   THRESHOLD
+   LANDING (replaces threshold)
    ====================== */
-.threshold{background:var(--ink);padding:clamp(6rem,12vw,12rem) 0;border-top:1px solid rgba(255,51,0,0.12);text-align:center;position:relative;}
-.threshold-line{
-  font-family:'IM Fell English',serif;font-style:italic;
-  font-size:clamp(1.1rem,2.2vw,2rem);color:var(--bone);
-  letter-spacing:0.08em;opacity:0;display:block;
-}
-.threshold-year{color:var(--fire);}
-.threshold-promise{
+.landing{
+  background:var(--ink);
+  padding:clamp(6rem,12vw,12rem) 0;
+  border-top:1px solid rgba(255,51,0,0.18);
   text-align:center;
+  position:relative;
+}
+.landing-inner{
+  max-width:760px;
+  margin:0 auto;
+  padding:0 clamp(1.5rem,5vw,4rem);
   position:relative;
   z-index:3;
 }
-.tp-line{
-  font-family:'IM Fell English',serif;
-  font-style:italic;
-  font-size:clamp(1.4rem,2.8vw,3rem);
-  color:var(--ash);
+.landing-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;
+  letter-spacing:0.32em;
+  text-transform:uppercase;
+  color:var(--fire);
   display:block;
-  line-height:1.7;
+  margin-bottom:clamp(2rem,4vw,4rem);
   opacity:0;
 }
-.tp-divider{
+.landing-line{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(1.5rem,3vw,3.2rem);
+  color:var(--ash);
+  display:block;
+  line-height:1.65;
+  opacity:0;
+}
+.landing-line em{font-style:normal;color:var(--fire);}
+.landing-divider{
   display:block;
   width:clamp(28px,3vw,44px);
   height:1px;
   background:var(--fire);
-  opacity:0.4;
-  margin:clamp(1.8rem,3vw,3rem) auto;
+  opacity:0;
+  margin:clamp(2rem,4vw,4rem) auto;
 }
-.tp-marker{
+.landing-turn{
   font-family:'Playfair Display',serif;
   font-weight:900;
-  font-size:clamp(1.8rem,3.8vw,4.5rem);
+  font-size:clamp(2rem,4.5vw,5.5rem);
   color:var(--ash);
   display:block;
-  line-height:1.1;
+  line-height:1.05;
   filter:url(#roughen);
   opacity:0;
+  letter-spacing:-0.02em;
 }
-.tp-sub{
+.landing-turn em{font-style:italic;color:var(--fire);}
+.landing-sub{
   font-family:'Space Mono',monospace;
-  font-size:clamp(0.6rem,1vw,0.8rem);
+  font-size:clamp(0.58rem,0.9vw,0.72rem);
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--bone);
+  display:block;
+  margin-top:clamp(1.5rem,3vw,3rem);
+  opacity:0;
+  line-height:2;
+}
+
+/* ======================
+   TEACHINGS STRIP
+   ====================== */
+.teachings{
+  background:var(--ink);
+  padding:clamp(6rem,10vw,10rem) 0;
+  border-top:1px solid rgba(255,51,0,0.1);
+  position:relative;
+  overflow:hidden;
+}
+.teachings-header{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 clamp(1.5rem,5vw,6rem);
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  margin-bottom:clamp(2.5rem,5vw,5rem);
+  opacity:0;
+}
+.teachings-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;
+  letter-spacing:0.32em;
+  text-transform:uppercase;
+  color:var(--fire);
+}
+.teachings-all{
+  font-family:'Space Mono',monospace;
+  font-size:0.48rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--bone);
+  opacity:0.45;
+  text-decoration:none;
+  transition:color .22s ease, opacity .22s ease;
+  white-space:nowrap;
+}
+.teachings-all:hover{color:var(--fire);opacity:1;}
+.teachings-scroll{
+  display:flex;
+  gap:clamp(1.2rem,2.5vw,2rem);
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  scroll-snap-type:x mandatory;
+  padding:0 clamp(1.5rem,5vw,6rem) clamp(1.5rem,2vw,2rem);
+  scrollbar-width:none;
+  opacity:0;
+}
+.teachings-scroll::-webkit-scrollbar{display:none;}
+.teaching-card{
+  flex:0 0 clamp(240px,32vw,340px);
+  scroll-snap-align:start;
+  border:1px solid rgba(232,223,208,0.1);
+  background:rgba(12,11,9,0.6);
+  text-decoration:none;
+  display:flex;
+  flex-direction:column;
+  transition:border-color .25s ease;
+  position:relative;
+}
+.teaching-card::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:1px;
+  background:var(--fire);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:transform .35s cubic-bezier(.16,1,.3,1);
+}
+.teaching-card:hover::before{transform:scaleX(1);}
+.teaching-card:hover{border-color:rgba(255,51,0,0.22);}
+.teaching-thumb{
+  width:100%;
+  aspect-ratio:16/9;
+  overflow:hidden;
+  background:var(--ink);
+  position:relative;
+}
+.teaching-thumb img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .45s ease;
+  filter:grayscale(18%);
+}
+.teaching-card:hover .teaching-thumb img{transform:scale(1.03);filter:grayscale(0%);}
+.teaching-body{
+  padding:clamp(1rem,2vw,1.5rem);
+  display:flex;
+  flex-direction:column;
+  gap:0.6rem;
+  flex:1;
+}
+.teaching-title{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(0.95rem,1.6vw,1.15rem);
+  color:var(--ash);
+  line-height:1.4;
+  display:block;
+}
+.teaching-meta{
+  font-family:'Space Mono',monospace;
+  font-size:0.42rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--fire);
+  opacity:0.55;
+  display:block;
+  margin-top:auto;
+  padding-top:0.8rem;
+}
+.teachings-footer{
+  max-width:1200px;
+  margin:clamp(2rem,4vw,3.5rem) auto 0;
+  padding:0 clamp(1.5rem,5vw,6rem);
+  text-align:center;
+  opacity:0;
+}
+.teachings-channel-cta{
+  font-family:'Space Mono',monospace;
+  font-size:0.58rem;
   letter-spacing:0.22em;
   text-transform:uppercase;
   color:var(--fire);
-  display:block;
-  margin-top:clamp(1.2rem,2vw,2rem);
+  text-decoration:none;
+  opacity:0.65;
+  transition:opacity .22s ease;
+  display:inline-block;
+  padding-bottom:2px;
+  border-bottom:1px solid rgba(255,51,0,0.3);
+}
+.teachings-channel-cta:hover{opacity:1;}
+@media(max-width:768px){
+  .teaching-card{flex:0 0 min(82vw,300px);}
+  .teachings-header{margin-bottom:clamp(1.8rem,4vw,3rem);}
+}
+@media(max-width:480px){
+  .teaching-card{flex:0 0 88vw;}
+}
+
+/* ======================
+   RESOURCES ROW
+   ====================== */
+.resources{
+  background:var(--ink);
+  padding:clamp(6rem,10vw,10rem) 0;
+  border-top:1px solid rgba(255,51,0,0.1);
+  position:relative;
+}
+.resources-header{
+  max-width:1200px;
+  margin:0 auto clamp(3rem,5vw,5rem);
+  padding:0 clamp(1.5rem,5vw,6rem);
   opacity:0;
+}
+.resources-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.52rem;
+  letter-spacing:0.32em;
+  text-transform:uppercase;
+  color:var(--fire);
+  display:block;
+  margin-bottom:clamp(0.8rem,1.5vw,1.2rem);
+}
+.resources-headline{
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:clamp(1.6rem,3.5vw,4rem);
+  color:var(--ash);
+  line-height:1.0;
+  filter:url(#roughen);
+  letter-spacing:-0.02em;
+}
+.resources-grid{
+  max-width:1200px;
+  margin:0 auto;
+  padding:0 clamp(1.5rem,5vw,6rem);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:clamp(1rem,2vw,1.8rem);
+}
+.resource-card{
+  border-top:1px solid rgba(255,51,0,0.22);
+  padding:clamp(1.8rem,3vw,2.8rem) 0 clamp(1.8rem,3vw,2.8rem);
+  text-decoration:none;
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+  position:relative;
+  opacity:0;
+  transition:border-color .25s ease;
+}
+.resource-card::after{
+  content:'';
+  position:absolute;
+  top:-1px;left:0;
+  height:1px;
+  width:0;
+  background:var(--fire);
+  transition:width .4s cubic-bezier(.16,1,.3,1);
+}
+.resource-card:hover::after{width:100%;}
+.resource-mark{
+  width:clamp(22px,2.8vw,32px);
+  height:clamp(22px,2.8vw,32px);
+  opacity:0.6;
+  flex-shrink:0;
+}
+.resource-mark svg{width:100%;height:100%;display:block;}
+.resource-title{
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:clamp(1.4rem,2.5vw,2.2rem);
+  color:var(--ash);
+  line-height:0.98;
+  filter:url(#roughen);
+  letter-spacing:-0.01em;
+  transition:color .22s ease;
+}
+.resource-card:hover .resource-title{color:var(--fire);}
+.resource-desc{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(0.85rem,1.4vw,1.05rem);
+  color:var(--bone);
+  line-height:1.65;
+  opacity:0.75;
+}
+.resource-link{
+  font-family:'Space Mono',monospace;
+  font-size:0.46rem;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  color:var(--fire);
+  margin-top:auto;
+  padding-top:1rem;
+  opacity:0.55;
+  transition:opacity .22s ease;
+}
+.resource-card:hover .resource-link{opacity:1;}
+@media(max-width:768px){
+  .resources-grid{grid-template-columns:1fr;}
+  .resource-card{
+    border-top:none;
+    border-left:1px solid rgba(255,51,0,0.22);
+    padding:clamp(1.5rem,3vw,2rem) clamp(1.2rem,3vw,2rem);
+  }
+  .resource-card::after{
+    top:0;left:-1px;
+    height:0;width:1px;
+    transition:height .4s cubic-bezier(.16,1,.3,1);
+  }
+  .resource-card:hover::after{height:100%;width:1px;}
 }
   
 /* ======================
@@ -786,10 +1048,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @media(prefers-reduced-motion:reduce){
   .sg{animation:none!important;}
   .section-glow{animation:none!important;}
+  .landing-eyebrow,.landing-line,.landing-divider,.landing-turn,.landing-sub,
   .threshold-line,.beholding-eyebrow,.beholding-verse,.beholding-beat,
   .undoing-line,.coal-line,.coal-marks,.sending-line,.sending-coda,
   .vsl-eyebrow,.vsl-headline,.vsl-frame-wrap,.vsl-scroll-cue,
-  .gap-line,
+  .gap-line,.teachings-header,.teachings-scroll,.teachings-footer,.resources-header,.resource-card,
   .inv-eyebrow,.inv-headline,.inv-sub,.inv-yt-btn,.inv-form,
   .footer-verse,.footer-links,.footer-copy{
     opacity:1!important;transform:none!important;
@@ -1128,9 +1391,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="nav-inner">
     <span class="nav-mark">Seraph Ministry · Is. 6:1</span>
     <button class="nav-hamburger" id="nav-hamburger" aria-label="Toggle navigation" aria-expanded="false">
-  <span></span><span></span><span></span>
-  <em class="nav-menu-label">Menu</em>
-</button>
+      <span></span><span></span><span></span>
+    </button>
     <ul class="nav-links" id="nav-links">
       <li><a href="/encounter">Encounter</a></li>
       <li class="nav-sep" aria-hidden="true"></li>
@@ -1144,20 +1406,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </nav>
 
 <!-- ========================
-     THRESHOLD
+     LANDING — What is Seraph
      ======================== -->
-<section class="threshold" id="threshold">
-  <div class="section-inner">
-    <div class="threshold-promise" id="threshold-promise">
-      <span class="tp-line">You've never quite fit.</span>
-      <span class="tp-line">Not in the church. Not outside of it.</span>
-      <span class="tp-divider" aria-hidden="true"></span>
-      <span class="tp-line">You're not alone in that.</span>
-      <span class="tp-line">Something is shifting — and the hunger you feel is part of it.</span>
-      <span class="tp-divider" aria-hidden="true"></span>
-      <span class="tp-marker">That's not a flaw. That's a marker.</span>
-      <span class="tp-sub">God doesn't stop reaching for the ones He's marked for fire.</span>
-    </div>
+<section class="landing" id="landing">
+  <div class="landing-inner">
+    <span class="landing-eyebrow" id="landing-eyebrow">Seraph Ministry · Isaiah 6</span>
+    <span class="landing-line" id="ll-1">You've been in the room your whole life.</span>
+    <span class="landing-line" id="ll-2">You've sung the songs. Said the prayers.</span>
+    <span class="landing-line" id="ll-3">And something in you keeps asking — <em>is this it?</em></span>
+    <span class="landing-divider" id="landing-divider" aria-hidden="true"></span>
+    <span class="landing-turn" id="landing-turn">That hunger isn't a problem.<br><em>It's a door.</em></span>
+    <span class="landing-sub" id="landing-sub">Seraph exists for the believer who wants encounter, not performance — weight, not noise.</span>
   </div>
 </section>
   
@@ -1426,6 +1685,120 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </section>
 
 <!-- ========================
+     RECENT TEACHINGS
+     ======================== -->
+<section class="teachings" id="teachings">
+  <div class="teachings-header" id="teachings-header">
+    <span class="teachings-eyebrow">Recent Teachings</span>
+    <a href="https://www.youtube.com/@seraphministryglobal" class="teachings-all" target="_blank" rel="noopener noreferrer">All teachings →</a>
+  </div>
+  <div class="teachings-scroll" id="teachings-scroll">
+    <a href="https://www.youtube.com/watch?v=TfsXxGH4HR0" class="teaching-card" target="_blank" rel="noopener noreferrer">
+      <div class="teaching-thumb">
+        <img src="https://img.youtube.com/vi/TfsXxGH4HR0/mqdefault.jpg" alt="Why Does God Let Everything Fall Apart on the Same Day?" loading="lazy">
+      </div>
+      <div class="teaching-body">
+        <span class="teaching-title">Why Does God Let Everything Fall Apart on the Same Day?</span>
+        <span class="teaching-meta">9:45 · Watch now</span>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=iDlZe-_KMqg" class="teaching-card" target="_blank" rel="noopener noreferrer">
+      <div class="teaching-thumb">
+        <img src="https://img.youtube.com/vi/iDlZe-_KMqg/mqdefault.jpg" alt="What God Actually Wants From You When You're Running on Empty" loading="lazy">
+      </div>
+      <div class="teaching-body">
+        <span class="teaching-title">What God Actually Wants From You When You're Running on Empty</span>
+        <span class="teaching-meta">13:12 · Watch now</span>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=NaYLITlQksE" class="teaching-card" target="_blank" rel="noopener noreferrer">
+      <div class="teaching-thumb">
+        <img src="https://img.youtube.com/vi/NaYLITlQksE/mqdefault.jpg" alt="Why Spiritual Exhaustion Won't Go Away" loading="lazy">
+      </div>
+      <div class="teaching-body">
+        <span class="teaching-title">Why Spiritual Exhaustion Won't Go Away (And What the Bible Says About Your Foundation)</span>
+        <span class="teaching-meta">11:35 · Watch now</span>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=2lF6JzypgKI" class="teaching-card" target="_blank" rel="noopener noreferrer">
+      <div class="teaching-thumb">
+        <img src="https://img.youtube.com/vi/2lF6JzypgKI/mqdefault.jpg" alt="Heaven Didn't Withhold Christ. Why Do You Think It's Withholding Anything Else?" loading="lazy">
+      </div>
+      <div class="teaching-body">
+        <span class="teaching-title">Heaven Didn't Withhold Christ. Why Do You Think It's Withholding Anything Else?</span>
+        <span class="teaching-meta">9:15 · Watch now</span>
+      </div>
+    </a>
+    <a href="https://www.youtube.com/watch?v=LTiA3LVg9j0" class="teaching-card" target="_blank" rel="noopener noreferrer">
+      <div class="teaching-thumb">
+        <img src="https://img.youtube.com/vi/LTiA3LVg9j0/mqdefault.jpg" alt="You've Been Talking to God. But Have You Actually Told Him the Truth?" loading="lazy">
+      </div>
+      <div class="teaching-body">
+        <span class="teaching-title">You've Been Talking to God. But Have You Actually Told Him the Truth?</span>
+        <span class="teaching-meta">18:27 · Watch now</span>
+      </div>
+    </a>
+  </div>
+  <div class="teachings-footer" id="teachings-footer">
+    <a href="https://www.youtube.com/@seraphministryglobal" class="teachings-channel-cta" target="_blank" rel="noopener noreferrer">See all teachings on YouTube →</a>
+  </div>
+</section>
+
+<!-- ========================
+     RESOURCES
+     ======================== -->
+<section class="resources" id="resources">
+  <div class="resources-header" id="resources-header">
+    <span class="resources-eyebrow">Go Deeper</span>
+    <span class="resources-headline">Where do you go from here?</span>
+  </div>
+  <div class="resources-grid">
+    <a href="/encounter" class="resource-card" id="rc-1">
+      <div class="resource-mark" aria-hidden="true">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#D4A017" stroke-width="6" stroke-linecap="square" fill="none">
+            <line x1="40" y1="4" x2="40" y2="76"/>
+            <line x1="4" y1="20" x2="76" y2="60"/>
+            <line x1="76" y1="20" x2="4" y2="60"/>
+          </g>
+        </svg>
+      </div>
+      <span class="resource-title">The Encounter Protocol</span>
+      <span class="resource-desc">Most believers have been taught to read Scripture. Very few have been taught to encounter it. This changes that.</span>
+      <span class="resource-link">Enter the protocol →</span>
+    </a>
+    <a href="/prayer" class="resource-card" id="rc-2">
+      <div class="resource-mark" aria-hidden="true">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none">
+            <line x1="40" y1="4" x2="40" y2="76"/>
+            <line x1="4" y1="20" x2="76" y2="60"/>
+            <line x1="76" y1="20" x2="4" y2="60"/>
+          </g>
+        </svg>
+      </div>
+      <span class="resource-title">Prayer</span>
+      <span class="resource-desc">Bring what you're carrying. You don't need to clean it up first. Submit a request and we'll stand with you.</span>
+      <span class="resource-link">Submit a request →</span>
+    </a>
+    <a href="https://letters.seraphministry.com" class="resource-card" id="rc-3" target="_blank" rel="noopener noreferrer">
+      <div class="resource-mark" aria-hidden="true">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none">
+            <line x1="40" y1="4" x2="40" y2="76"/>
+            <line x1="4" y1="20" x2="76" y2="60"/>
+            <line x1="76" y1="20" x2="4" y2="60"/>
+          </g>
+        </svg>
+      </div>
+      <span class="resource-title">Fire Letters</span>
+      <span class="resource-desc">Weekly letters that carry weight. Scripture-anchored teaching, raw and direct. The kind of content you'd pay for — free, because you shouldn't have to.</span>
+      <span class="resource-link">Join the list →</span>
+    </a>
+  </div>
+</section>
+
+<!-- ========================
      THE INVITATION
      ======================== -->
 <section class="section invitation" id="invitation">
@@ -1679,17 +2052,35 @@ const reducedMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches
 
 if(!reducedMotion){
 
-  // THRESHOLD
-  gsap.utils.toArray('.tp-line').forEach(function(el, i){
-  gsap.to(el, {opacity:1, y:0, duration:0.9, ease:'power2.out', delay:i*0.15,
-    scrollTrigger:{trigger:'.threshold-promise', start:'top 72%'}});
-});
-gsap.to('.tp-divider', {opacity:0.4, duration:0.6, ease:'power2.out', delay:0.35,
-  scrollTrigger:{trigger:'.threshold-promise', start:'top 72%'}});
-gsap.to('.tp-marker', {opacity:1, duration:1, ease:'power3.out', delay:0.45,
-  scrollTrigger:{trigger:'.threshold-promise', start:'top 68%'}});
-gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
-  scrollTrigger:{trigger:'.threshold-promise', start:'top 68%'}});
+  // LANDING
+  gsap.fromTo('#landing-eyebrow',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
+    scrollTrigger:{trigger:'.landing',start:'top 78%'}});
+  ['#ll-1','#ll-2','#ll-3'].forEach(function(sel,i){
+    gsap.fromTo(sel,{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power2.out',delay:i*0.18,
+      scrollTrigger:{trigger:'.landing',start:'top 72%'}});
+  });
+  gsap.fromTo('#landing-divider',{opacity:0,scaleX:0},{opacity:0.5,scaleX:1,duration:0.6,ease:'power2.out',delay:0.55,
+    scrollTrigger:{trigger:'.landing',start:'top 68%'}});
+  gsap.fromTo('#landing-turn',{opacity:0,y:24},{opacity:1,y:0,duration:1,ease:'power3.out',delay:0.35,
+    scrollTrigger:{trigger:'#landing-turn',start:'top 82%'}});
+  gsap.fromTo('#landing-sub',{opacity:0},{opacity:1,duration:0.7,ease:'power2.out',delay:0.55,
+    scrollTrigger:{trigger:'#landing-sub',start:'top 84%'}});
+
+  // TEACHINGS STRIP
+  gsap.fromTo('#teachings-header',{opacity:0,y:16},{opacity:1,y:0,duration:0.7,ease:'power2.out',
+    scrollTrigger:{trigger:'.teachings',start:'top 78%'}});
+  gsap.fromTo('#teachings-scroll',{opacity:0,y:24},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.2,
+    scrollTrigger:{trigger:'.teachings',start:'top 74%'}});
+  gsap.fromTo('.teachings-footer',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',delay:0.4,
+    scrollTrigger:{trigger:'.teachings-footer',start:'top 88%'}});
+
+  // RESOURCES
+  gsap.fromTo('#resources-header',{opacity:0,y:16},{opacity:1,y:0,duration:0.7,ease:'power2.out',
+    scrollTrigger:{trigger:'.resources',start:'top 78%'}});
+  ['#rc-1','#rc-2','#rc-3'].forEach(function(sel,i){
+    gsap.fromTo(sel,{opacity:0,y:30},{opacity:1,y:0,duration:0.85,ease:'power3.out',delay:i*0.15,
+      scrollTrigger:{trigger:'.resources-grid',start:'top 80%'}});
+  });
   
   // THE BEHOLDING
   gsap.fromTo('#beholding-eyebrow',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
@@ -1809,10 +2200,8 @@ const navLinks=document.getElementById('nav-links');
 if(navBtn&&navLinks){
   navBtn.addEventListener('click',function(){
     const open=navLinks.classList.toggle('open');
-navBtn.classList.toggle('open',open);
-navBtn.setAttribute('aria-expanded',open);
-const label=navBtn.querySelector('.nav-menu-label');
-if(label) label.textContent=open?'Close':'Menu';
+    navBtn.classList.toggle('open',open);
+    navBtn.setAttribute('aria-expanded',open);
   });
   // Close on link tap (mobile)
   navLinks.querySelectorAll('a').forEach(function(a){

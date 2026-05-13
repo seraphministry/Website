@@ -21,7 +21,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 #cursor{position:fixed;width:10px;height:10px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:var(--ash);mix-blend-mode:difference;transition:width .15s,height .15s;}
 #cursor.big{width:44px;height:44px;}
 .filters{position:absolute;width:0;height:0;overflow:hidden;}
-.hero{position:relative;width:100vw;height:100vh;overflow:hidden;background:var(--fire);contain:layout style;}
+.hero{position:relative;width:100vw;height:100vh;height:100svh;overflow:hidden;background:var(--fire);contain:layout style;isolation:isolate;}
 #fire-canvas{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:16vw;max-width:180px;opacity:0;z-index:5;pointer-events:none;will-change:opacity;backface-visibility:hidden;}
 .bg-ink{position:absolute;inset:0;background:var(--ink);transform:scaleY(0);transform-origin:bottom center;z-index:1;}
 .logo-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-34%);width:54vw;max-width:640px;z-index:4;opacity:0;mix-blend-mode:screen;pointer-events:none;filter:url(#roughen);will-change:transform,opacity;}
@@ -109,7 +109,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   /* Hero — contain everything, respect iOS safe areas */
   .hero{
     overflow:hidden;
-    min-height:100svh;
   }
 
   /* SERAPH — dominant, anchored below creature */
@@ -876,6 +875,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   border-top:1px solid rgba(255,51,0,0.18);
   text-align:center;
   position:relative;
+  z-index:1;
+  isolation:isolate;
 }
 .landing-inner{
   max-width:760px;

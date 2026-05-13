@@ -90,6 +90,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .s9{width:6px;height:4px;background:var(--fire);bottom:24%;right:15%;opacity:0.65;}
 .s10{width:9px;height:9px;background:var(--gold);top:48%;right:5%;opacity:0.5;}
 
+.bottom-annots{position:absolute;bottom:3.5rem;left:2.5rem;z-index:15;opacity:0;}
+.ba-line{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;display:block;line-height:2.4;}
+.ba1{color:var(--fire);}.ba1 s{text-decoration:line-through;text-decoration-color:var(--ash);text-decoration-thickness:1px;}
+.ba2{color:var(--bone);margin-left:0.6rem;}.ba2 s{text-decoration:line-through;text-decoration-color:var(--fire);text-decoration-thickness:1px;}
+.ba3{color:var(--gold);margin-left:0.3rem;}.ba3 s{text-decoration:line-through;text-decoration-color:var(--fire);text-decoration-thickness:1px;}
+
 .scroll-mark{position:absolute;bottom:3.5rem;right:2.5rem;z-index:15;opacity:0;display:flex;flex-direction:column;align-items:center;gap:5px;}
 .scroll-mark span{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.22em;color:var(--bone);opacity:0.35;text-transform:uppercase;writing-mode:vertical-rl;}
 .scroll-bar{width:1px;height:0;background:var(--fire);opacity:0.4;}
@@ -1814,6 +1820,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="splat s7"></div><div class="splat s8"></div>
   <div class="splat s9"></div><div class="splat s10"></div>
 
+  <div class="bottom-annots" id="bottom-annots">
+    <span class="ba-line ba1"><s>shame</s> → glory</span>
+    <span class="ba-line ba2"><s>silence</s> → fire</span>
+    <span class="ba-line ba3"><s>unclean lips</s> → coal</span>
+  </div>
+
   <div class="scroll-mark" id="scroll-mark">
     <div class="scroll-bar" id="scroll-bar"></div>
     <span>Scroll</span>
@@ -2432,7 +2444,7 @@ tl.fromTo(["#sm1","#sm2","#sm3","#sm4","#sm5","#sm6","#sm7","#sm8","#sm9","#sm10
 tl.fromTo(["#xm1","#xm2","#xm3","#xm4"],{opacity:0,scale:1.4},{opacity:1,scale:1,duration:0.4,stagger:0.12,ease:"power4.out"},1.25);
 tl.to(["#a1","#a2"],{opacity:1,duration:0.25,stagger:0.12},1.65);
 if(!isMobile){tl.to(".splat",{opacity:1,duration:0.06,stagger:{each:0.04,from:"random"}},1.15);}
-tl.fromTo("#cta-block",{opacity:0,y:10},{opacity:1,y:0,duration:0.5,ease:"power2.out"},2.0);
+tl.fromTo("#bottom-annots",{opacity:0,y:8},{opacity:1,y:0,duration:0.5,ease:"power2.out"},1.9);
 tl.to("#scroll-mark",{opacity:1,duration:0.4},2.15);
 tl.to("#scroll-bar",{height:56,duration:1.0,ease:"power2.out"},2.3);
 
@@ -2513,7 +2525,6 @@ const seraph=document.getElementById("word-seraph");
 seraph.addEventListener("mouseenter",()=>{
   gsap.to(seraph,{keyframes:[{x:-5,y:4,duration:.04},{x:4,y:-3,duration:.04},{x:0,y:0,duration:.04}]});
 });
-ctaEl.addEventListener("mouseleave",()=>gsap.to(ctaEl,{x:0,y:0,duration:0.5,ease:"elastic.out(1,0.4)"}));
 seraph.addEventListener("click",()=>{
   gsap.to(".hero",{backgroundColor:"#FF3300",duration:0.07,onComplete:()=>gsap.to(".hero",{backgroundColor:"transparent",duration:0.45})});
 });

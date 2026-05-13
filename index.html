@@ -1081,14 +1081,16 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <div class="vsl-corner vsl-corner--bl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
       <div class="vsl-corner vsl-corner--br" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
       <div class="vsl-frame">
-        <iframe
-          src="https://www.youtube.com/embed/VIDEO_ID"
-          title="Seraph Ministry Teaching"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
+      <iframe
+    id="latest-yt"
+    src=""
+    title="Seraph Ministry Teaching"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    loading="lazy"
+     ></iframe>
+</div>
       </div>
     </div>
     <a href="https://www.youtube.com/@seraphministryglobal" class="vsl-yt-cta" target="_blank" rel="noopener noreferrer">More teachings on YouTube →</a>
@@ -1293,9 +1295,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <li>Why "here am I" is the most dangerous sentence a human being can say — and what happens to the ones who mean it.</li>
       <li>The one thing Isaiah did after the coal that most believers never attempt — and why it's available to you right now.</li>
     </ul>
-    <div class="inv-form beehiiv-embed">
-  <script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="e355e8ef-5304-4bed-83a9-7c6bb89c491b"></script>
-    </div>
+    <form class="inv-form" id="inv-form" novalidate>
+      <input type="email" name="email" placeholder="Your email" autocomplete="email" required>
+      <button type="submit">Here am I — it's free</button>
+    </form>
     <span class="inv-confirm" id="inv-confirm">The fire finds those who answer.</span>
     <span class="inv-note">No noise. No performance. Only fire.</span>
     <span class="inv-or">or watch on YouTube →</span>
@@ -1628,6 +1631,45 @@ gsap.to('.tp-sub', {opacity:1, duration:0.7, ease:'power2.out', delay:0.65,
   gsap.to('.footer-copy',{opacity:1,duration:0.5,ease:'power2.out',delay:0.5,
     scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
 }
+
+// EMAIL FORM
+const invFormEl=document.getElementById('inv-form');
+if(invFormEl){
+  invFormEl.addEventListener('submit',function(e){
+    e.preventDefault();
+    const v=this.querySelector('input[type="email"]').value.trim();
+    if(v&&v.indexOf('@')>0){
+      this.style.opacity='0';
+      this.style.pointerEvents='none';
+      document.getElementById('inv-confirm').classList.add('visible');
+    }
+  });
+}
+
+<script>
+(function(){
+  var CHANNEL_ID = 'UCEowXPbGiyfEzb6VUW1AMDQ';
+  var RSS = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
+  var PROXY = 'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS);
+  fetch(PROXY)
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var parser = new DOMParser();
+      var xml = parser.parseFromString(data.contents, 'text/xml');
+      var entries = xml.getElementsByTagName('entry');
+      if(entries.length > 0){
+        var videoId = entries[0].getElementsByTagName('yt:videoId')[0].textContent;
+        document.getElementById('latest-yt').src =
+          'https://www.youtube.com/embed/' + videoId;
+      }
+    })
+    .catch(function(){
+      // Fallback: send to channel if RSS fetch fails
+      document.getElementById('latest-yt').src =
+        'https://www.youtube.com/embed?listType=user_uploads&list=seraphministryglobal';
+    });
+})();
+</script>
 
 </script>
 </body>

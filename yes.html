@@ -50,7 +50,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .hero-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.3rem,2.5vw,2.2rem);color:var(--bone);line-height:1.65;max-width:48ch;opacity:0;display:block;}
 .hero-cta{display:inline-block;margin-top:clamp(3rem,5vw,5rem);font-family:'Space Mono',monospace;font-size:0.78rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ash);background:var(--fire);border:1px solid var(--fire);padding:1.3rem 3rem;text-decoration:none;cursor:none;transition:background .22s,color .22s;opacity:0;}
 .hero-cta:hover{background:transparent;color:var(--fire);}
-.hero-verse{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--bone);opacity:0;white-space:nowrap;z-index:2;}
+.hero-verse{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--bone);opacity:0;z-index:2;white-space:nowrap;max-width:calc(100vw - 3rem);overflow:hidden;text-overflow:ellipsis;}
+@media(max-width:600px){.hero-verse{font-size:0.45rem;letter-spacing:0.12em;}}
 .hero-mark{position:absolute;pointer-events:none;opacity:0;z-index:1;}
 .hm1{top:12%;left:4%;width:clamp(32px,4vw,56px);}
 .hm2{top:8%;right:6%;width:clamp(44px,6vw,80px);}
@@ -79,20 +80,24 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 /* ═══ 2. SOUND LAYER ════════════════════ */
 .sound-toggle{
-  display:inline-flex;align-items:center;gap:0.6rem;
-  font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--bone);opacity:0.4;background:none;border:none;
-  cursor:pointer;padding:0;margin-bottom:clamp(2rem,4vw,4rem);
-  transition:opacity .22s;
+  display:inline-flex;align-items:center;gap:0.55rem;
+  font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--bone);opacity:0.38;background:none;border:none;
+  cursor:pointer;padding:0.4rem 0;margin-bottom:clamp(2rem,4vw,4rem);
+  transition:opacity .25s,color .25s;
 }
-.sound-toggle:hover{opacity:0.7;}
-.sound-toggle-dot{
-  width:8px;height:8px;border-radius:50%;
-  background:rgba(232,223,208,0.35);
-  transition:background .3s;flex-shrink:0;
+.sound-toggle:hover{opacity:0.65;}
+.sound-icon{
+  flex-shrink:0;width:16px;height:16px;
+  color:var(--bone);transition:color .25s;
 }
-.sound-toggle.active .sound-toggle-dot{background:var(--fire);}
+.sound-waves{
+  opacity:0;transform-origin:left center;
+  transition:opacity .3s;
+}
+.sound-toggle.active .sound-waves{opacity:1;}
 .sound-toggle.active{opacity:0.7;color:var(--fire);}
+.sound-toggle.active .sound-icon{color:var(--fire);}
 
 /* ═══ PRAYER SECTION ════════════════════ */
 .prayer-section{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0 0;border-top:1px solid rgba(255,51,0,0.12);position:relative;overflow:hidden;}
@@ -109,7 +114,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .prayer-line--address{font-family:'Playfair Display',serif;font-weight:900;font-style:normal;font-size:clamp(2rem,4vw,4rem);color:var(--ash);display:block;letter-spacing:-0.01em;filter:url(#roughen);margin-bottom:0.4rem;opacity:0;transform:translateY(18px);}
 .prayer-line--mercy{font-family:'Playfair Display',serif;font-weight:900;font-style:italic;font-size:clamp(1.6rem,3vw,3rem);color:var(--fire);display:block;margin-bottom:2.5rem;filter:url(#roughen);opacity:0;transform:translateY(18px);}
 .prayer-amen{font-family:'Playfair Display',serif;font-weight:900;font-style:normal;font-size:clamp(1.8rem,3vw,3rem);color:var(--gold);display:block;margin-top:2.5rem;filter:url(#roughen);letter-spacing:0.05em;opacity:0;transform:translateY(18px);}
-.prayer-divider{display:block;width:clamp(28px,3vw,44px);height:1px;background:var(--fire);opacity:0;margin:clamp(3rem,6vw,6rem) 0 0;}
+.prayer-divider{display:block;width:clamp(28px,3vw,44px);height:1px;background:var(--fire);opacity:0;margin:clamp(4rem,8vw,8rem) 0 0;}
 
 /* ═══ 4. POST-PRAYER INTERSTITIAL ══════ */
 #crossing-moment{
@@ -256,11 +261,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .col-anchor-verse{
   font-family:'Playfair Display',serif;font-style:italic;font-weight:400;
-  font-size:clamp(2rem,5.5vw,7rem);
-  color:var(--ash);line-height:1.1;
+  font-size:clamp(1.6rem,5.5vw,7rem);
+  color:var(--ash);line-height:1.2;
   filter:url(#roughen);opacity:0;
-  letter-spacing:-0.02em;
+  letter-spacing:-0.01em;
   display:block;
+  word-break:break-word;
+  hyphens:auto;
+}
+@media(max-width:600px){
+  .col-anchor-verse{font-size:clamp(1.4rem,6vw,2.5rem);letter-spacing:0;}
+  .col-anchor-ghost{display:none;}
 }
 .col-anchor-verse em{color:var(--fire);font-style:normal;}
 .col-anchor-ref{
@@ -431,8 +442,16 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="prayer-eyebrow" id="prayer-heading">The Prayer</span>
       <!-- Sound Toggle (2) -->
       <button class="sound-toggle" id="sound-toggle" aria-pressed="false" aria-label="Toggle ambient sound">
-        <span class="sound-toggle-dot"></span>
-        <span id="sound-label">Enable ambient sound</span>
+        <svg class="sound-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Speaker body -->
+          <path d="M3 7H6L11 3V17L6 13H3V7Z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round" fill="none"/>
+          <!-- Waves — hidden until active -->
+          <g class="sound-waves">
+            <path d="M14 6.5C15.2 7.5 16 8.7 16 10C16 11.3 15.2 12.5 14 13.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+            <path d="M16.5 4.5C18.3 6 19.5 7.9 19.5 10C19.5 12.1 18.3 14 16.5 15.5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+          </g>
+        </svg>
+        <span id="sound-label">Ambient sound</span>
       </button>
       <span class="prayer-instruction">Say this aloud. Meaning is in the mouth.<br>Romans 10:9 — with the mouth confession is made unto salvation.</span>
     </div>
@@ -675,11 +694,25 @@ gsap.ticker.lagSmoothing(0);
   };
   Ember.prototype.draw=function(){
     var alpha=this.life<40?(this.life/40):Math.max(0,1-(this.life-this.maxLife*0.7)/(this.maxLife*0.3));
-    alpha*=0.55;
-    ctx.beginPath();
-    ctx.arc(this.x,this.y,this.size,0,Math.PI*2);
-    ctx.fillStyle=this.color+alpha+')';
-    ctx.fill();
+    alpha*=0.45;
+    // Draw six-pointed asterisk mark — matches Seraph brand glyph
+    ctx.save();
+    ctx.translate(this.x,this.y);
+    ctx.rotate(this.life*0.012); // slow rotation
+    ctx.globalAlpha=alpha;
+    ctx.strokeStyle=this.color+1+')';
+    ctx.lineWidth=this.size*0.7;
+    ctx.lineCap='square';
+    var r=this.size*2.2;
+    // Three lines through center = six-pointed asterisk
+    for(var a=0;a<3;a++){
+      var angle=(a/3)*Math.PI;
+      ctx.beginPath();
+      ctx.moveTo(Math.cos(angle)*r, Math.sin(angle)*r);
+      ctx.lineTo(Math.cos(angle+Math.PI)*r, Math.sin(angle+Math.PI)*r);
+      ctx.stroke();
+    }
+    ctx.restore();
   };
 
   // Initialise 80 embers — sparse, cinematic
@@ -698,45 +731,71 @@ gsap.ticker.lagSmoothing(0);
 })();
 
 /* ════════════════════════════════════════
-   2. AMBIENT SOUND — Web Audio API drone
+   2. AMBIENT SOUND — soft sine pad with low-pass filter
 ════════════════════════════════════════ */
 var AudioCtx=window.AudioContext||window.webkitAudioContext;
-var audioCtx=null,droneGain=null,droneNodes=[],soundOn=false;
+var audioCtx=null,masterGain=null,soundOn=false;
 
 function initAudio(){
   if(audioCtx) return;
   audioCtx=new AudioCtx();
-  droneGain=audioCtx.createGain();
-  droneGain.gain.setValueAtTime(0,audioCtx.currentTime);
-  droneGain.connect(audioCtx.destination);
 
-  // Low cello/organ drone — three detuned oscillators
-  var freqs=[55,110,165]; // A1, A2, E3
-  freqs.forEach(function(freq,i){
+  masterGain=audioCtx.createGain();
+  masterGain.gain.setValueAtTime(0,audioCtx.currentTime);
+  masterGain.connect(audioCtx.destination);
+
+  // Low-pass filter — removes harsh harmonics, keeps warmth only
+  var lpf=audioCtx.createBiquadFilter();
+  lpf.type='lowpass';
+  lpf.frequency.setValueAtTime(320,audioCtx.currentTime);
+  lpf.Q.setValueAtTime(0.5,audioCtx.currentTime);
+  lpf.connect(masterGain);
+
+  // Soft pad — pure sine waves only, very gentle
+  // A2 (110hz) fundamental + soft fifth (E3 164.8hz) + soft octave (A3 220hz)
+  var layers=[
+    {freq:110, gain:0.22, detune:0},
+    {freq:110, gain:0.08, detune:3},   // slight detune for warmth
+    {freq:164.8,gain:0.07, detune:0},  // perfect fifth — consonant
+    {freq:220, gain:0.05, detune:-2},  // octave, very soft
+    {freq:55,  gain:0.12, detune:0}    // sub bass, sine only
+  ];
+
+  layers.forEach(function(l){
     var osc=audioCtx.createOscillator();
-    var oscGain=audioCtx.createGain();
-    osc.type=i===0?'sine':'triangle';
-    osc.frequency.setValueAtTime(freq+Math.random()*0.5,audioCtx.currentTime);
-    oscGain.gain.setValueAtTime(i===0?0.18:0.06,audioCtx.currentTime);
-    osc.connect(oscGain);
-    oscGain.connect(droneGain);
+    var g=audioCtx.createGain();
+    osc.type='sine'; // sine only — zero harsh harmonics
+    osc.frequency.setValueAtTime(l.freq,audioCtx.currentTime);
+    osc.detune.setValueAtTime(l.detune,audioCtx.currentTime);
+    g.gain.setValueAtTime(l.gain,audioCtx.currentTime);
+    osc.connect(g);
+    g.connect(lpf);
     osc.start();
-    droneNodes.push(osc);
+
+    // Very slow tremolo on each layer — breathing effect
+    var lfo=audioCtx.createOscillator();
+    var lfoGain=audioCtx.createGain();
+    lfo.frequency.setValueAtTime(Math.random()*0.08+0.04,audioCtx.currentTime);
+    lfoGain.gain.setValueAtTime(l.gain*0.12,audioCtx.currentTime);
+    lfo.connect(lfoGain);
+    lfoGain.connect(g.gain);
+    lfo.start();
   });
 }
 
 function soundFadeIn(){
   if(!audioCtx) initAudio();
   if(audioCtx.state==='suspended') audioCtx.resume();
-  droneGain.gain.cancelScheduledValues(audioCtx.currentTime);
-  droneGain.gain.setValueAtTime(droneGain.gain.value,audioCtx.currentTime);
-  droneGain.gain.linearRampToValueAtTime(0.35,audioCtx.currentTime+3.5);
+  masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+  masterGain.gain.setValueAtTime(masterGain.gain.value,audioCtx.currentTime);
+  // Slow fade in — 5 seconds to full volume so it's never jarring
+  masterGain.gain.linearRampToValueAtTime(0.22,audioCtx.currentTime+5);
 }
 function soundFadeOut(){
-  if(!droneGain) return;
-  droneGain.gain.cancelScheduledValues(audioCtx.currentTime);
-  droneGain.gain.setValueAtTime(droneGain.gain.value,audioCtx.currentTime);
-  droneGain.gain.linearRampToValueAtTime(0,audioCtx.currentTime+2.5);
+  if(!masterGain) return;
+  masterGain.gain.cancelScheduledValues(audioCtx.currentTime);
+  masterGain.gain.setValueAtTime(masterGain.gain.value,audioCtx.currentTime);
+  masterGain.gain.linearRampToValueAtTime(0,audioCtx.currentTime+3);
 }
 
 (function(){
@@ -747,7 +806,7 @@ function soundFadeOut(){
     soundOn=!soundOn;
     btn.classList.toggle('active',soundOn);
     btn.setAttribute('aria-pressed',soundOn);
-    label.textContent=soundOn?'Sound on':'Enable ambient sound';
+    label.textContent=soundOn?'Sound on':'Ambient sound';
     if(soundOn) soundFadeIn(); else soundFadeOut();
   });
 

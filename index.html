@@ -2802,50 +2802,97 @@ if(!reducedMotion){
 
 // LATEST YOUTUBE VIDEO
 (function(){
+  var API_KEY = 'PASTE_YOUR_YOUTUBE_API_KEY_HERE';
+
   var CHANNEL_ID = 'UCEowXPbGiyfEzb6VUW1AMDQ';
+  var UPLOADS_PLAYLIST_ID = 'UUEowXPbGiyfEzb6VUW1AMDQ';
+
   var FALLBACK_ID = 'TfsXxGH4HR0';
+  var MIN_LONGFORM_SECONDS = 120;
 
   var iframe = document.getElementById('latest-yt');
   if (!iframe) return;
 
-  var RSS = 'https://www.youtube.com/feeds/videos.xml?channel_id=' + CHANNEL_ID;
-  var PROXY = 'https://api.allorigins.win/get?url=' + encodeURIComponent(RSS);
+  function setVideo(videoId){
+    iframe.src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1';
+  }
 
-  iframe.src = 'https://www.youtube.com/embed/' + FALLBACK_ID;
+  function parseYouTubeDuration(duration){
+    var match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
 
-  fetch(PROXY)
+    if (!match) return 0;
+
+    var hours = parseInt(match[1] || '0', 10);
+    var minutes = parseInt(match[2] || '0', 10);
+    var seconds = parseInt(match[3] || '0', 10);
+
+    return (hours * 3600) + (minutes * 60) + seconds;
+  }
+
+  setVideo(FALLBACK_ID);
+
+  var playlistUrl =
+    'https://www.googleapis.com/youtube/v3/playlistItems' +
+    '?part=snippet,contentDetails' +
+    '&playlistId=' + encodeURIComponent(UPLOADS_PLAYLIST_ID) +
+    '&maxResults=15' +
+    '&key=' + encodeURIComponent(API_KEY);
+
+  fetch(playlistUrl)
     .then(function(response){
+      if (!response.ok) throw new Error('Could not fetch uploads playlist');
       return response.json();
     })
-    .then(function(data){
-      var parser = new DOMParser();
-      var xml = parser.parseFromString(data.contents, 'text/xml');
-      var entries = xml.getElementsByTagName('entry');
+    .then(function(playlistData){
+      var items = playlistData.items || [];
 
-      if (entries.length > 0) {
-        var videoIdNode = entries[0].getElementsByTagName('yt:videoId')[0];
+      var ids = items
+        .map(function(item){
+          return item.contentDetails && item.contentDetails.videoId;
+        })
+        .filter(Boolean);
 
-        if (videoIdNode && videoIdNode.textContent) {
-          iframe.src = 'https://www.youtube.com/embed/' + videoIdNode.textContent + '?rel=0&modestbranding=1';
-        }
+      if (!ids.length) throw new Error('No video IDs found');
+
+      var videosUrl =
+        'https://www.googleapis.com/youtube/v3/videos' +
+        '?part=contentDetails,snippet' +
+        '&id=' + encodeURIComponent(ids.join(',')) +
+        '&key=' + encodeURIComponent(API_KEY);
+
+      return fetch(videosUrl);
+    })
+    .then(function(response){
+      if (!response.ok) throw new Error('Could not fetch video details');
+      return response.json();
+    })
+    .then(function(videoData){
+      var videos = videoData.items || [];
+
+      var latestLongform = videos.find(function(video){
+        var duration = video.contentDetails && video.contentDetails.duration;
+        var seconds = parseYouTubeDuration(duration || '');
+
+        var title = video.snippet && video.snippet.title
+          ? video.snippet.title.toLowerCase()
+          : '';
+
+        var isLongEnough = seconds >= MIN_LONGFORM_SECONDS;
+        var isNotObviousShort =
+          title.indexOf('#shorts') === -1 &&
+          title.indexOf('shorts') === -1;
+
+        return isLongEnough && isNotObviousShort;
+      });
+
+      if (latestLongform && latestLongform.id) {
+        setVideo(latestLongform.id);
       }
     })
-    .catch(function(){
-      iframe.src = 'https://www.youtube.com/embed/' + FALLBACK_ID + '?rel=0&modestbranding=1';
+    .catch(function(error){
+      console.warn('Latest long-form video could not auto-load:', error);
+      setVideo(FALLBACK_ID);
     });
-})();
-
-// NAV SCROLL REVEAL — appears after hero
-(function(){
-  var nav=document.getElementById('site-nav');
-  var hero=document.getElementById('hero');
-  if(!nav||!hero) return;
-  ScrollTrigger.create({
-    trigger:hero,
-    start:'bottom top',
-    onEnter:function(){ nav.classList.add('nav-visible'); },
-    onLeaveBack:function(){ nav.classList.remove('nav-visible'); }
-  });
 })();
 
 // NAV HAMBURGER

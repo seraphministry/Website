@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Door Is Open — Seraph Ministry</title>
+<meta name="description" content="The door was opened at Calvary. This is how you walk through it.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{--ink:#0C0B09;--fire:#FF3300;--gold:#D4A017;--ash:#F2EDE4;--bone:#E8DFD0;}
+html,body{background:var(--ink);overflow-x:hidden;min-height:100vh;cursor:none;}
+body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:0.06;pointer-events:none;z-index:9000;}
+#cursor{position:fixed;width:10px;height:10px;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);background:var(--ash);mix-blend-mode:difference;transition:width .15s,height .15s;}
+#cursor.big{width:44px;height:44px;}
+.filters{position:absolute;width:0;height:0;overflow:hidden;}
+
+/* NAV */
+.site-nav{position:fixed;top:0;left:0;right:0;z-index:500;background:rgba(12,11,9,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid rgba(255,51,0,0.18);height:clamp(48px,6vw,56px);}
+.nav-inner{height:100%;max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,5vw,6rem);display:flex;align-items:center;justify-content:space-between;}
+.nav-home{display:flex;align-items:center;gap:0.7rem;text-decoration:none;opacity:0.7;transition:opacity .22s;cursor:none;}
+.nav-home:hover{opacity:1;}
+.nav-home-label{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;text-transform:uppercase;color:var(--fire);}
+.nav-back{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--bone);opacity:0.4;text-decoration:none;cursor:none;transition:color .22s,opacity .22s;border-bottom:1px solid rgba(232,223,208,0.18);padding-bottom:1px;}
+.nav-back:hover{color:var(--fire);opacity:0.8;border-bottom-color:rgba(255,51,0,0.35);}
+
+/* HERO */
+.hero{position:relative;width:100vw;min-height:100svh;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:clamp(8rem,14vw,14rem) clamp(1.5rem,5vw,4rem) clamp(6rem,10vw,10rem);overflow:hidden;isolation:isolate;border-bottom:1px solid rgba(255,51,0,0.12);}
+.hero-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(2rem,4vw,4rem);opacity:0;}
+.hero-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(4rem,11vw,13rem);color:var(--ash);line-height:0.9;letter-spacing:-0.02em;filter:url(#roughen);opacity:0;display:block;}
+.hero-headline em{font-style:italic;color:var(--fire);}
+.hero-divider{display:block;width:clamp(28px,3vw,44px);height:1px;background:var(--fire);opacity:0;margin:clamp(2.5rem,5vw,5rem) auto;}
+.hero-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.1rem,2.2vw,1.8rem);color:var(--bone);line-height:1.7;max-width:52ch;opacity:0;display:block;}
+.hero-cta{display:inline-block;margin-top:clamp(3rem,5vw,5rem);font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ash);background:var(--fire);border:1px solid var(--fire);padding:1.1rem 2.8rem;text-decoration:none;cursor:none;transition:background .22s,color .22s;opacity:0;}
+.hero-cta:hover{background:transparent;color:var(--fire);}
+.hero-verse{position:absolute;bottom:3rem;left:50%;transform:translateX(-50%);font-family:'Space Mono',monospace;font-size:0.46rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--bone);opacity:0;white-space:nowrap;}
+.hero-mark{position:absolute;pointer-events:none;opacity:0;}
+.hm1{top:12%;left:4%;width:clamp(32px,4vw,56px);}
+.hm2{top:8%;right:6%;width:clamp(44px,6vw,80px);}
+.hm3{bottom:18%;left:7%;width:clamp(20px,2.5vw,34px);}
+.hm4{bottom:22%;right:4%;width:clamp(28px,3.5vw,48px);}
+@media(max-width:768px){.hm2{display:none;}.hero-headline{font-size:clamp(3.5rem,16vw,7rem);}}
+
+/* VSL */
+.vsl-section{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;overflow:hidden;}
+.vsl-inner{max-width:900px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem);text-align:center;}
+.vsl-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(1.2rem,2vw,2rem);opacity:0;}
+.vsl-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,4.5vw,5.5rem);color:var(--ash);line-height:1.0;filter:url(#roughen);opacity:0;display:block;margin-bottom:clamp(3rem,6vw,6rem);letter-spacing:-0.02em;}
+.vsl-headline em{font-style:italic;color:var(--fire);}
+.vsl-frame-wrap{position:relative;opacity:0;}
+.vsl-frame{position:relative;padding-bottom:56.25%;overflow:hidden;background:#000;border:1px solid rgba(255,51,0,0.15);}
+.vsl-frame iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
+.vsl-corner{position:absolute;z-index:5;width:28px;pointer-events:none;}
+.vsl-corner svg{width:100%;height:auto;display:block;}
+.vsl-corner--tl{top:-14px;left:-14px;}
+.vsl-corner--tr{top:-14px;right:-14px;transform:scaleX(-1);}
+.vsl-corner--bl{bottom:-14px;left:-14px;transform:scaleY(-1);}
+.vsl-corner--br{bottom:-14px;right:-14px;transform:scale(-1);}
+.vsl-scroll-cue{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(242,237,228,0.2);display:block;margin-top:clamp(2.5rem,4vw,4rem);opacity:0;}
+
+/* PRAYER */
+.prayer-section{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.12);position:relative;overflow:hidden;}
+.prayer-inner{max-width:680px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem);}
+.prayer-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(2rem,4vw,4rem);opacity:0;}
+.prayer-instruction{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--bone);opacity:0;line-height:1.9;margin-bottom:clamp(3rem,6vw,6rem);display:block;}
+.prayer-text{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.15rem,2vw,1.65rem);color:var(--ash);line-height:2;opacity:0;}
+.prayer-text p{margin-bottom:1.4em;}
+.prayer-text p:last-child{margin-bottom:0;}
+.prayer-line--address{font-family:'Playfair Display',serif;font-weight:900;font-style:normal;font-size:clamp(1.5rem,3vw,2.8rem);color:var(--ash);display:block;letter-spacing:-0.01em;filter:url(#roughen);margin-bottom:1.2rem;}
+.prayer-line--mercy{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.4rem,2.5vw,2.2rem);color:var(--fire);display:block;margin-bottom:2rem;}
+.prayer-amen{font-family:'Playfair Display',serif;font-weight:900;font-style:normal;font-size:clamp(1.3rem,2.5vw,2rem);color:var(--gold);display:block;margin-top:2rem;filter:url(#roughen);letter-spacing:0.05em;}
+.prayer-divider{display:block;width:clamp(28px,3vw,44px);height:1px;background:var(--fire);opacity:0;margin:clamp(3rem,6vw,6rem) 0;}
+
+/* DECISION */
+.decision-section{background:var(--ink);padding:clamp(6rem,12vw,12rem) 0;border-top:1px solid rgba(255,51,0,0.12);position:relative;}
+.decision-inner{max-width:640px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem);text-align:center;}
+.decision-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(1.5rem,3vw,3rem);opacity:0;}
+.decision-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,4vw,4.5rem);color:var(--ash);line-height:1.05;filter:url(#roughen);opacity:0;display:block;margin-bottom:clamp(1rem,2vw,2rem);letter-spacing:-0.02em;}
+.decision-sub{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.3rem);color:var(--bone);opacity:0;line-height:1.7;margin-bottom:clamp(2.5rem,5vw,5rem);display:block;}
+.decision-card{border:1px solid rgba(255,51,0,0.25);padding:clamp(2rem,4vw,3.5rem);position:relative;opacity:0;background:rgba(255,51,0,0.03);}
+.decision-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--fire);}
+.decision-btn{display:block;width:100%;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ash);background:var(--fire);border:1px solid var(--fire);padding:1.3rem 2rem;cursor:pointer;transition:background .22s,color .22s;-webkit-appearance:none;border-radius:0;margin-bottom:1rem;}
+.decision-btn:hover{background:transparent;color:var(--fire);}
+.decision-note{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--bone);opacity:0.3;display:block;line-height:1.9;}
+.email-gate{display:none;margin-top:clamp(2rem,4vw,3rem);}
+.email-gate.visible{display:block;}
+.email-gate-label{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.3rem);color:var(--ash);display:block;margin-bottom:clamp(1.5rem,3vw,2.5rem);line-height:1.65;}
+.email-form{display:flex;flex-direction:column;gap:0.8rem;max-width:400px;margin:0 auto;}
+.email-form input{background:transparent;border:1px solid rgba(242,237,228,0.22);padding:1.1rem 1.2rem;font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--ash);letter-spacing:0.08em;-webkit-appearance:none;border-radius:0;outline:none;transition:border-color .22s;}
+.email-form input::placeholder{color:rgba(242,237,228,0.3);}
+.email-form input:focus{border-color:rgba(255,51,0,0.55);}
+.email-form button{background:var(--fire);border:1px solid var(--fire);padding:1.2rem 2rem;font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ash);cursor:pointer;transition:background .25s,color .25s;-webkit-appearance:none;border-radius:0;}
+.email-form button:hover{background:transparent;color:var(--fire);}
+.email-confirm{font-family:'IM Fell English',serif;font-style:italic;font-size:1.05rem;color:var(--gold);opacity:0;margin-top:1.5rem;display:block;transition:opacity 0.6s;line-height:1.6;}
+.email-confirm.visible{opacity:1;}
+.email-trust{font-family:'Space Mono',monospace;font-size:0.46rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--bone);opacity:0.25;display:block;margin-top:1.2rem;line-height:1.9;}
+
+/* DOWNLOAD */
+.download-section{background:var(--ink);padding:clamp(8rem,14vw,14rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;overflow:hidden;}
+.download-inner{max-width:760px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem);}
+.download-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(2rem,4vw,4rem);opacity:0;}
+.download-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,4.5vw,5rem);color:var(--ash);line-height:1.0;filter:url(#roughen);opacity:0;display:block;margin-bottom:clamp(1.5rem,3vw,3rem);letter-spacing:-0.02em;}
+.download-headline em{font-style:italic;color:var(--fire);}
+.download-desc{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.35rem);color:var(--bone);line-height:1.75;opacity:0;margin-bottom:clamp(2.5rem,5vw,5rem);display:block;}
+.resource-card{border-top:1px solid var(--fire);padding:clamp(1.8rem,3vw,2.8rem) 0;display:flex;align-items:center;justify-content:space-between;gap:2rem;opacity:0;flex-wrap:wrap;}
+.resource-info{flex:1;min-width:200px;}
+.resource-label{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--fire);opacity:0.65;display:block;margin-bottom:0.6rem;}
+.resource-title{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.1rem,2vw,1.5rem);color:var(--ash);display:block;line-height:1.35;margin-bottom:0.5rem;}
+.resource-meta{font-family:'Space Mono',monospace;font-size:0.44rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--bone);opacity:0.35;display:block;}
+.resource-dl{display:inline-block;flex-shrink:0;font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--ash);background:transparent;border:1px solid rgba(255,51,0,0.45);padding:0.9rem 1.6rem;text-decoration:none;cursor:none;transition:background .22s,color .22s,border-color .22s;}
+.resource-dl:hover{background:var(--fire);border-color:var(--fire);color:var(--ash);}
+@media(max-width:480px){.resource-card{flex-direction:column;align-items:flex-start;}.resource-dl{align-self:stretch;text-align:center;}}
+
+/* WHAT NEXT */
+.next-section{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;overflow:hidden;}
+.next-inner{max-width:760px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem);}
+.next-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(2rem,4vw,4rem);opacity:0;}
+.next-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2rem,4.5vw,5.5rem);color:var(--ash);line-height:1.0;filter:url(#roughen);opacity:0;display:block;margin-bottom:clamp(3rem,6vw,7rem);letter-spacing:-0.02em;}
+.next-steps{display:flex;flex-direction:column;gap:clamp(3rem,6vw,6rem);}
+.next-step{opacity:0;}
+.next-step-num{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(3rem,6vw,7rem);color:var(--fire);opacity:0.18;line-height:1;display:block;margin-bottom:0.5rem;filter:url(#roughen);}
+.next-step-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.4rem,2.8vw,3rem);color:var(--ash);line-height:1.1;display:block;margin-bottom:1rem;filter:url(#roughen);letter-spacing:-0.01em;}
+.next-step-body{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.3rem);color:var(--bone);line-height:1.75;opacity:0.85;}
+.next-step-body a{color:var(--fire);text-decoration:none;border-bottom:1px solid rgba(255,51,0,0.35);}
+.next-step-divider{display:block;width:clamp(28px,3vw,40px);height:1px;background:rgba(255,51,0,0.25);margin-top:clamp(2.5rem,5vw,5rem);}
+.next-step:last-child .next-step-divider{display:none;}
+
+/* DOUBT */
+.doubt-section{background:var(--ink);padding:clamp(8rem,14vw,14rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;overflow:hidden;}
+.doubt-inner{max-width:640px;margin:0 auto;padding:0 clamp(1.5rem,5vw,4rem);}
+.doubt-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(2rem,4vw,4rem);opacity:0;}
+.doubt-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(1.8rem,3.5vw,4rem);color:var(--ash);line-height:1.05;filter:url(#roughen);opacity:0;display:block;margin-bottom:clamp(2rem,4vw,4rem);letter-spacing:-0.02em;}
+.doubt-body{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.35rem);color:var(--bone);line-height:1.85;opacity:0;}
+.doubt-body p{margin-bottom:1.4em;}
+.doubt-body p:last-child{margin-bottom:0;}
+.doubt-scripture{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.1rem,2vw,1.5rem);color:var(--ash);display:block;border-left:2px solid var(--fire);padding-left:1.5rem;margin:clamp(2rem,4vw,3.5rem) 0;line-height:1.65;opacity:0;}
+.doubt-scripture cite{font-family:'Space Mono',monospace;font-size:0.46rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);opacity:0.6;font-style:normal;display:block;margin-top:0.6rem;}
+
+/* FOOTER */
+.site-footer{background:var(--ink);border-top:1px solid rgba(255,51,0,0.12);padding:clamp(5rem,10vw,10rem) 0 clamp(3rem,5vw,5rem);}
+.footer-inner{max-width:1200px;margin:0 auto;padding:0 clamp(1.5rem,5vw,6rem);display:flex;flex-direction:column;align-items:center;gap:clamp(2.5rem,5vw,5rem);}
+.footer-verse{text-align:center;opacity:0;}
+.footer-verse blockquote{font-family:'IM Fell English',serif;font-style:italic;font-size:clamp(1.1rem,2.2vw,2rem);color:var(--ash);line-height:1.55;margin:0 0 1rem;filter:url(#roughen);max-width:52ch;margin-left:auto;margin-right:auto;}
+.footer-verse cite{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.25em;color:var(--gold);opacity:0.55;font-style:normal;text-transform:uppercase;display:block;}
+.footer-links{display:flex;align-items:center;gap:2.5rem;opacity:0;}
+.footer-link{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--bone);opacity:0.35;text-decoration:none;cursor:none;transition:color .22s,opacity .22s;}
+.footer-link:hover{color:var(--fire);opacity:0.8;}
+.footer-copy{font-family:'Space Mono',monospace;font-size:0.46rem;letter-spacing:0.18em;color:var(--fire);opacity:0;text-transform:uppercase;text-align:center;}
+@media(max-width:480px){.footer-links{flex-direction:column;gap:1.2rem;}}
+
+/* REDUCED MOTION */
+@media(prefers-reduced-motion:reduce){
+  .hero-eyebrow,.hero-headline,.hero-divider,.hero-sub,.hero-cta,.hero-verse,.hero-mark,
+  .vsl-eyebrow,.vsl-headline,.vsl-frame-wrap,.vsl-scroll-cue,
+  .prayer-eyebrow,.prayer-instruction,.prayer-text,.prayer-divider,
+  .decision-eyebrow,.decision-headline,.decision-sub,.decision-card,
+  .download-eyebrow,.download-headline,.download-desc,.resource-card,
+  .next-eyebrow,.next-headline,.next-step,
+  .doubt-eyebrow,.doubt-headline,.doubt-body,.doubt-scripture,
+  .footer-verse,.footer-links,.footer-copy{opacity:1!important;transform:none!important;}
+}
+</style>
+</head>
+<body>
+
+<svg class="filters" aria-hidden="true">
+  <defs>
+    <filter id="roughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018 0.022" numOctaves="2" seed="3" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="2.2" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="heavyRoughen">
+      <feTurbulence type="fractalNoise" baseFrequency="0.025 0.03" numOctaves="3" seed="7" result="noise"/>
+      <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </defs>
+</svg>
+
+<div id="cursor"></div>
+
+<!-- NAV -->
+<nav class="site-nav" aria-label="Site navigation">
+  <div class="nav-inner">
+    <a href="/" class="nav-home" aria-label="Seraph Ministry home">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="14" height="14" aria-hidden="true">
+        <g stroke="#FF3300" stroke-width="7" stroke-linecap="square" fill="none">
+          <line x1="40" y1="4" x2="40" y2="76"/>
+          <line x1="4" y1="20" x2="76" y2="60"/>
+          <line x1="76" y1="20" x2="4" y2="60"/>
+        </g>
+      </svg>
+      <span class="nav-home-label">Seraph Ministry</span>
+    </a>
+    <a href="/" class="nav-back">← Return</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero" aria-labelledby="hero-headline">
+  <svg class="hero-mark hm1" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#FF3300" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.35">
+      <line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+  <svg class="hero-mark hm2" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.28">
+      <line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+  <svg class="hero-mark hm3" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.14">
+      <line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+  <svg class="hero-mark hm4" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.18">
+      <line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/>
+    </g>
+  </svg>
+
+  <span class="hero-eyebrow" id="hero-eyebrow">Seraph Ministry</span>
+  <span class="hero-headline" id="hero-headline">The door<br>is <em>open.</em></span>
+  <span class="hero-divider"></span>
+  <span class="hero-sub">It was opened at Calvary. This is how you walk through it.</span>
+  <a href="#vsl" class="hero-cta">Watch Now</a>
+  <span class="hero-verse">Col. 1:13 — Translated into the kingdom of His dear Son</span>
+</section>
+
+<!-- VSL -->
+<section class="vsl-section" id="vsl" aria-labelledby="vsl-headline">
+  <div class="vsl-inner">
+    <span class="vsl-eyebrow">The Word</span>
+    <span class="vsl-headline" id="vsl-headline">What happened<br>at <em>the cross</em></span>
+    <div class="vsl-frame-wrap">
+      <div class="vsl-corner vsl-corner--tl" aria-hidden="true">
+        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="2" fill="none" opacity="0.55"><polyline points="36,0 0,0 0,36"/></g></svg>
+      </div>
+      <div class="vsl-corner vsl-corner--tr" aria-hidden="true">
+        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="2" fill="none" opacity="0.55"><polyline points="36,0 0,0 0,36"/></g></svg>
+      </div>
+      <div class="vsl-corner vsl-corner--bl" aria-hidden="true">
+        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="2" fill="none" opacity="0.55"><polyline points="36,0 0,0 0,36"/></g></svg>
+      </div>
+      <div class="vsl-corner vsl-corner--br" aria-hidden="true">
+        <svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="2" fill="none" opacity="0.55"><polyline points="36,0 0,0 0,36"/></g></svg>
+      </div>
+      <div class="vsl-frame">
+        <!--
+          DEPLOYMENT: Replace VIDEO_ID_HERE with your unlisted YouTube video ID.
+          e.g. if your URL is youtube.com/watch?v=abc123 → use abc123
+        -->
+        <iframe
+          id="vsl-iframe"
+          src="https://www.youtube.com/embed/VIDEO_ID_HERE?rel=0&modestbranding=1&color=white"
+          title="The Door Is Open — Seraph Ministry"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
+      </div>
+    </div>
+    <span class="vsl-scroll-cue">Say the prayer below ↓</span>
+  </div>
+</section>
+
+<!-- PRAYER -->
+<section class="prayer-section" id="prayer" aria-labelledby="prayer-heading">
+  <div class="prayer-inner">
+    <span class="prayer-eyebrow" id="prayer-heading">The Prayer</span>
+    <span class="prayer-instruction">Say this aloud. Meaning is in the mouth.<br>Romans 10:9 — with the mouth confession is made unto salvation.</span>
+
+    <div class="prayer-text" role="article" aria-label="Prayer of salvation">
+      <span class="prayer-line--address">Lord Jesus —</span>
+      <span class="prayer-line--mercy">Have mercy on me.</span>
+
+      <p>I come before You not with clean hands or a clean record. I come because You said <em>whosoever</em> — and I am whoever that word was written for.</p>
+
+      <p>I confess with my mouth and believe in my heart: You are the Son of God. You are not a teacher among teachers. Not a prophet among prophets. You are the Son of the Living God — born of a virgin, crucified for sinners, buried, and raised on the third day. Death had no right to hold You. It could not.</p>
+
+      <p>I have lived as the lord of my own life. I have sinned against You — in what I have done and in what I have refused to do. I do not minimize it. I do not excuse it. I bring it before the cross and I leave it there, where it was already paid for.</p>
+
+      <p>I receive Your forgiveness. Not because I earned it. Because You bled for it.</p>
+
+      <p>I receive Your Spirit. Come and dwell in me. Make me new. I cannot make myself new — but You can. You said so. And Your Word does not fail.</p>
+
+      <p>From this moment — You are Lord. Not in feeling only. In fact. In this declaration. In the posture of my life from here forward.</p>
+
+      <p>I am no longer in the kingdom of darkness. I have been translated — <em>now, in this moment</em> — into the kingdom of Your dear Son.</p>
+
+      <p>I am Yours. All of me. For all of eternity.</p>
+
+      <span class="prayer-amen">Amen.</span>
+    </div>
+
+    <span class="prayer-divider"></span>
+  </div>
+</section>
+
+<!-- DECISION -->
+<section class="decision-section" id="decision" aria-labelledby="decision-headline">
+  <div class="decision-inner">
+    <span class="decision-eyebrow">What just happened</span>
+    <span class="decision-headline" id="decision-headline">You prayed that.</span>
+    <span class="decision-sub">Tell me your name. I want to write to you — to walk alongside you in what God just started.</span>
+
+    <div class="decision-card" id="decision-card">
+      <button class="decision-btn" id="decision-btn" aria-controls="email-gate" aria-expanded="false">
+        I prayed this prayer
+      </button>
+      <span class="decision-note">Clicking opens a short form. I'll write to you this week.</span>
+
+      <div class="email-gate" id="email-gate" aria-live="polite">
+        <span class="email-gate-label">What's your name, and where do I send the word?</span>
+        <form class="email-form" id="salvation-form" novalidate>
+          <input type="text" id="s-name" name="name" placeholder="First name" autocomplete="given-name" required aria-label="First name">
+          <input type="email" id="s-email" name="email" placeholder="Email address" autocomplete="email" required aria-label="Email address">
+          <button type="submit">Send it →</button>
+        </form>
+        <span class="email-confirm" id="email-confirm" role="status">
+          You're in. Check your inbox — the first letter is already on its way.
+        </span>
+        <span class="email-trust">No noise. No selling. Just the word, delivered.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download-section" id="resource" aria-labelledby="download-headline">
+  <div class="download-inner">
+    <span class="download-eyebrow">Free Resource</span>
+    <span class="download-headline" id="download-headline"><em>What Happens</em> Next</span>
+    <span class="download-desc">A one-page guide for the first week of your new life. What the Bible says happened when you prayed. What to do today. What to read first. Where to go from here. Print it. Keep it. Give it away.</span>
+
+    <div class="resource-card" id="resource-card">
+      <div class="resource-info">
+        <span class="resource-label">PDF — Free Download</span>
+        <span class="resource-title">What Happens Next — A Guide for New Believers</span>
+        <span class="resource-meta">Seraph Ministry · 1 page · Print-ready</span>
+      </div>
+      <!--
+        DEPLOYMENT: Replace /resources/what-happens-next.pdf with the actual
+        path once the PDF is built and uploaded to your Netlify site.
+      -->
+      <a href="/resources/what-happens-next.pdf" class="resource-dl" download aria-label="Download What Happens Next PDF">
+        Download PDF →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT NEXT -->
+<section class="next-section" id="next" aria-labelledby="next-headline">
+  <div class="next-inner">
+    <span class="next-eyebrow">Three things</span>
+    <span class="next-headline" id="next-headline">Where you go from here</span>
+
+    <div class="next-steps">
+      <div class="next-step" id="next-step-1">
+        <span class="next-step-num">01</span>
+        <span class="next-step-title">Read John.</span>
+        <p class="next-step-body">Start at chapter 1. Don't rush. He's introducing Himself — not as a concept, as a person. The Gospel of John is the encounter. Read it as if He is in the room, because He is.</p>
+        <span class="next-step-divider"></span>
+      </div>
+      <div class="next-step" id="next-step-2">
+        <span class="next-step-num">02</span>
+        <span class="next-step-title">Find a body.</span>
+        <p class="next-step-body">You were not made to carry this alone. Find a local church that preaches Christ — the full Christ. His blood, His resurrection, His lordship. If you don't know where to start, email me at <a href="mailto:seraphministryglobal@gmail.com">seraphministryglobal@gmail.com</a> and we'll find something together.</p>
+        <span class="next-step-divider"></span>
+      </div>
+      <div class="next-step" id="next-step-3">
+        <span class="next-step-num">03</span>
+        <span class="next-step-title">Stay connected.</span>
+        <p class="next-step-body">If you signed up above, you're now on the Fire Letters list. That's where the word continues between videos. Weekly. Direct. No filler. The fire doesn't stop when the video ends.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOUBT -->
+<section class="doubt-section" id="doubt" aria-labelledby="doubt-headline">
+  <div class="doubt-inner">
+    <span class="doubt-eyebrow">If you prayed and felt nothing</span>
+    <span class="doubt-headline" id="doubt-headline">Salvation is not a feeling. It is a transfer.</span>
+
+    <blockquote class="doubt-scripture" id="doubt-scripture">
+      If thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved.
+      <cite>Romans 10:9 — KJV</cite>
+    </blockquote>
+
+    <div class="doubt-body" id="doubt-body">
+      <p>The enemy moves fast. Within hours of this moment, a thought will arrive — <em>did that even count? Did anything actually change?</em> That thought is not from God. That thought is precisely why the Scripture says <em>thou shalt be saved</em> — not "thou mayest be saved" or "thou might feel saved." The word is declarative. It is done.</p>
+      <p>You are not the same person who landed on this page. Something happened in the unseen realm when you opened your mouth. The kingdom of darkness lost a citizen. The kingdom of God gained a son or daughter. That transaction is complete — not because of how you feel, but because of what He did.</p>
+      <p>The feelings will come. But your standing before God does not depend on them. Stand on the Word. Read John. Find your people. And let the Fire Letters carry you through the first weeks.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" aria-label="Site footer">
+  <div class="footer-inner">
+    <div class="footer-verse">
+      <blockquote>
+        Who hath delivered us from the power of darkness, and hath translated us into the kingdom of his dear Son.
+      </blockquote>
+      <cite>Colossians 1:13 — KJV</cite>
+    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="/" class="footer-link">Home</a>
+      <a href="/prayer" class="footer-link">Prayer</a>
+      <a href="mailto:seraphministryglobal@gmail.com" class="footer-link">Contact</a>
+      <a href="https://www.youtube.com/@seraphministryglobal" class="footer-link" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </nav>
+    <p class="footer-copy">© 2025 Seraph Ministry — He who wins souls is wise</p>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+<script>
+// CURSOR
+(function(){
+  var c=document.getElementById('cursor');
+  if(!c) return;
+  document.addEventListener('mousemove',function(e){c.style.left=e.clientX+'px';c.style.top=e.clientY+'px';});
+  document.querySelectorAll('a,button').forEach(function(el){
+    el.addEventListener('mouseenter',function(){c.classList.add('big');});
+    el.addEventListener('mouseleave',function(){c.classList.remove('big');});
+  });
+})();
+
+// LENIS
+var lenis=new Lenis({duration:1.2,easing:function(t){return Math.min(1,1.001-Math.pow(2,-10*t));}});
+function raf(time){lenis.raf(time);requestAnimationFrame(raf);}
+requestAnimationFrame(raf);
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll',ScrollTrigger.update);
+gsap.ticker.add(function(time){lenis.raf(time*1000);});
+gsap.ticker.lagSmoothing(0);
+
+// HERO — on load
+window.addEventListener('load',function(){
+  gsap.fromTo('#hero-eyebrow',{opacity:0,y:16},{opacity:1,y:0,duration:0.8,ease:'power3.out',delay:0.3});
+  gsap.fromTo('#hero-headline',{opacity:0,y:28},{opacity:1,y:0,duration:1.1,ease:'power3.out',delay:0.55});
+  gsap.fromTo('.hero-divider',{opacity:0,scaleX:0},{opacity:1,scaleX:1,duration:0.8,ease:'power3.out',delay:0.9,transformOrigin:'left center'});
+  gsap.fromTo('.hero-sub',{opacity:0,y:18},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:1.05});
+  gsap.fromTo('.hero-cta',{opacity:0,y:14},{opacity:1,y:0,duration:0.7,ease:'power3.out',delay:1.25});
+  gsap.fromTo('.hero-verse',{opacity:0},{opacity:0.28,duration:0.9,ease:'power2.out',delay:1.6});
+  gsap.fromTo('.hero-mark',{opacity:0},{opacity:1,duration:1.2,ease:'power2.out',delay:0.8,stagger:0.12});
+});
+
+// SCROLL ANIMATIONS
+var st=function(el,props,from,delay){
+  gsap.fromTo(el,from||{opacity:0,y:22},Object.assign({opacity:1,y:0,duration:0.9,ease:'power3.out',delay:delay||0,
+    scrollTrigger:{trigger:el,start:'top 80%'}},props));
+};
+
+// VSL
+gsap.fromTo('.vsl-eyebrow',{opacity:0,y:12},{opacity:1,y:0,duration:0.7,ease:'power3.out',scrollTrigger:{trigger:'.vsl-section',start:'top 78%'}});
+gsap.fromTo('.vsl-headline',{opacity:0,y:24},{opacity:1,y:0,duration:1.0,ease:'power3.out',delay:0.15,scrollTrigger:{trigger:'.vsl-section',start:'top 75%'}});
+gsap.fromTo('.vsl-frame-wrap',{opacity:0,y:28},{opacity:1,y:0,duration:1.0,ease:'power3.out',delay:0.3,scrollTrigger:{trigger:'.vsl-section',start:'top 72%'}});
+gsap.fromTo('.vsl-scroll-cue',{opacity:0},{opacity:1,duration:0.7,ease:'power2.out',delay:0.6,scrollTrigger:{trigger:'.vsl-section',start:'top 70%'}});
+
+// PRAYER
+gsap.fromTo('.prayer-eyebrow',{opacity:0,y:12},{opacity:1,y:0,duration:0.7,ease:'power3.out',scrollTrigger:{trigger:'.prayer-section',start:'top 78%'}});
+gsap.fromTo('.prayer-instruction',{opacity:0,y:12},{opacity:0.55,y:0,duration:0.8,ease:'power3.out',delay:0.2,scrollTrigger:{trigger:'.prayer-section',start:'top 75%'}});
+gsap.fromTo('.prayer-text',{opacity:0,y:22},{opacity:1,y:0,duration:1.1,ease:'power3.out',delay:0.35,scrollTrigger:{trigger:'.prayer-section',start:'top 72%'}});
+gsap.fromTo('.prayer-divider',{opacity:0,scaleX:0},{opacity:1,scaleX:1,duration:0.8,ease:'power3.out',transformOrigin:'left center',scrollTrigger:{trigger:'.prayer-divider',start:'top 88%'}});
+
+// DECISION
+gsap.fromTo('.decision-eyebrow',{opacity:0,y:12},{opacity:1,y:0,duration:0.7,ease:'power3.out',scrollTrigger:{trigger:'.decision-section',start:'top 78%'}});
+gsap.fromTo('.decision-headline',{opacity:0,y:22},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.15,scrollTrigger:{trigger:'.decision-section',start:'top 75%'}});
+gsap.fromTo('.decision-sub',{opacity:0,y:16},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.3,scrollTrigger:{trigger:'.decision-section',start:'top 72%'}});
+gsap.fromTo('.decision-card',{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.45,scrollTrigger:{trigger:'.decision-section',start:'top 70%'}});
+
+// DOWNLOAD
+gsap.fromTo('.download-eyebrow',{opacity:0,y:12},{opacity:1,y:0,duration:0.7,ease:'power3.out',scrollTrigger:{trigger:'.download-section',start:'top 78%'}});
+gsap.fromTo('.download-headline',{opacity:0,y:22},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.15,scrollTrigger:{trigger:'.download-section',start:'top 75%'}});
+gsap.fromTo('.download-desc',{opacity:0,y:16},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.3,scrollTrigger:{trigger:'.download-section',start:'top 72%'}});
+gsap.fromTo('#resource-card',{opacity:0,y:18},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.45,scrollTrigger:{trigger:'#resource-card',start:'top 82%'}});
+
+// WHAT NEXT
+gsap.fromTo('.next-eyebrow',{opacity:0,y:12},{opacity:1,y:0,duration:0.7,ease:'power3.out',scrollTrigger:{trigger:'.next-section',start:'top 78%'}});
+gsap.fromTo('.next-headline',{opacity:0,y:22},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.15,scrollTrigger:{trigger:'.next-section',start:'top 75%'}});
+document.querySelectorAll('.next-step').forEach(function(step,i){
+  gsap.fromTo(step,{opacity:0,y:22},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:i*0.18,scrollTrigger:{trigger:step,start:'top 82%'}});
+});
+
+// DOUBT
+gsap.fromTo('.doubt-eyebrow',{opacity:0,y:12},{opacity:1,y:0,duration:0.7,ease:'power3.out',scrollTrigger:{trigger:'.doubt-section',start:'top 78%'}});
+gsap.fromTo('.doubt-headline',{opacity:0,y:22},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.15,scrollTrigger:{trigger:'.doubt-section',start:'top 75%'}});
+gsap.fromTo('#doubt-scripture',{opacity:0,x:-16},{opacity:1,x:0,duration:0.9,ease:'power3.out',delay:0.3,scrollTrigger:{trigger:'#doubt-scripture',start:'top 82%'}});
+gsap.fromTo('#doubt-body',{opacity:0,y:18},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.2,scrollTrigger:{trigger:'#doubt-body',start:'top 82%'}});
+
+// FOOTER
+gsap.fromTo('.footer-verse',{opacity:0},{opacity:1,duration:0.9,ease:'power2.out',scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
+gsap.fromTo('.footer-links',{opacity:0},{opacity:1,duration:0.7,ease:'power2.out',delay:0.25,scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
+gsap.fromTo('.footer-copy',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',delay:0.45,scrollTrigger:{trigger:'.site-footer',start:'top 82%'}});
+
+// DECISION BUTTON
+(function(){
+  var btn=document.getElementById('decision-btn');
+  var gate=document.getElementById('email-gate');
+  if(!btn||!gate) return;
+  btn.addEventListener('click',function(){
+    btn.style.display='none';
+    gate.classList.add('visible');
+    btn.setAttribute('aria-expanded','true');
+    setTimeout(function(){gate.scrollIntoView({behavior:'smooth',block:'nearest'});},80);
+  });
+})();
+
+// EMAIL FORM
+(function(){
+  var form=document.getElementById('salvation-form');
+  var confirm=document.getElementById('email-confirm');
+  if(!form) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=document.getElementById('s-name').value.trim();
+    var email=document.getElementById('s-email').value.trim();
+    if(!email||email.indexOf('@')<1) return;
+    var submitBtn=form.querySelector('button[type="submit"]');
+    submitBtn.textContent='Sending...';
+    submitBtn.disabled=true;
+    /*
+      DEPLOYMENT NOTE:
+      Wire this to your Beehiiv subscribe endpoint or Formspree form.
+      Interim option — create a Formspree form and replace the URL:
+      https://formspree.io/f/YOUR_FORM_ID
+      
+      When Beehiiv API is ready, tag subscribers as 'new-believer'
+      so they enter the new believer email sequence, not the general list.
+    */
+    fetch('https://letters.seraphministry.com/subscribe',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:'email='+encodeURIComponent(email)+'&name='+encodeURIComponent(name)+'&tag=new-believer'
+    })
+    .catch(function(){})
+    .finally(function(){
+      form.style.opacity='0';
+      form.style.pointerEvents='none';
+      if(confirm) confirm.classList.add('visible');
+    });
+  });
+})();
+</script>
+</body>
+</html>

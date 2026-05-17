@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Happens Next — Seraph Ministry</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ════════════════════════════════════════
+   SCREEN STYLES — branded Seraph dark
+════════════════════════════════════════ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --ink:#0C0B09;--fire:#FF3300;--gold:#D4A017;
+  --ash:#F2EDE4;--bone:#E8DFD0;
+}
+
+body{
+  background:var(--ink);color:var(--ash);
+  font-family:'Playfair Display',serif;
+  min-height:100vh;
+}
+
+/* Grain overlay */
+body::after{
+  content:'';position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity:0.06;pointer-events:none;z-index:900;
+}
+
+/* ── SCREEN NAV ── */
+.screen-nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  background:rgba(12,11,9,0.94);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(255,51,0,0.18);
+  padding:0 clamp(1.5rem,5vw,4rem);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-home{
+  display:flex;align-items:center;gap:0.6rem;
+  text-decoration:none;opacity:0.7;transition:opacity .22s;
+}
+.nav-home:hover{opacity:1;}
+.nav-home-label{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.28em;text-transform:uppercase;color:var(--fire);
+}
+.nav-back{
+  font-family:'Space Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--bone);opacity:0.45;text-decoration:none;
+  transition:color .22s,opacity .22s;
+  border-bottom:1px solid rgba(232,223,208,0.2);padding-bottom:1px;
+}
+.nav-back:hover{color:var(--fire);opacity:0.85;}
+
+/* ── SCREEN HERO ── */
+.screen-hero{
+  padding:clamp(8rem,14vw,12rem) clamp(1.5rem,5vw,4rem) clamp(4rem,7vw,7rem);
+  text-align:center;border-bottom:1px solid rgba(255,51,0,0.1);
+}
+.screen-eyebrow{
+  font-family:'Space Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);
+  display:block;margin-bottom:clamp(1.5rem,3vw,3rem);
+}
+.screen-headline{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(3rem,8vw,9rem);
+  color:var(--ash);line-height:0.9;letter-spacing:-0.02em;
+  display:block;margin-bottom:0.3em;
+}
+.screen-headline em{font-style:italic;color:var(--fire);}
+.screen-sub{
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:400;
+  font-size:clamp(1rem,2vw,1.4rem);color:var(--bone);
+  line-height:1.65;max-width:52ch;margin:0 auto;display:block;
+  margin-top:clamp(1.5rem,3vw,3rem);
+}
+
+/* ── PRINT BUTTON ── */
+.print-bar{
+  display:flex;align-items:center;justify-content:center;gap:1.5rem;
+  padding:clamp(3rem,5vw,5rem) clamp(1.5rem,5vw,4rem);
+  border-bottom:1px solid rgba(255,51,0,0.1);
+  flex-wrap:wrap;
+}
+.print-btn{
+  display:inline-flex;align-items:center;gap:0.8rem;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ash);background:var(--fire);border:1px solid var(--fire);
+  padding:1.1rem 2.4rem;cursor:pointer;
+  transition:background .22s,color .22s;
+  -webkit-appearance:none;border-radius:0;
+}
+.print-btn:hover{background:transparent;color:var(--fire);}
+.print-btn svg{flex-shrink:0;}
+.print-note{
+  font-family:'Space Mono',monospace;font-size:0.56rem;
+  letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--bone);opacity:0.38;
+  max-width:36ch;line-height:1.9;text-align:center;
+}
+
+/* ── SCREEN PREVIEW ── */
+.screen-preview{
+  max-width:860px;margin:0 auto;
+  padding:clamp(4rem,8vw,8rem) clamp(1.5rem,5vw,4rem);
+}
+.preview-label{
+  font-family:'Space Mono',monospace;font-size:0.62rem;
+  letter-spacing:0.3em;text-transform:uppercase;color:var(--fire);
+  opacity:0.55;display:block;margin-bottom:clamp(2.5rem,5vw,5rem);
+  border-bottom:1px solid rgba(255,51,0,0.12);padding-bottom:1.2rem;
+}
+
+/* ── DOCUMENT PREVIEW (screen) ── */
+.doc-preview{
+  border:1px solid rgba(255,51,0,0.15);
+  background:rgba(255,255,255,0.02);
+  padding:clamp(2.5rem,5vw,5rem);
+}
+
+/* ── FOOTER ── */
+.screen-footer{
+  border-top:1px solid rgba(255,51,0,0.1);
+  padding:clamp(3rem,5vw,5rem) clamp(1.5rem,5vw,4rem);
+  text-align:center;
+}
+.screen-footer p{
+  font-family:'Space Mono',monospace;font-size:0.52rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--bone);opacity:0.28;
+}
+
+/* ════════════════════════════════════════
+   DOCUMENT CONTENT — shared screen + print
+════════════════════════════════════════ */
+.doc-header{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  margin-bottom:2.5rem;padding-bottom:1.5rem;
+  border-bottom:2px solid var(--fire);
+  gap:1rem;flex-wrap:wrap;
+}
+.doc-title-block{}
+.doc-ministry-mark{
+  font-family:'Space Mono',monospace;font-size:0.55rem;
+  letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--fire);display:block;margin-bottom:0.5rem;
+}
+.doc-title{
+  font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+  font-size:clamp(1.6rem,3vw,2.8rem);
+  color:var(--ash);line-height:1.05;display:block;
+}
+.doc-subtitle{
+  font-family:'Playfair Display',serif;font-weight:400;font-style:italic;
+  font-size:clamp(0.9rem,1.5vw,1.15rem);
+  color:var(--bone);display:block;margin-top:0.4rem;opacity:0.75;
+}
+.doc-logo{
+  flex-shrink:0;opacity:0.6;
+}
+
+/* ── VERSE BANNER ── */
+.doc-verse{
+  border-left:3px solid var(--gold);
+  padding:1rem 1.4rem;
+  margin-bottom:2.5rem;
+  background:rgba(212,160,23,0.04);
+}
+.doc-verse-text{
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:400;
+  font-size:clamp(0.9rem,1.5vw,1.1rem);
+  color:var(--ash);line-height:1.6;display:block;
+}
+.doc-verse-ref{
+  font-family:'Space Mono',monospace;font-size:0.48rem;
+  letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);display:block;margin-top:0.5rem;opacity:0.7;
+}
+
+/* ── SECTION GRID ── */
+.doc-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1.8rem;
+  margin-bottom:2rem;
+}
+@media(max-width:580px){.doc-grid{grid-template-columns:1fr;}}
+
+.doc-section{
+  border-top:1px solid rgba(255,51,0,0.3);
+  padding-top:1.2rem;
+}
+.doc-section-num{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:2.5rem;color:var(--fire);opacity:0.15;
+  line-height:1;display:block;margin-bottom:0.2rem;
+}
+.doc-section-title{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(1rem,1.8vw,1.3rem);
+  color:var(--ash);display:block;margin-bottom:0.7rem;
+  letter-spacing:-0.01em;
+}
+.doc-section-body{
+  font-family:'Playfair Display',serif;font-style:italic;font-weight:400;
+  font-size:clamp(0.82rem,1.3vw,0.95rem);
+  color:var(--bone);line-height:1.75;opacity:0.88;
+}
+.doc-section-body strong{
+  font-weight:700;font-style:normal;color:var(--ash);
+}
+
+/* ── FULL WIDTH SECTION ── */
+.doc-section--full{
+  grid-column:1/-1;
+  border-top:1px solid rgba(255,51,0,0.3);
+  padding-top:1.2rem;
+}
+
+/* ── DECLARATION ── */
+.doc-declaration{
+  border:1px solid rgba(212,160,23,0.35);
+  padding:1.4rem 1.6rem;
+  margin-top:1.8rem;
+  text-align:center;
+  background:rgba(212,160,23,0.03);
+  position:relative;
+}
+.doc-declaration::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:1px;background:var(--gold);
+}
+.doc-declaration-label{
+  font-family:'Space Mono',monospace;font-size:0.48rem;
+  letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);opacity:0.65;display:block;margin-bottom:0.8rem;
+}
+.doc-declaration-text{
+  font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+  font-size:clamp(0.95rem,1.6vw,1.2rem);
+  color:var(--ash);line-height:1.5;display:block;
+}
+
+/* ── DOC FOOTER ── */
+.doc-footer{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-top:2rem;padding-top:1rem;
+  border-top:1px solid rgba(255,51,0,0.15);
+  gap:1rem;flex-wrap:wrap;
+}
+.doc-footer-text{
+  font-family:'Space Mono',monospace;font-size:0.44rem;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--bone);opacity:0.35;
+}
+.doc-footer-url{
+  font-family:'Space Mono',monospace;font-size:0.44rem;
+  letter-spacing:0.16em;text-transform:uppercase;
+  color:var(--fire);opacity:0.5;text-decoration:none;
+}
+
+/* ════════════════════════════════════════
+   PRINT STYLESHEET
+   Outputs clean black-on-white editorial
+════════════════════════════════════════ */
+@media print {
+  /* Hide all screen UI */
+  .screen-nav,
+  .screen-hero,
+  .print-bar,
+  .preview-label,
+  .screen-footer,
+  body::after{
+    display:none !important;
+  }
+
+  /* Reset page */
+  *{
+    -webkit-print-color-adjust:exact;
+    print-color-adjust:exact;
+  }
+
+  html,body{
+    background:#fff !important;
+    color:#0C0B09 !important;
+    margin:0;padding:0;
+  }
+
+  /* Print page dimensions */
+  @page{
+    size:letter portrait;
+    margin:0.75in 0.75in 0.65in 0.75in;
+  }
+
+  /* Flatten the preview container */
+  .screen-preview{
+    max-width:100%;
+    padding:0;
+    margin:0;
+  }
+  .doc-preview{
+    border:none;
+    background:transparent;
+    padding:0;
+  }
+
+  /* Override dark colors for print */
+  .doc-title,.doc-section-title,.doc-declaration-text{
+    color:#0C0B09 !important;
+  }
+  .doc-subtitle,.doc-section-body,.doc-footer-text{
+    color:#3a3632 !important;
+    opacity:1 !important;
+  }
+  .doc-verse-text,.doc-section-body strong{
+    color:#0C0B09 !important;
+  }
+  .doc-ministry-mark,.doc-section-num,.doc-footer-url{
+    color:#FF3300 !important;
+    opacity:1 !important;
+  }
+  .doc-verse-ref,.doc-declaration-label{
+    color:#B8860B !important;
+    opacity:1 !important;
+  }
+  .doc-declaration-text{
+    color:#0C0B09 !important;
+  }
+  .doc-verse{
+    border-left-color:#B8860B !important;
+    background:rgba(184,134,11,0.06) !important;
+  }
+  .doc-declaration{
+    border-color:#B8860B !important;
+    background:rgba(184,134,11,0.04) !important;
+  }
+  .doc-declaration::before{
+    background:#B8860B !important;
+  }
+  .doc-header{
+    border-bottom-color:#FF3300 !important;
+  }
+  .doc-section{
+    border-top-color:rgba(255,51,0,0.35) !important;
+  }
+  .doc-section--full{
+    border-top-color:rgba(255,51,0,0.35) !important;
+  }
+  .doc-footer{
+    border-top-color:rgba(255,51,0,0.2) !important;
+  }
+  .doc-logo svg g{
+    stroke:#FF3300 !important;
+  }
+  .doc-logo{opacity:0.7 !important;}
+
+  /* Prevent page breaks inside sections */
+  .doc-section,.doc-verse,.doc-declaration{
+    break-inside:avoid;
+    page-break-inside:avoid;
+  }
+
+  /* Force single page */
+  .doc-preview{
+    page-break-after:avoid;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- SCREEN NAV -->
+<nav class="screen-nav" aria-label="Site navigation">
+  <a href="/" class="nav-home" aria-label="Seraph Ministry home">
+    <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="14" height="14" aria-hidden="true">
+      <g stroke="#FF3300" stroke-width="7" stroke-linecap="square" fill="none">
+        <line x1="40" y1="4" x2="40" y2="76"/>
+        <line x1="4" y1="20" x2="76" y2="60"/>
+        <line x1="76" y1="20" x2="4" y2="60"/>
+      </g>
+    </svg>
+    <span class="nav-home-label">Seraph Ministry</span>
+  </a>
+  <a href="/yes" class="nav-back">← Back</a>
+</nav>
+
+<!-- SCREEN HERO -->
+<section class="screen-hero" aria-hidden="true">
+  <span class="screen-eyebrow">Free Resource</span>
+  <span class="screen-headline"><em>What Happens</em><br>Next</span>
+  <span class="screen-sub">A one-page guide for your first week. What just happened. What to do today. Where to go from here. Save it to your phone or print it.</span>
+</section>
+
+<!-- PRINT BUTTON -->
+<div class="print-bar" aria-label="Download options">
+  <button class="print-btn" onclick="window.print()" aria-label="Save as PDF">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M12 3v13M7 11l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/>
+      <path d="M3 18v2a1 1 0 001 1h16a1 1 0 001-1v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="square"/>
+    </svg>
+    Save as PDF
+  </button>
+  <p class="print-note">
+    When the print dialog opens, change the destination to <strong style="color:var(--ash);font-family:'Space Mono',monospace;">"Save as PDF"</strong> — then click Save.
+  </p>
+</div>
+
+<!-- PREVIEW LABEL + DOCUMENT -->
+<div class="screen-preview">
+  <span class="preview-label" aria-hidden="true">Document preview — what you'll receive</span>
+
+  <!-- ════════════════════════════════════
+       THE DOCUMENT
+       This exact content prints to PDF.
+  ════════════════════════════════════ -->
+  <div class="doc-preview" role="main" aria-label="What Happens Next guide">
+
+    <!-- Header -->
+    <div class="doc-header">
+      <div class="doc-title-block">
+        <span class="doc-ministry-mark">Seraph Ministry</span>
+        <span class="doc-title">What Happens Next</span>
+        <span class="doc-subtitle">A Guide for Your First Week in Christ</span>
+      </div>
+      <div class="doc-logo" aria-hidden="true">
+        <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg" width="36" height="36">
+          <g stroke="#FF3300" stroke-width="7" stroke-linecap="square" fill="none">
+            <line x1="40" y1="4" x2="40" y2="76"/>
+            <line x1="4" y1="20" x2="76" y2="60"/>
+            <line x1="76" y1="20" x2="4" y2="60"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Verse -->
+    <div class="doc-verse">
+      <span class="doc-verse-text">Who hath delivered us from the power of darkness, and hath translated us into the kingdom of his dear Son.</span>
+      <span class="doc-verse-ref">Colossians 1:13 — KJV</span>
+    </div>
+
+    <!-- Four-section grid -->
+    <div class="doc-grid">
+
+      <div class="doc-section">
+        <span class="doc-section-num">01</span>
+        <span class="doc-section-title">What just happened to you</span>
+        <p class="doc-section-body">When you prayed that prayer and meant it, something happened in the unseen realm. <strong>You were translated.</strong> That is the Bible's word — not improved, not reformed. Translated. Moved from one kingdom to another. You are not the same person. Your standing before God changed the moment you opened your mouth. That is not a feeling. It is a fact. <em>Romans 10:9 — thou shalt be saved.</em></p>
+      </div>
+
+      <div class="doc-section">
+        <span class="doc-section-num">02</span>
+        <span class="doc-section-title">What to do today</span>
+        <p class="doc-section-body"><strong>Tell someone.</strong> Not to perform it — because confession anchors what God just did. Tell one person who will celebrate with you, or write it down with today's date. This moment deserves a marker. Then get alone with God for even five minutes and say: <em>Thank You. I'm Yours.</em> That is the beginning of a prayer life. You don't need a formula. You need a conversation.</p>
+      </div>
+
+      <div class="doc-section">
+        <span class="doc-section-num">03</span>
+        <span class="doc-section-title">What to read first</span>
+        <p class="doc-section-body">Open the Bible to <strong>the Gospel of John, chapter 1.</strong> Don't start in Genesis. Start where Jesus introduces Himself. Read slowly — one chapter at a time, not rushing to finish. Ask before you read: <em>Lord, show me something today.</em> He will. The Word is alive — <em>Hebrews 4:12</em> — and it speaks. Expect it to speak to you specifically, because it will.</p>
+      </div>
+
+      <div class="doc-section">
+        <span class="doc-section-num">04</span>
+        <span class="doc-section-title">Where to go from here</span>
+        <p class="doc-section-body"><strong>Find a local church</strong> that preaches Christ — His blood, His resurrection, His lordship. Not a social club. Not a motivational gathering. A place where the Word is opened and the Spirit is welcome. If you don't know where to look, email Seraph Ministry at <strong>seraphministryglobal@gmail.com</strong> and we will help you find something in your area.</p>
+      </div>
+
+      <div class="doc-section doc-section--full">
+        <span class="doc-section-num">05</span>
+        <span class="doc-section-title">When the doubt comes — and it will</span>
+        <p class="doc-section-body">Within hours or days of this decision, a thought will arrive: <em>did that even count? Did anything actually change?</em> That thought is not from God. It is the enemy moving fast to undo what just happened. Your answer is not a feeling — it is the Word. <em>If thou shalt confess with thy mouth the Lord Jesus, and shalt believe in thine heart that God hath raised him from the dead, thou shalt be saved</em> — Romans 10:9. That word is declarative. It is not conditional on how you feel. <strong>You are saved because He said so.</strong> Stand on the Word, not on your emotions. The emotions will follow.</p>
+      </div>
+
+    </div>
+
+    <!-- Declaration box -->
+    <div class="doc-declaration">
+      <span class="doc-declaration-label">Say this aloud</span>
+      <span class="doc-declaration-text">I am no longer in the kingdom of darkness.<br>I have been translated into the kingdom of His dear Son.<br>I am Yours, Lord Jesus — all of me, for all of eternity.</span>
+    </div>
+
+    <!-- Document footer -->
+    <div class="doc-footer">
+      <span class="doc-footer-text">Seraph Ministry · seraphministryglobal@gmail.com · © 2026</span>
+      <a href="https://seraphministry.com" class="doc-footer-url" aria-label="Visit Seraph Ministry website">seraphministry.com</a>
+    </div>
+
+  </div><!-- /.doc-preview -->
+</div><!-- /.screen-preview -->
+
+<!-- SCREEN FOOTER -->
+<footer class="screen-footer" aria-label="Page footer">
+  <p>Seraph Ministry · seraphministryglobal@gmail.com · seraphministry.com</p>
+</footer>
+
+</body>
+</html>

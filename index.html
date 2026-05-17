@@ -3,12 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Seraph Ministry</title>
+<title>Seraph Ministry — Where the Word Becomes Encounter</title>
+<meta name="description" content="Weekly scripture teaching for the believer who wants encounter, not performance. Weight, not noise. Free letters every Tuesday.">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://seraphministry.com/">
+<meta property="og:title" content="Seraph Ministry — Where the Word Becomes Encounter">
+<meta property="og:description" content="Weekly scripture teaching for the believer who wants encounter, not performance. Weight, not noise. Free letters every Tuesday.">
+<meta property="og:image" content="https://seraphministry.com/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:site_name" content="Seraph Ministry">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Seraph Ministry — Where the Word Becomes Encounter">
+<meta name="twitter:description" content="Weekly scripture teaching for the believer who wants encounter, not performance. Weight, not noise.">
+<meta name="twitter:image" content="https://seraphministry.com/og-image.jpg">
+
+<!-- Favicon -->
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+<!-- Preload critical assets -->
+<link rel="preload" href="seraph-logo.png" as="image">
+
+<!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,400;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap">
 <link rel="dns-prefetch" href="https://fonts.googleapis.com">
 <link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
@@ -452,6 +475,13 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ======================
    VSL LETTER CTA
    ====================== */
+.vsl-cta-stack{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:0.8rem;
+  margin-top:clamp(1.5rem,3vw,2.5rem);
+}
 .vsl-letter-cta{
   display:inline-block;
   font-family:'Space Mono',monospace;
@@ -460,8 +490,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   text-transform:uppercase;
   color:var(--fire);
   text-decoration:none;
-  margin-top:clamp(1.5rem,3vw,2.5rem);
-  margin-bottom:0.5rem;
+  margin-top:0;
+  margin-bottom:0;
   opacity:0.8;
   border-bottom:1px solid rgba(255,51,0,0.35);
   padding-bottom:2px;
@@ -810,18 +840,38 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   transition:transform .35s cubic-bezier(.16,1,.3,1);
 }
 .mobile-bar.visible{transform:translateY(0);}
+.mobile-bar-cta{
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+  flex:1;
+  text-decoration:none;
+  overflow:hidden;
+  min-width:0;
+}
+.mobile-bar-star{
+  color:var(--fire);
+  font-size:0.65rem;
+  flex-shrink:0;
+  animation:star-pulse 2.5s ease-in-out infinite;
+}
+@keyframes star-pulse{
+  0%,100%{opacity:1;transform:scale(1);}
+  50%{opacity:0.5;transform:scale(0.85);}
+}
 .mobile-bar-label{
   font-family:'Space Mono',monospace;
   font-size:0.48rem;
   letter-spacing:0.16em;
   text-transform:uppercase;
   color:var(--bone);
-  opacity:0.7;
-  flex:1;
+  opacity:0;
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+  transition:opacity .4s ease;
 }
+.mobile-bar-label.visible{opacity:0.7;}
 .mobile-bar-btn{
   font-family:'Space Mono',monospace;
   font-size:0.52rem;
@@ -834,7 +884,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   text-decoration:none;
   white-space:nowrap;
   flex-shrink:0;
+  transition:background .22s ease, color .22s ease;
 }
+.mobile-bar-btn:hover{background:transparent;color:var(--fire);}
 .mobile-bar-close{
   background:none;
   border:none;
@@ -2003,8 +2055,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         ></iframe>
       </div>
     </div>
-    <a href="#invitation" class="vsl-letter-cta">Get the weekly letter — free →</a>
-    <a href="https://www.youtube.com/@seraphministryglobal" class="vsl-yt-cta" target="_blank" rel="noopener noreferrer">More teachings on YouTube →</a>
+    <div class="vsl-cta-stack">
+      <a href="#invitation" class="vsl-letter-cta">Get the weekly letter — free →</a>
+      <a href="https://www.youtube.com/@seraphministryglobal" class="vsl-yt-cta" target="_blank" rel="noopener noreferrer">More teachings on YouTube →</a>
+    </div>
   </div>
 </section>
 
@@ -2197,9 +2251,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <!-- ========================
      RECENT TEACHINGS
      ======================== -->
-<!-- ========================
-     RECENT TEACHINGS
-     ======================== -->
 <section class="teachings" id="teachings">
   <div class="teachings-header" id="teachings-header">
     <span class="teachings-eyebrow">Recent Teachings</span>
@@ -2210,17 +2261,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
     <a href="https://www.youtube.com/watch?v=wvb9mIPNeOA" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/wvb9mIPNeOA/mqdefault.jpg" alt="Stop Living Like You're Invisible. You Never Were." loading="lazy">
+        <img src="https://img.youtube.com/vi/wvb9mIPNeOA/maxresdefault.jpg" alt="Stop Living Like You're Invisible. You Never Were." loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">Stop Living Like You're Invisible. You Never Were.</span>
-        <span class="teaching-meta">New · Watch now</span>
+        <span class="teaching-meta">Watch now</span>
       </div>
     </a>
 
     <a href="https://www.youtube.com/watch?v=YQjg7IbCEH4" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/YQjg7IbCEH4/mqdefault.jpg" alt="Being Saved Doesn't Make You God's Friend" loading="lazy">
+        <img src="https://img.youtube.com/vi/YQjg7IbCEH4/maxresdefault.jpg" alt="Being Saved Doesn't Make You God's Friend" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">Being Saved Doesn't Make You God's Friend</span>
@@ -2230,27 +2281,27 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
     <a href="https://www.youtube.com/watch?v=ypbFFuSfiIs" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/ypbFFuSfiIs/mqdefault.jpg" alt="Stop Asking God for Things (Do This Instead)" loading="lazy">
+        <img src="https://img.youtube.com/vi/ypbFFuSfiIs/maxresdefault.jpg" alt="Stop Asking God for Things (Do This Instead)" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">Stop Asking God for Things (Do This Instead)</span>
-        <span class="teaching-meta">New · Watch now</span>
+        <span class="teaching-meta">Watch now</span>
       </div>
     </a>
 
     <a href="https://www.youtube.com/watch?v=ZIQd8-nTLj8" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/ZIQd8-nTLj8/mqdefault.jpg" alt="How to Read the Bible Until Christ Is Revealed (The 7-Step Encounter Protocol)" loading="lazy">
+        <img src="https://img.youtube.com/vi/ZIQd8-nTLj8/maxresdefault.jpg" alt="How to Read the Bible Until Christ Is Revealed (The 7-Step Encounter Protocol)" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">How to Read the Bible Until Christ Is Revealed (The 7-Step Encounter Protocol)</span>
-        <span class="teaching-meta">Watch now</span>
+        <span class="teaching-meta">22:27 · Watch now</span>
       </div>
     </a>
 
     <a href="https://www.youtube.com/watch?v=LTiA3LVg9j0" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/LTiA3LVg9j0/mqdefault.jpg" alt="You've Been Talking to God. But Have You Actually Told Him the Truth?" loading="lazy">
+        <img src="https://img.youtube.com/vi/LTiA3LVg9j0/maxresdefault.jpg" alt="You've Been Talking to God. But Have You Actually Told Him the Truth?" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">You've Been Talking to God. But Have You Actually Told Him the Truth?</span>
@@ -2260,7 +2311,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
     <a href="https://www.youtube.com/watch?v=iDlZe-_KMqg" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/iDlZe-_KMqg/mqdefault.jpg" alt="The Posture God Can't Resist (It Has Nothing to Do With Your Performance)" loading="lazy">
+        <img src="https://img.youtube.com/vi/iDlZe-_KMqg/maxresdefault.jpg" alt="The Posture God Can't Resist (It Has Nothing to Do With Your Performance)" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">The Posture God Can't Resist (It Has Nothing to Do With Your Performance)</span>
@@ -2270,7 +2321,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
     <a href="https://www.youtube.com/watch?v=Y9W7gFMcFFU" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/Y9W7gFMcFFU/mqdefault.jpg" alt="Why You Can't Feel God's Presence (Even When You're Seeking Him)" loading="lazy">
+        <img src="https://img.youtube.com/vi/Y9W7gFMcFFU/maxresdefault.jpg" alt="Why You Can't Feel God's Presence (Even When You're Seeking Him)" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">Why You Can't Feel God's Presence (Even When You're Seeking Him)</span>
@@ -2280,17 +2331,17 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
     <a href="https://www.youtube.com/watch?v=z70DthXck6c" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/z70DthXck6c/mqdefault.jpg" alt="You've Been Treating God Too Casually — And It's Costing You" loading="lazy">
+        <img src="https://img.youtube.com/vi/z70DthXck6c/maxresdefault.jpg" alt="You've Been Treating God Too Casually — And It's Costing You" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">You've Been Treating God Too Casually — And It's Costing You</span>
-        <span class="teaching-meta">New · Watch now</span>
+        <span class="teaching-meta">Watch now</span>
       </div>
     </a>
 
     <a href="https://www.youtube.com/watch?v=4k7bQoyh-DQ" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/4k7bQoyh-DQ/mqdefault.jpg" alt="Why Does Your Bible Reading Leave You Feeling Empty?" loading="lazy">
+        <img src="https://img.youtube.com/vi/4k7bQoyh-DQ/maxresdefault.jpg" alt="Why Does Your Bible Reading Leave You Feeling Empty?" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">Why Does Your Bible Reading Leave You Feeling Empty?</span>
@@ -2300,7 +2351,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
     <a href="https://www.youtube.com/watch?v=dNsww7xE05s" class="teaching-card" target="_blank" rel="noopener noreferrer">
       <div class="teaching-thumb">
-        <img src="https://img.youtube.com/vi/dNsww7xE05s/mqdefault.jpg" alt="Why God Rewards the Ones Who Are Already Watching" loading="lazy">
+        <img src="https://img.youtube.com/vi/dNsww7xE05s/maxresdefault.jpg" alt="Why God Rewards the Ones Who Are Already Watching" loading="lazy">
       </div>
       <div class="teaching-body">
         <span class="teaching-title">Why God Rewards the Ones Who Are Already Watching</span>
@@ -2432,8 +2483,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <!-- ========================
      MOBILE BOTTOM BAR
      ======================== -->
-<div class="mobile-bar" id="mobile-bar" aria-label="Get the Fire Letters">
-  <span class="mobile-bar-label">Get the Fire Letters — free</span>
+<div class="mobile-bar" id="mobile-bar" aria-label="Site actions">
+  <a class="mobile-bar-cta" id="mobile-bar-cta" href="#invitation">
+    <span class="mobile-bar-star" id="mobile-bar-star" aria-hidden="true">✦</span>
+    <span class="mobile-bar-label" id="mobile-bar-label">Get the Fire Letters — free</span>
+  </a>
   <a href="#invitation" class="mobile-bar-btn" id="mobile-bar-btn">Join →</a>
   <button class="mobile-bar-close" id="mobile-bar-close" aria-label="Dismiss">×</button>
 </div>
@@ -2469,13 +2523,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 const logoSrc="seraph-logo.png"
 gsap.registerPlugin(ScrollTrigger);
 
-// Lazy-load logo on hero animation
+// Load logo immediately on script execution
 const logoImg=document.getElementById("logo-img-main");
 let logoLoaded=false;
-window.addEventListener('load',()=>{
-  setTimeout(()=>{
-    if(!logoLoaded){logoImg.src=logoSrc;logoLoaded=true;}
-  },800);
+if(logoSrc){logoImg.src=logoSrc;logoLoaded=true;}
+window.addEventListener('load',function(){
+  if(!logoLoaded&&logoSrc){logoImg.src=logoSrc;logoLoaded=true;}
 });
 // seraph marks: pure SVG, no PNG instances
 
@@ -2546,7 +2599,7 @@ tl.fromTo(["#sm1","#sm2","#sm3","#sm4","#sm5","#sm6","#sm7","#sm8","#sm9","#sm10
 tl.fromTo(["#xm1","#xm2","#xm3","#xm4"],{opacity:0,scale:1.4},{opacity:1,scale:1,duration:0.4,stagger:0.12,ease:"power4.out"},1.25);
 tl.to(["#a1","#a2"],{opacity:1,duration:0.25,stagger:0.12},1.65);
 if(!isMobile){tl.to(".splat",{opacity:1,duration:0.06,stagger:{each:0.04,from:"random"}},1.15);}
-tl.fromTo("#cta-block",{opacity:0,y:10},{opacity:1,y:0,duration:0.5,ease:"power2.out"},2.0);
+tl.fromTo("#bottom-annots",{opacity:0,y:8},{opacity:1,y:0,duration:0.5,ease:"power2.out"},1.9);
 tl.to("#scroll-mark",{opacity:1,duration:0.4},2.15);
 tl.to("#scroll-bar",{height:56,duration:1.0,ease:"power2.out"},2.3);
 
@@ -2627,12 +2680,6 @@ const seraph=document.getElementById("word-seraph");
 seraph.addEventListener("mouseenter",()=>{
   gsap.to(seraph,{keyframes:[{x:-5,y:4,duration:.04},{x:4,y:-3,duration:.04},{x:0,y:0,duration:.04}]});
 });
-const ctaEl=document.getElementById("cta");
-ctaEl.addEventListener("mousemove",e=>{
-  const r=ctaEl.getBoundingClientRect();
-  gsap.to(ctaEl,{x:(e.clientX-(r.left+r.width/2))*0.28,y:(e.clientY-(r.top+r.height/2))*0.28,duration:0.3,ease:"power2.out"});
-});
-ctaEl.addEventListener("mouseleave",()=>gsap.to(ctaEl,{x:0,y:0,duration:0.5,ease:"elastic.out(1,0.4)"}));
 seraph.addEventListener("click",()=>{
   gsap.to(".hero",{backgroundColor:"#FF3300",duration:0.07,onComplete:()=>gsap.to(".hero",{backgroundColor:"transparent",duration:0.45})});
 });
@@ -2843,6 +2890,19 @@ if(!reducedMotion){
     });
 })();
 
+// NAV SCROLL REVEAL — appears after hero
+(function(){
+  var nav=document.getElementById('site-nav');
+  var hero=document.getElementById('hero');
+  if(!nav||!hero) return;
+  ScrollTrigger.create({
+    trigger:hero,
+    start:'bottom top',
+    onEnter:function(){ nav.classList.add('nav-visible'); },
+    onLeaveBack:function(){ nav.classList.remove('nav-visible'); }
+  });
+})();
+
 // NAV HAMBURGER
 const navBtn=document.getElementById('nav-hamburger');
 const navLinks=document.getElementById('nav-links');
@@ -2865,28 +2925,69 @@ if(navBtn&&navLinks){
   });
 }
 
-// MOBILE BOTTOM BAR — appears after landing section
+// MOBILE BOTTOM BAR — rotating CTA
 (function(){
   var bar=document.getElementById('mobile-bar');
   var closeBtn=document.getElementById('mobile-bar-close');
-  var barBtn=document.getElementById('mobile-bar-btn');
+  var label=document.getElementById('mobile-bar-label');
+  var btn=document.getElementById('mobile-bar-btn');
+  var cta=document.getElementById('mobile-bar-cta');
   if(!bar) return;
   if(sessionStorage.getItem('seraph-bar-dismissed')) return;
+
+  var states=[
+    {text:'Get the Fire Letters — free', href:'#invitation', btn:'Join →'},
+    {text:'Watch on YouTube', href:'https://www.youtube.com/@seraphministryglobal', btn:'Watch →'}
+  ];
+  var current=0;
+
+  function applyState(i,fade){
+    var s=states[i];
+    if(fade){
+      label.classList.remove('visible');
+      setTimeout(function(){
+        label.textContent=s.text;
+        cta.href=s.href;
+        btn.textContent=s.btn;
+        btn.href=s.href;
+        if(s.href.startsWith('http')) btn.target='_blank';
+        else btn.removeAttribute('target');
+        label.classList.add('visible');
+      },400);
+    } else {
+      label.textContent=s.text;
+      cta.href=s.href;
+      btn.textContent=s.btn;
+      btn.href=s.href;
+      setTimeout(function(){ label.classList.add('visible'); }, 100);
+    }
+  }
+
   ScrollTrigger.create({
     trigger:'#landing',
     start:'bottom top',
     once:true,
     onEnter:function(){
-      setTimeout(function(){ bar.classList.add('visible'); }, 600);
+      setTimeout(function(){
+        bar.classList.add('visible');
+        applyState(0, false);
+        setInterval(function(){
+          current=(current+1)%states.length;
+          applyState(current, true);
+        }, 4000);
+      }, 600);
     }
   });
+
   closeBtn.addEventListener('click',function(){
     bar.classList.remove('visible');
     sessionStorage.setItem('seraph-bar-dismissed','1');
   });
-  barBtn.addEventListener('click',function(){
-    bar.classList.remove('visible');
-    sessionStorage.setItem('seraph-bar-dismissed','1');
+  btn.addEventListener('click',function(){
+    if(!btn.href||!btn.href.includes('youtube')){
+      bar.classList.remove('visible');
+      sessionStorage.setItem('seraph-bar-dismissed','1');
+    }
   });
 })();
 
@@ -2900,8 +3001,15 @@ if(navBtn&&navLinks){
     var email=document.getElementById('inv-email').value.trim();
     if(!email||email.indexOf('@')<1) return;
     var btn=form.querySelector('button');
-    btn.textContent='Sending...';
+    btn.innerHTML='<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(242,237,228,0.3);border-top-color:var(--ash);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;"></span>Sending...';
     btn.disabled=true;
+    // Add spinner keyframe if not already present
+    if(!document.getElementById('spin-style')){
+      var s=document.createElement('style');
+      s.id='spin-style';
+      s.textContent='@keyframes spin{to{transform:rotate(360deg)}}';
+      document.head.appendChild(s);
+    }
     fetch('https://letters.seraphministry.com/subscribe',{
       method:'POST',
       headers:{'Content-Type':'application/x-www-form-urlencoded'},
@@ -2910,7 +3018,10 @@ if(navBtn&&navLinks){
     .finally(function(){
       form.style.opacity='0';
       form.style.pointerEvents='none';
-      if(confirm) confirm.classList.add('visible');
+      if(confirm){
+        confirm.classList.add('visible');
+        confirm.style.opacity='1';
+      }
       setTimeout(function(){
         window.location.href='https://letters.seraphministry.com/';
       },1800);

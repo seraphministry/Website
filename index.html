@@ -2802,13 +2802,10 @@ if(!reducedMotion){
 
 // LATEST YOUTUBE VIDEO
 (function(){
-  var API_KEY = 'PASTE_YOUR_YOUTUBE_API_KEY_HERE';
+  var PLAYLIST_ID = 'PLsYw9rzCWb0pWbxeETfAuzDTqWCkUFZtt';
 
-  var CHANNEL_ID = 'UCEowXPbGiyfEzb6VUW1AMDQ';
-  var UPLOADS_PLAYLIST_ID = 'UUEowXPbGiyfEzb6VUW1AMDQ';
-
-  var FALLBACK_ID = 'TfsXxGH4HR0';
-  var MIN_LONGFORM_SECONDS = 120;
+  // Fallback video if the playlist fetch fails
+  var FALLBACK_ID = 'ypbFFuSfiIs';
 
   var iframe = document.getElementById('latest-yt');
   if (!iframe) return;
@@ -2817,80 +2814,31 @@ if(!reducedMotion){
     iframe.src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1';
   }
 
-  function parseYouTubeDuration(duration){
-    var match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-
-    if (!match) return 0;
-
-    var hours = parseInt(match[1] || '0', 10);
-    var minutes = parseInt(match[2] || '0', 10);
-    var seconds = parseInt(match[3] || '0', 10);
-
-    return (hours * 3600) + (minutes * 60) + seconds;
-  }
-
+  // Always load fallback first so the box never breaks.
   setVideo(FALLBACK_ID);
 
-  var playlistUrl =
-    'https://www.googleapis.com/youtube/v3/playlistItems' +
-    '?part=snippet,contentDetails' +
-    '&playlistId=' + encodeURIComponent(UPLOADS_PLAYLIST_ID) +
-    '&maxResults=15' +
-    '&key=' + encodeURIComponent(API_KEY);
+  var rssUrl = 'https://www.youtube.com/feeds/videos.xml?playlist_id=' + PLAYLIST_ID;
+  var proxyUrl = 'https://api.allorigins.win/raw?url=' + encodeURIComponent(rssUrl);
 
-  fetch(playlistUrl)
+  fetch(proxyUrl)
     .then(function(response){
-      if (!response.ok) throw new Error('Could not fetch uploads playlist');
-      return response.json();
+      if (!response.ok) throw new Error('Playlist RSS fetch failed');
+      return response.text();
     })
-    .then(function(playlistData){
-      var items = playlistData.items || [];
+    .then(function(xmlText){
+      var parser = new DOMParser();
+      var xml = parser.parseFromString(xmlText, 'text/xml');
 
-      var ids = items
-        .map(function(item){
-          return item.contentDetails && item.contentDetails.videoId;
-        })
-        .filter(Boolean);
+      var firstVideoId =
+        xml.querySelector('entry yt\\:videoId') ||
+        xml.querySelector('entry videoId');
 
-      if (!ids.length) throw new Error('No video IDs found');
-
-      var videosUrl =
-        'https://www.googleapis.com/youtube/v3/videos' +
-        '?part=contentDetails,snippet' +
-        '&id=' + encodeURIComponent(ids.join(',')) +
-        '&key=' + encodeURIComponent(API_KEY);
-
-      return fetch(videosUrl);
-    })
-    .then(function(response){
-      if (!response.ok) throw new Error('Could not fetch video details');
-      return response.json();
-    })
-    .then(function(videoData){
-      var videos = videoData.items || [];
-
-      var latestLongform = videos.find(function(video){
-        var duration = video.contentDetails && video.contentDetails.duration;
-        var seconds = parseYouTubeDuration(duration || '');
-
-        var title = video.snippet && video.snippet.title
-          ? video.snippet.title.toLowerCase()
-          : '';
-
-        var isLongEnough = seconds >= MIN_LONGFORM_SECONDS;
-        var isNotObviousShort =
-          title.indexOf('#shorts') === -1 &&
-          title.indexOf('shorts') === -1;
-
-        return isLongEnough && isNotObviousShort;
-      });
-
-      if (latestLongform && latestLongform.id) {
-        setVideo(latestLongform.id);
+      if (firstVideoId && firstVideoId.textContent) {
+        setVideo(firstVideoId.textContent.trim());
       }
     })
     .catch(function(error){
-      console.warn('Latest long-form video could not auto-load:', error);
+      console.warn('Latest playlist video could not auto-load:', error);
       setVideo(FALLBACK_ID);
     });
 })();

@@ -26,7 +26,7 @@
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
 <!-- Preload critical assets -->
-<link rel="preload" href="seraph-logo.png" as="image">
+<link rel="preload" href="seraph-logo.png?v=20260519" as="image">
 
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -2125,30 +2125,15 @@ body{overflow-x:hidden;}
   </svg>
 
   <div class="logo-wrap" id="logo">
-    <svg id="logo-img-main" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;" aria-hidden="true">
-      <circle cx="200" cy="200" r="188" stroke="#F2EDE4" stroke-width="2.5" fill="none" opacity="0.18"/>
-      <circle cx="200" cy="200" r="172" stroke="#D4A017" stroke-width="1" fill="none" opacity="0.12"/>
-      <g stroke="#F2EDE4" stroke-width="18" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.92">
-        <line x1="200" y1="22"  x2="200" y2="378"/>
-        <line x1="22"  y1="110" x2="378" y2="290"/>
-        <line x1="378" y1="110" x2="22"  y2="290"/>
-      </g>
-      <g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#roughen)" opacity="0.55">
-        <line x1="200" y1="55"  x2="200" y2="345"/>
-        <line x1="55"  y1="128" x2="345" y2="272"/>
-        <line x1="345" y1="128" x2="55"  y2="272"/>
-      </g>
-      <circle cx="200" cy="200" r="14" fill="#D4A017" opacity="0.45" filter="url(#roughen)"/>
-      <circle cx="200" cy="200" r="6"  fill="#F2EDE4" opacity="0.7"/>
-      <g fill="#D4A017" opacity="0.35">
-        <circle cx="200" cy="30"  r="5"/>
-        <circle cx="200" cy="370" r="5"/>
-        <circle cx="30"  cy="119" r="5"/>
-        <circle cx="370" cy="119" r="5"/>
-        <circle cx="30"  cy="281" r="5"/>
-        <circle cx="370" cy="281" r="5"/>
-      </g>
-    </svg>
+    <img
+      id="logo-img-main"
+      src="seraph-logo.png?v=20260519"
+      alt="Seraph Ministry logo"
+      width="2048"
+      height="2048"
+      decoding="async"
+      fetchpriority="high"
+    >
   </div>
 
   <!-- PRIMARY CROWN — Basquiat W, filled gold + rough stroke overpainting -->

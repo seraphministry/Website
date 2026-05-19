@@ -70,7 +70,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .n3{color:var(--gold);font-size:clamp(1.5rem,3vw,3.5rem);bottom:26%;right:22%;transform:rotate(-5deg);}
 
 /* SVG MARKS — positioned with CSS */
-.sm-wrap{position:absolute;z-index:6;opacity:0;}
+.sm-wrap{position:absolute;z-index:6;opacity:0;will-change:transform;}
 .sm1{width:clamp(38px,5.5vw,72px);top:12%;right:22%;transform:rotate(30deg);}
 .sm2{width:clamp(22px,3.2vw,42px);bottom:30%;right:5%;transform:rotate(-10deg);}
 .sm3{width:clamp(14px,2vw,26px);top:55%;right:14%;transform:rotate(50deg);}
@@ -89,7 +89,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .sm15{width:clamp(12px,1.6vw,22px);bottom:55%;left:4%;transform:rotate(12deg);}
 
 /* SVG X MARKS */
-.xmark-svg{position:absolute;z-index:9;opacity:0;}
+.xmark-svg{position:absolute;z-index:9;opacity:0;will-change:transform;}
 .xm1{width:clamp(80px,13vw,170px);top:4%;right:5%;transform:rotate(15deg);}
 .xm2{width:clamp(36px,5vw,65px);bottom:35%;left:3%;transform:rotate(-10deg);}
 .xm3{width:clamp(28px,3.8vw,52px);top:42%;right:12%;transform:rotate(22deg);}
@@ -97,7 +97,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 .annot{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.12em;text-transform:uppercase;position:absolute;z-index:12;opacity:0;}
 .a1{color:var(--gold);top:40%;right:2.5%;transform:rotate(90deg);font-style:italic;}
-.a2{color:var(--bone);opacity:0.35;bottom:3%;right:3%;font-size:0.45rem;}
+.a2{color:var(--bone);opacity:0.35;bottom:3%;right:3%;font-size:0.72rem;}
 
 .paint-smear{position:absolute;top:46%;left:0;width:100%;z-index:3;opacity:0;pointer-events:none;}
 
@@ -114,18 +114,20 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .s10{width:9px;height:9px;background:var(--gold);top:48%;right:5%;opacity:0.5;}
 
 .cta-block{position:absolute;bottom:3.5rem;left:50%;transform:translateX(-50%);z-index:15;opacity:0;display:flex;flex-direction:column;align-items:center;text-align:center;width:clamp(240px,80vw,360px);}
-.cta-label{font-family:'Space Mono',monospace;font-size:0.55rem;letter-spacing:0.25em;color:var(--bone);opacity:0.45;text-transform:uppercase;display:block;margin-bottom:0.3rem;}
+.cta-label{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.25em;color:var(--bone);opacity:0.45;text-transform:uppercase;display:block;margin-bottom:0.3rem;}
 .cta-word{font-family:'Playfair Display',serif;font-style:italic;font-weight:900;font-size:clamp(2rem,4vw,4rem);color:var(--ash);text-decoration:none;cursor:none;display:inline-block;position:relative;filter:url(#roughen);}
 .cta-word::after{content:'';position:absolute;bottom:2px;left:0;width:0;height:3px;background:var(--fire);transition:width .35s cubic-bezier(.16,1,.3,1);}
 .cta-word:hover::after{width:100%;}
-.bottom-annots{margin-bottom:0.6rem;text-align:center;}
+.bottom-annots{position:absolute;bottom:3.5rem;left:2.5rem;z-index:15;opacity:0;text-align:left;animation:annots-appear 0.5s ease 2.2s forwards;}
+@keyframes annots-appear{to{opacity:1;transform:translateY(0);}}
+@media(max-width:768px){.bottom-annots{bottom:calc(2.5rem + env(safe-area-inset-bottom));left:1.2rem;}}
 .ba-line{font-family:'Space Mono',monospace;font-size:0.5rem;letter-spacing:0.14em;text-transform:uppercase;display:block;line-height:2.4;}
 .ba1{color:var(--fire);}.ba1 s{text-decoration:line-through;text-decoration-color:var(--ash);text-decoration-thickness:1px;}
 .ba2{color:var(--bone);margin-left:0.6rem;}.ba2 s{text-decoration:line-through;text-decoration-color:var(--fire);text-decoration-thickness:1px;}
 .ba3{color:var(--gold);margin-left:0.3rem;}.ba3 s{text-decoration:line-through;text-decoration-color:var(--fire);text-decoration-thickness:1px;}
 
 .scroll-mark{position:absolute;bottom:3.5rem;right:2.5rem;z-index:15;opacity:0;display:flex;flex-direction:column;align-items:center;gap:5px;}
-.scroll-mark span{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.22em;color:var(--bone);opacity:0.35;text-transform:uppercase;writing-mode:vertical-rl;}
+.scroll-mark span{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.22em;color:var(--bone);opacity:0.35;text-transform:uppercase;writing-mode:vertical-rl;}
 .scroll-bar{width:1px;height:0;background:var(--fire);opacity:0.4;}
 
 @media(max-width:768px){
@@ -282,9 +284,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   border-bottom:1px solid rgba(255,51,0,0.22);
 }
 .nav-inner{
-  max-width:1200px;
+  max-width:1400px;
   margin:0 auto;
-  padding:0 clamp(1.5rem,5vw,6rem);
+  padding:0 clamp(1rem,3vw,4rem);
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -292,8 +294,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .nav-mark{
   font-family:'Space Mono',monospace;
-  font-size:0.52rem;
-  letter-spacing:0.28em;
+  font-size:0.72rem;
+  letter-spacing:0.18em;
   text-transform:uppercase;
   color:var(--fire);
   opacity:0.55;
@@ -303,7 +305,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .nav-links{
   display:flex;
   align-items:center;
-  gap:clamp(1.2rem,3vw,3.5rem);
+  gap:clamp(0.6rem,1.6vw,2rem);
   list-style:none;
 }
 .nav-sep{
@@ -315,10 +317,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .nav-links a{
   font-family:'IM Fell English',serif;
   font-style:italic;
-  font-size:clamp(0.85rem,1.4vw,1.15rem);
+  font-size:clamp(0.78rem,1.2vw,1rem);
   color:var(--bone);
   text-decoration:none;
-  letter-spacing:0.04em;
+  letter-spacing:0.03em;
   position:relative;
   cursor:none;
   transition:color .22s ease, text-shadow .22s ease;
@@ -385,7 +387,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .proof{
   background:var(--ink);
   padding:clamp(6rem,10vw,10rem) 0;
-  border-top:1px solid rgba(255,51,0,0.1);
+  
   position:relative;
 }
 .proof-inner{
@@ -395,7 +397,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .proof-eyebrow{
   font-family:'Space Mono',monospace;
-  font-size:0.62rem;
+  font-size:0.72rem;
   letter-spacing:0.32em;
   text-transform:uppercase;
   color:var(--fire);
@@ -438,7 +440,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .proof-source{
   font-family:'Space Mono',monospace;
-  font-size:0.48rem;
+  font-size:0.72rem;
   letter-spacing:0.18em;
   text-transform:uppercase;
   color:#fff;
@@ -458,7 +460,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
    ====================== */
 .coal-inline-cta{
   font-family:'Space Mono',monospace;
-  font-size:0.62rem;
+  font-size:0.72rem;
   letter-spacing:0.16em;
   text-transform:uppercase;
   color:var(--fire);
@@ -481,11 +483,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   align-items:center;
   gap:0.8rem;
   margin-top:clamp(1.5rem,3vw,2.5rem);
+  padding-bottom:clamp(1.5rem,3vw,2.5rem);
 }
 .vsl-letter-cta{
   display:inline-block;
   font-family:'Space Mono',monospace;
-  font-size:0.62rem;
+  font-size:0.72rem;
   letter-spacing:0.2em;
   text-transform:uppercase;
   color:var(--fire);
@@ -515,7 +518,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .inv-trust{
   font-family:'Space Mono',monospace;
-  font-size:0.52rem;
+  font-size:0.72rem;
   letter-spacing:0.16em;
   text-transform:uppercase;
   color:var(--bone);
@@ -541,12 +544,15 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ======================
    SPACE MONO SIZE FLOOR
    ====================== */
-.nav-mark{font-size:0.62rem;}
+.nav-mark{font-size:0.72rem;}
 .proof-eyebrow,.teachings-eyebrow,.resources-eyebrow,
 .landing-eyebrow,.beholding-eyebrow,.inv-eyebrow,
-.ps-label{font-size:0.62rem;}
+.landing-form-eyebrow,.coal-signup-eyebrow,.vsl-eyebrow,
+.ps-label{font-size:0.72rem;}
 .beholding-ref,.footer-cite,.inv-note,.inv-trust,
-.coal-mark-num,.teaching-meta,.proof-source{font-size:0.52rem;}
+.landing-form-trust,.coal-signup-trust,
+.inv-ps-label,.inv-ps-protocol-text,.inv-ps-protocol-link,
+.coal-mark-num,.teaching-meta,.proof-source{font-size:0.72rem;}
 
 /* ======================
    HERO CTA BUTTONS
@@ -557,38 +563,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   gap:0.75rem;
   margin-top:0.5rem;
   width:100%;
-}
-.cta-btn{
-  display:block;
-  width:100%;
-  font-family:'Space Mono',monospace;
-  font-size:clamp(0.62rem,1vw,0.78rem);
-  letter-spacing:0.22em;
-  text-transform:uppercase;
-  text-decoration:none;
-  padding:0.9rem 1.8rem;
-  text-align:center;
-  cursor:none;
-  transition:background .22s ease, color .22s ease;
-  white-space:nowrap;
-}
-.cta-btn--primary{
-  background:var(--fire);
-  color:var(--ash);
-  border:1px solid var(--fire);
-}
-.cta-btn--primary:hover{
-  background:transparent;
-  color:var(--fire);
-}
-.cta-btn--secondary{
-  background:transparent;
-  color:var(--bone);
-  border:1px solid rgba(232,223,208,0.35);
-}
-.cta-btn--secondary:hover{
-  border-color:var(--fire);
-  color:var(--fire);
 }
 @media(max-width:768px){
   .cta-word{font-size:clamp(1.6rem,7vw,2.6rem);}
@@ -637,7 +611,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .nav-home-mark:hover{opacity:1;}
 .nav-menu-label{
   font-family:'Space Mono',monospace;
-  font-size:0.44rem;
+  font-size:0.72rem;
   letter-spacing:0.28em;
   text-transform:uppercase;
   font-style:normal;
@@ -664,7 +638,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .inv-headline{order:-1;}
 .inv-eyebrow{
   font-family:'Space Mono',monospace;
-  font-size:0.62rem;
+  font-size:0.72rem;
   letter-spacing:0.32em;
   text-transform:uppercase;
   color:var(--fire);
@@ -675,7 +649,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .inv-promise{
   font-family:'Space Mono',monospace;
-  font-size:0.62rem;
+  font-size:0.72rem;
   letter-spacing:0.18em;
   text-transform:uppercase;
   color:var(--fire);
@@ -698,24 +672,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   margin-right:auto;
   line-height:1.7;
 }
-.inv-scarcity{
-  font-family:'IM Fell English',serif;
-  font-style:italic;
-  font-size:clamp(0.9rem,1.5vw,1.2rem);
-  color:var(--bone);
-  display:block;
-  margin-top:0.4rem;
-  margin-bottom:clamp(1.5rem,3vw,2.5rem);
-  opacity:0;
-  max-width:44ch;
-  margin-left:auto;
-  margin-right:auto;
-  line-height:1.7;
-  opacity:0.7;
-}
 .inv-skeptic{
   font-family:'Space Mono',monospace;
-  font-size:0.58rem;
+  font-size:0.72rem;
   letter-spacing:0.14em;
   text-transform:uppercase;
   color:var(--bone);
@@ -731,96 +690,6 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ======================
    EXIT PATH
    ====================== */
-.exit-path{
-  background:var(--ink);
-  border-top:1px solid rgba(255,51,0,0.18);
-  border-bottom:1px solid rgba(255,51,0,0.1);
-  padding:clamp(5rem,9vw,9rem) 0;
-  position:relative;
-  overflow:hidden;
-}
-.exit-path::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:radial-gradient(ellipse 55% 50% at center,rgba(255,51,0,0.04) 0%,transparent 70%);
-  pointer-events:none;
-}
-.exit-inner{
-  max-width:680px;
-  margin:0 auto;
-  padding:0 clamp(1.5rem,5vw,4rem);
-  text-align:center;
-  opacity:0;
-  position:relative;
-  z-index:2;
-}
-.exit-eyebrow{
-  font-family:'Space Mono',monospace;
-  font-size:0.62rem;
-  letter-spacing:0.28em;
-  text-transform:uppercase;
-  color:var(--fire);
-  display:block;
-  margin-bottom:clamp(1rem,2vw,1.5rem);
-}
-.exit-headline{
-  font-family:'Playfair Display',serif;
-  font-weight:900;
-  font-size:clamp(2rem,4vw,4.2rem);
-  color:var(--ash);
-  display:block;
-  line-height:1.05;
-  filter:url(#roughen);
-  margin-bottom:clamp(1.2rem,2.5vw,2rem);
-  letter-spacing:-0.02em;
-}
-.exit-desc{
-  font-family:'IM Fell English',serif;
-  font-style:italic;
-  font-size:clamp(1rem,1.8vw,1.35rem);
-  color:var(--bone);
-  line-height:1.75;
-  opacity:0.85;
-  margin-bottom:clamp(2rem,4vw,3rem);
-  max-width:52ch;
-  margin-left:auto;
-  margin-right:auto;
-}
-.exit-btn{
-  display:inline-block;
-  font-family:'Space Mono',monospace;
-  font-size:0.65rem;
-  letter-spacing:0.22em;
-  text-transform:uppercase;
-  color:var(--ash);
-  background:var(--fire);
-  border:1px solid var(--fire);
-  padding:1.1rem 2.4rem;
-  text-decoration:none;
-  transition:background .22s ease, color .22s ease;
-  cursor:pointer;
-}
-.exit-btn:hover{background:transparent;color:var(--fire);}
-.exit-sub{
-  font-family:'Space Mono',monospace;
-  font-size:0.52rem;
-  letter-spacing:0.14em;
-  text-transform:uppercase;
-  color:var(--bone);
-  opacity:0.4;
-  display:block;
-  margin-top:1.4rem;
-}
-.exit-link{
-  color:var(--bone);
-  opacity:0.6;
-  text-decoration:none;
-  border-bottom:1px solid rgba(232,223,208,0.25);
-  transition:color .22s ease, opacity .22s ease;
-}
-.exit-link:hover{color:var(--fire);opacity:1;border-bottom-color:rgba(255,51,0,0.4);}
-
 /* ======================
    MOBILE BOTTOM BAR
    ====================== */
@@ -861,7 +730,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .mobile-bar-label{
   font-family:'Space Mono',monospace;
-  font-size:0.48rem;
+  font-size:0.72rem;
   letter-spacing:0.16em;
   text-transform:uppercase;
   color:var(--bone);
@@ -874,7 +743,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .mobile-bar-label.visible{opacity:0.7;}
 .mobile-bar-btn{
   font-family:'Space Mono',monospace;
-  font-size:0.52rem;
+  font-size:0.72rem;
   letter-spacing:0.18em;
   text-transform:uppercase;
   color:var(--ash);
@@ -903,6 +772,410 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 
 /* ======================
+   LOADING SCREEN
+   ====================== */
+#seraph-loader{
+  position:fixed;inset:0;
+  background:var(--fire);
+  z-index:10000;
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:all;
+  overflow:hidden;
+}
+#seraph-loader.exit{
+  opacity:0;
+  transition:opacity .45s ease;
+  pointer-events:none;
+}
+#loader-seraph{
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:clamp(3rem,15vw,11rem);
+  line-height:0.9;
+  color:var(--ash);
+  letter-spacing:-0.03em;
+  filter:url(#roughen);
+  transform:none;
+  will-change:transform;
+  user-select:none;
+  text-align:center;
+  max-width:90vw;
+  white-space:nowrap;
+}
+
+/* ======================
+   ISAIAH ARC — gradient descent, no hard borders
+   ====================== */
+.beholding{
+  background:#0C0B09;
+  padding:clamp(5rem,8vw,9rem) 0;
+  border-top:none;
+  position:relative;
+  overflow:hidden;
+}
+.beholding::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:120px;
+  background:linear-gradient(to bottom,transparent,#0D0A08);
+  pointer-events:none;z-index:4;
+}
+.undoing{
+  background:#0D0A08;
+  padding:clamp(4rem,7vw,8rem) 0;
+  border-top:none;
+  position:relative;
+  overflow:hidden;
+}
+.undoing::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:120px;
+  background:linear-gradient(to bottom,transparent,#100C08);
+  pointer-events:none;z-index:4;
+}
+.coal{
+  background:#100C08;
+  padding:clamp(4rem,7vw,8rem) 0;
+  border-top:none;
+  position:relative;
+}
+.coal::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:120px;
+  background:linear-gradient(to bottom,transparent,#0E0B08);
+  pointer-events:none;z-index:4;
+}
+.sending{
+  background:#0E0B08;
+  padding:clamp(4rem,7vw,8rem) 0 clamp(1rem,1.5vw,2rem);
+  border-top:none;
+  position:relative;
+  overflow:hidden;
+}
+.sending::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;
+  height:160px;
+  background:linear-gradient(to bottom,transparent,#0C0B09);
+  pointer-events:none;z-index:4;
+}
+
+/* ======================
+   COAL FLASH — target element
+   ====================== */
+#cl-4{position:relative;}
+.coal-flash-active{
+  transition:none;
+}
+
+/* ======================
+   TYPOGRAPHY SCALE — violence pass
+   ====================== */
+.sending-here{
+  font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+  font-size:clamp(4rem,10vw,14rem);color:var(--ash);line-height:0.88;
+  display:block;filter:url(#roughen);letter-spacing:-0.02em;
+}
+.coal-text-fire{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(3rem,6.5vw,8.5rem);color:var(--fire);line-height:0.92;
+  display:block;filter:url(#roughen);letter-spacing:-0.02em;
+}
+.undoing-text-climax{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(3.5rem,9vw,11rem);color:var(--fire);line-height:0.9;
+  display:block;filter:url(#roughen);letter-spacing:-0.02em;
+}
+.landing-turn{
+  font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(2rem,4.5vw,5.5rem);color:var(--ash);
+  display:block;line-height:1.05;filter:url(#roughen);
+  opacity:0;letter-spacing:-0.02em;
+}
+.landing-door{
+  font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+  font-size:clamp(2.5rem,5.5vw,7rem);color:var(--fire);
+  display:block;line-height:0.95;filter:url(#roughen);
+  letter-spacing:-0.02em;margin-top:0.15em;
+}
+
+/* ======================
+   LANDING EARLY FORM
+   ====================== */
+.landing-form-wrap{
+  margin-top:clamp(2.5rem,5vw,5rem);
+  padding-top:clamp(2rem,3.5vw,3.5rem);
+  border-top:1px solid rgba(255,51,0,0.18);
+  opacity:0;
+}
+.landing-form-eyebrow{
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--fire);
+  display:block;
+  margin-bottom:0.8rem;
+}
+.landing-form-desc{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(0.95rem,1.6vw,1.25rem);
+  color:var(--bone);
+  display:block;
+  margin-bottom:clamp(1.2rem,2.5vw,2rem);
+  line-height:1.65;
+  opacity:0.8;
+}
+/* Reuse .inv-form styles — form has class landing-form */
+.landing-form{
+  display:flex;flex-direction:column;gap:0.75rem;
+  max-width:420px;width:100%;margin:0 auto;
+}
+.landing-form input[type="email"]{
+  background:transparent;
+  border:1px solid rgba(242,237,228,0.22);
+  padding:1rem 1.4rem;
+  font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--ash);
+  outline:none;letter-spacing:0.05em;transition:border-color 0.3s;
+  -webkit-appearance:none;border-radius:0;width:100%;
+}
+.landing-form input[type="email"]::placeholder{
+  color:rgba(242,237,228,0.28);letter-spacing:0.08em;
+  text-transform:uppercase;font-size:0.65rem;
+}
+.landing-form input[type="email"]:focus{border-color:rgba(255,51,0,0.55);}
+.landing-form button{
+  width:100%;
+  background:var(--fire);border:1px solid var(--fire);
+  padding:1.1rem 2rem;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ash);cursor:pointer;transition:background 0.25s,color 0.25s;
+  -webkit-appearance:none;border-radius:0;
+}
+.landing-form button:hover{background:transparent;color:var(--fire);}
+.landing-form-confirm{
+  font-family:'IM Fell English',serif;font-style:italic;
+  font-size:1rem;color:var(--gold);
+  opacity:0;margin-top:1rem;display:block;transition:opacity 0.6s;
+}
+.landing-form-confirm.visible{opacity:1;}
+.landing-form-trust{
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;
+  color:var(--bone);opacity:0.28;text-transform:uppercase;
+  display:block;margin-top:0.7rem;
+}
+
+/* ======================
+   COAL INLINE SIGNUP BLOCK
+   ====================== */
+.coal-signup-block{
+  border-top:1px solid rgba(255,51,0,0.18);
+  margin-top:clamp(3rem,6vw,6rem);
+  padding-top:clamp(2.5rem,5vw,5rem);
+  text-align:center;
+  opacity:0;
+  position:relative;
+  z-index:2;
+}
+.coal-signup-anchor{
+  font-family:'Playfair Display',serif;font-weight:900;font-style:italic;
+  font-size:clamp(1.8rem,3.5vw,3.5rem);color:var(--ash);
+  display:block;filter:url(#roughen);letter-spacing:-0.01em;
+  margin-bottom:clamp(1rem,2vw,1.8rem);
+}
+.coal-signup-eyebrow{
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.28em;
+  text-transform:uppercase;color:var(--fire);display:block;
+  margin-bottom:0.6rem;
+}
+.coal-signup-desc{
+  font-family:'IM Fell English',serif;font-style:italic;
+  font-size:clamp(0.9rem,1.5vw,1.2rem);color:var(--bone);
+  display:block;margin-bottom:clamp(1.2rem,2.5vw,2rem);line-height:1.65;opacity:0.8;
+  max-width:44ch;margin-left:auto;margin-right:auto;
+}
+.coal-form{
+  display:flex;flex-direction:column;gap:0.75rem;
+  max-width:420px;width:100%;margin:0 auto;
+}
+.coal-form input[type="email"]{
+  background:transparent;
+  border:1px solid rgba(242,237,228,0.18);
+  padding:1rem 1.4rem;
+  font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--ash);
+  outline:none;letter-spacing:0.05em;transition:border-color 0.3s;
+  -webkit-appearance:none;border-radius:0;width:100%;
+}
+.coal-form input[type="email"]::placeholder{
+  color:rgba(242,237,228,0.25);letter-spacing:0.08em;
+  text-transform:uppercase;font-size:0.65rem;
+}
+.coal-form input[type="email"]:focus{border-color:rgba(255,51,0,0.55);}
+.coal-form button{
+  width:100%;
+  background:var(--fire);border:1px solid var(--fire);
+  padding:1.1rem 2rem;
+  font-family:'Space Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--ash);cursor:pointer;transition:background 0.25s,color 0.25s;
+  -webkit-appearance:none;border-radius:0;
+}
+.coal-form button:hover{background:transparent;color:var(--fire);}
+.coal-form-confirm{
+  font-family:'IM Fell English',serif;font-style:italic;
+  font-size:1rem;color:var(--gold);
+  opacity:0;margin-top:1rem;display:block;transition:opacity 0.6s;
+}
+.coal-form-confirm.visible{opacity:1;}
+.coal-signup-trust{
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;
+  color:var(--bone);opacity:0.25;text-transform:uppercase;
+  display:block;margin-top:0.7rem;
+}
+
+/* ======================
+   NAV LETTER CTA LINK
+   ====================== */
+.nav-letter-link{
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--fire);
+  text-decoration:none;
+  opacity:0.6;
+  transition:opacity .22s ease;
+  white-space:nowrap;
+  flex-shrink:0;
+}
+.nav-letter-link:hover{opacity:1;}
+@media(max-width:768px){
+  .nav-letter-link{display:none;}
+}
+
+/* ======================
+   NAV HERE AM I
+   ====================== */
+.nav-links a.nav-here-am-i{
+  color:var(--fire);
+  font-style:normal;
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  border:1px solid rgba(255,51,0,0.4);
+  padding:0.3rem 0.75rem;
+}
+.nav-links a.nav-here-am-i:hover{
+  background:var(--fire);
+  color:var(--ash);
+  text-shadow:none;
+}
+.nav-links a.nav-here-am-i::after{display:none;}
+@media(max-width:768px){
+  .nav-links a.nav-here-am-i{display:none;}
+}
+
+/* ======================
+   HOLY HOLY HOLY — GPU glow via filter, no text-shadow repaints
+   ====================== */
+#holy-1,#holy-2,#holy-3{
+  display:inline-block;
+  position:relative;
+  will-change:opacity,filter;
+}
+#holy-1{filter:drop-shadow(0 0 0px rgba(255,51,0,0));}
+#holy-2{filter:drop-shadow(0 0 0px rgba(212,160,23,0));}
+#holy-3{filter:drop-shadow(0 0 0px rgba(248,244,234,0));}
+
+/* ======================
+   RESOURCES 2-COL
+   ====================== */
+.resources-grid--two{
+  grid-template-columns:repeat(2,1fr);
+}
+@media(max-width:768px){
+  .resources-grid--two{grid-template-columns:1fr;}
+}
+
+/* ======================
+   VSL + TEACHINGS MERGED SECTION DIVIDER
+   ====================== */
+.teachings-divider{
+  max-width:1200px;
+  margin:clamp(2.5rem,5vw,5rem) auto 0;
+  padding:0 clamp(1.5rem,5vw,6rem);
+  border-top:1px solid rgba(255,51,0,0.1);
+}
+
+/* ======================
+   INVITATION PS POSTSCRIPT
+   ====================== */
+.inv-ps-wrap{
+  margin-top:clamp(2.5rem,5vw,5rem);
+  padding-top:clamp(2rem,4vw,4rem);
+  border-top:1px solid rgba(255,51,0,0.14);
+  max-width:580px;
+  margin-left:auto;
+  margin-right:auto;
+  text-align:center;
+}
+.inv-ps-label{
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--fire);display:block;margin-bottom:clamp(1rem,2vw,2rem);
+  opacity:0.7;
+}
+.inv-ps-body{
+  font-family:'IM Fell English',serif;font-style:italic;
+  font-size:clamp(0.9rem,1.5vw,1.2rem);color:var(--bone);
+  line-height:1.75;margin:0 0 1.2rem;opacity:0.7;
+}
+.inv-ps-protocol{
+  margin-top:clamp(1.5rem,2.5vw,2.5rem);
+  padding-top:clamp(1rem,1.5vw,1.5rem);
+  border-top:1px solid rgba(255,51,0,0.1);
+}
+.inv-ps-protocol-text{
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.1em;color:var(--bone);opacity:0.5;
+  line-height:2;display:block;margin-bottom:0.8rem;
+}
+.inv-ps-protocol-link{
+  font-family:'Space Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--fire);text-decoration:none;opacity:0.65;
+  border-bottom:1px solid rgba(255,51,0,0.3);padding-bottom:2px;
+  transition:opacity .22s ease;
+}
+.inv-ps-protocol-link:hover{opacity:1;}
+
+/* ======================
+   INVITATION BRIDGE LINE
+   ====================== */
+.inv-bridge{
+  font-family:'IM Fell English',serif;font-style:italic;
+  font-size:clamp(0.9rem,1.5vw,1.2rem);color:var(--bone);
+  display:block;margin:0 auto clamp(1.5rem,2.5vw,2.5rem);
+  max-width:44ch;line-height:1.7;opacity:0.65;
+}
+.scripture-hover #cursor{
+  width:18px!important;height:18px!important;
+  transition:width .4s ease,height .4s ease,left .4s ease,top .4s ease!important;
+}
+
+/* ======================
+   PADDING REDUCTION — utility sections
+   ====================== */
+.landing{padding:clamp(4rem,8vw,8rem) 0;}
+.teachings{padding:clamp(3rem,5vw,6rem) 0 clamp(2rem,3vw,3rem);}
+.resources{padding:clamp(2rem,3vw,3rem) 0 clamp(3rem,5vw,6rem);}
+.proof{padding:clamp(3rem,5vw,6rem) 0;}
+.vsl{padding:clamp(2rem,3vw,4rem) 0;}
+.invitation{padding:clamp(3rem,5vw,6rem) 0;}
+.ps-section{padding:clamp(3rem,5vw,5rem) 0;}
+
+/* ======================
    SHARED
    ====================== */
 .section{position:relative;width:100%;overflow:hidden;}
@@ -913,7 +1186,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @keyframes sg-b{0%,100%{translate:0 0}50%{translate:2px 8px}}
 @keyframes sg-c{0%,100%{translate:-3px -4px}50%{translate:3px 6px}}
 @keyframes breathe{0%,100%{transform:scale(1);letter-spacing:0.15em}50%{transform:scale(1.018);letter-spacing:0.18em}}
-.sg{position:absolute;pointer-events:none;z-index:2;will-change:translate;}
+.sg{position:absolute;pointer-events:none;z-index:2;will-change:translate;contain:layout style;}
 .sg.fa{animation:sg-a var(--d,8s) ease-in-out infinite var(--dl,0s);}
 .sg.fb{animation:sg-b var(--d,10s) ease-in-out infinite var(--dl,0s);}
 .sg.fc{animation:sg-c var(--d,12s) ease-in-out infinite var(--dl,0s);}
@@ -924,11 +1197,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .landing{
   background:var(--ink);
   padding:clamp(6rem,12vw,12rem) 0;
-  border-top:1px solid rgba(255,51,0,0.18);
   text-align:center;
   position:relative;
   z-index:1;
-  isolation:isolate;
 }
 .landing-inner{
   max-width:760px;
@@ -939,7 +1210,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .landing-eyebrow{
   font-family:'Space Mono',monospace;
-  font-size:0.52rem;
+  font-size:0.72rem;
   letter-spacing:0.32em;
   text-transform:uppercase;
   color:var(--fire);
@@ -995,7 +1266,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .teachings{
   background:var(--ink);
   padding:clamp(6rem,10vw,10rem) 0;
-  border-top:1px solid rgba(255,51,0,0.1);
+  
   position:relative;
   overflow:hidden;
 }
@@ -1011,14 +1282,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .teachings-eyebrow{
   font-family:'Space Mono',monospace;
-  font-size:0.52rem;
+  font-size:0.72rem;
   letter-spacing:0.32em;
   text-transform:uppercase;
   color:var(--fire);
 }
 .teachings-all{
   font-family:'Space Mono',monospace;
-  font-size:0.48rem;
+  font-size:0.72rem;
   letter-spacing:0.18em;
   text-transform:uppercase;
   color:var(--bone);
@@ -1037,6 +1308,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   padding:0 clamp(1.5rem,5vw,6rem) clamp(1.5rem,2vw,2rem);
   scrollbar-width:none;
   opacity:0;
+  margin-top:clamp(2rem,4vw,4rem);
 }
 .teachings-scroll::-webkit-scrollbar{display:none;}
 .teaching-card{
@@ -1047,21 +1319,23 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   text-decoration:none;
   display:flex;
   flex-direction:column;
-  transition:border-color .25s ease;
+  transition:border-color .3s ease,box-shadow .3s ease,transform .3s ease;
   position:relative;
+  will-change:transform;
 }
+.teaching-card:hover::before{transform:scaleX(1);}
 .teaching-card::before{
-  content:'';
-  position:absolute;
-  top:0;left:0;right:0;
-  height:1px;
-  background:var(--fire);
-  transform:scaleX(0);
-  transform-origin:left;
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:1px;background:var(--fire);
+  transform:scaleX(0);transform-origin:left;
   transition:transform .35s cubic-bezier(.16,1,.3,1);
 }
 .teaching-card:hover::before{transform:scaleX(1);}
-.teaching-card:hover{border-color:rgba(255,51,0,0.22);}
+.teaching-card:hover{
+  border-color:rgba(255,51,0,0.4);
+  transform:translateY(-3px);
+  box-shadow:0 0 0 1px rgba(255,51,0,0.3),0 0 20px rgba(255,51,0,0.18),0 0 48px rgba(255,51,0,0.08);
+}
 .teaching-thumb{
   width:100%;
   aspect-ratio:16/9;
@@ -1095,7 +1369,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .teaching-meta{
   font-family:'Space Mono',monospace;
-  font-size:0.42rem;
+  font-size:0.72rem;
   letter-spacing:0.18em;
   text-transform:uppercase;
   color:var(--fire);
@@ -1106,14 +1380,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .teachings-footer{
   max-width:1200px;
-  margin:clamp(2rem,4vw,3.5rem) auto 0;
+  margin:0.5rem auto 0;
   padding:0 clamp(1.5rem,5vw,6rem);
   text-align:center;
   opacity:0;
 }
 .teachings-channel-cta{
   font-family:'Space Mono',monospace;
-  font-size:0.58rem;
+  font-size:0.72rem;
   letter-spacing:0.22em;
   text-transform:uppercase;
   color:var(--fire);
@@ -1139,7 +1413,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .resources{
   background:var(--ink);
   padding:clamp(6rem,10vw,10rem) 0;
-  border-top:1px solid rgba(255,51,0,0.1);
+  
   position:relative;
 }
 .resources-header{
@@ -1150,7 +1424,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .resources-eyebrow{
   font-family:'Space Mono',monospace;
-  font-size:0.52rem;
+  font-size:0.72rem;
   letter-spacing:0.32em;
   text-transform:uppercase;
   color:var(--fire);
@@ -1223,8 +1497,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .resource-link{
   font-family:'Space Mono',monospace;
-  font-size:0.46rem;
-  letter-spacing:0.22em;
+  font-size:0.72rem;
+  letter-spacing:0.18em;
   text-transform:uppercase;
   color:var(--fire);
   margin-top:auto;
@@ -1246,14 +1520,22 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     transition:height .4s cubic-bezier(.16,1,.3,1);
   }
   .resource-card:hover::after{height:100%;width:1px;}
+/* Mobile: directional beats collapse to left — composition is a desktop experience */
+@media(max-width:768px){
+  .beholding-beat.right,
+  .undoing-line.right,
+  .coal-line.right,
+  .sending-line.right{text-align:left;}
+  .sending-coda.center{text-align:left;border-left:1px solid var(--fire);border-top:none;padding-left:clamp(1rem,3vw,1.5rem);padding-top:0;}
+}
 }
   
 /* ======================
    THE BEHOLDING
    ====================== */
-.beholding{background:var(--ink);padding:clamp(12rem,18vw,22rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;}
+.beholding{padding:clamp(5rem,8vw,9rem) 0;position:relative;overflow:hidden;}
 .beholding-eyebrow{
-  font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.32em;
   text-transform:uppercase;color:var(--fire);display:block;
   margin-bottom:clamp(2.5rem,5vw,5rem);opacity:0;
 }
@@ -1264,7 +1546,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .beholding-verse em{font-style:normal;color:var(--gold);}
 .beholding-ref{
-  font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.28em;
   color:var(--bone);opacity:0.4;display:block;font-style:normal;
   margin-top:clamp(2rem,3.5vw,3.5rem);text-transform:uppercase;
 }
@@ -1285,7 +1567,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ======================
    THE UNDOING
    ====================== */
-.undoing{background:var(--ink);padding:clamp(8rem,15vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;}
+.undoing{padding:clamp(4rem,7vw,8rem) 0;position:relative;overflow:hidden;}
 .undoing-lines{display:flex;flex-direction:column;gap:clamp(3rem,6vw,7rem);}
 .undoing-line{opacity:0;}
 .undoing-line.right{text-align:right;}
@@ -1314,14 +1596,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ======================
    THE COAL
    ====================== */
-.coal{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;}
-.coal::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 70% 60% at center,rgba(255,51,0,0.05) 0%,transparent 65%);
-  pointer-events:none;
-}
+.coal{padding:clamp(4rem,7vw,8rem) 0;position:relative;}
 .coal-lines{display:flex;flex-direction:column;gap:clamp(2.5rem,5vw,5rem);position:relative;z-index:2;}
 .coal-line{opacity:0;}
+.coal-line.right{text-align:right;}
+.coal-line.center{text-align:center;}
 .coal-text-primary{
   font-family:'IM Fell English',serif;font-style:italic;
   font-size:clamp(1.8rem,3.5vw,4.5rem);color:var(--ash);line-height:1.15;
@@ -1350,7 +1629,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .coal-mark-item{display:flex;flex-direction:column;align-items:flex-start;gap:0.8rem;flex:1;}
 .coal-mark-num{
-  font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.28em;
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.28em;
   color:rgba(255,51,0,0.5);text-transform:uppercase;display:block;
 }
 .coal-mark-label{
@@ -1367,9 +1646,12 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ======================
    THE SENDING
    ====================== */
-.sending{background:var(--ink);padding:clamp(8rem,15vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;}
+.sending{padding:clamp(4rem,7vw,8rem) 0 clamp(1rem,1.5vw,2rem);position:relative;overflow:hidden;}
 .sending-lines{display:flex;flex-direction:column;gap:clamp(3rem,5vw,5.5rem);}
 .sending-line{opacity:0;}
+.sending-line.right{text-align:right;}
+.sending-line.center{text-align:center;}
+.sending-coda.center{text-align:center;border-left:none;border-top:2px solid var(--fire);padding-left:0;padding-top:clamp(1.5rem,3vw,3rem);}
 .sending-text-primary{
   font-family:'IM Fell English',serif;font-style:italic;
   font-size:clamp(1.8rem,3.5vw,4.2rem);color:var(--ash);line-height:1.15;
@@ -1402,9 +1684,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
    THE INVITATION
    ====================== */
 .invitation{
-  background:var(--ink);padding:clamp(9rem,16vw,18rem) 0;
+  background:var(--ink);padding:clamp(3rem,5vw,6rem) 0;
   text-align:center;position:relative;overflow:hidden;
-  border-top:1px solid rgba(255,51,0,0.12);
+  
 }
 .invitation::before{
   content:'';position:absolute;inset:0;
@@ -1412,7 +1694,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   pointer-events:none;
 }
 .inv-eyebrow{
-  font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.32em;
   text-transform:uppercase;color:var(--fire);display:block;
   margin-bottom:clamp(1.5rem,3vw,3rem);opacity:0;
 }
@@ -1447,8 +1729,8 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   -webkit-appearance:none;border-radius:0;width:100%;
 }
 .inv-form input[type="email"]::placeholder{
-  color:rgba(242,237,228,0.28);letter-spacing:0.12em;
-  text-transform:uppercase;font-size:0.6rem;
+  color:rgba(242,237,228,0.28);letter-spacing:0.08em;
+  text-transform:uppercase;font-size:0.65rem;
 }
 .inv-form input[type="email"]:focus{border-color:rgba(255,51,0,0.55);}
 .inv-form button{
@@ -1468,14 +1750,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 }
 .inv-confirm.visible{opacity:1;}
 .inv-note{
-  font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.18em;
+  font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.18em;
   color:var(--bone);opacity:0.22;text-transform:uppercase;
   display:block;margin-top:1.8rem;
 }
 .inv-bullets{
   list-style:none;padding:0;margin:0 auto clamp(2.5rem,5vw,5rem);
   display:flex;flex-direction:column;gap:1.4rem;max-width:58ch;
-  text-align:left;
+  text-align:left;opacity:0;
 }
 .inv-bullets li{
   font-family:'Space Mono',monospace;font-style:normal;
@@ -1490,10 +1772,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 /* ======================
    P.S. SECTION
    ====================== */
-.ps-section{background:var(--ink);padding:clamp(6rem,10vw,10rem) 0;border-top:1px solid rgba(255,51,0,0.12);}
+.ps-section{background:var(--ink);padding:clamp(6rem,10vw,10rem) 0;}
 .ps-inner{max-width:640px;text-align:center;}
 .ps-label{
-  font-family:'Space Mono',monospace;font-size:0.58rem;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
   letter-spacing:0.32em;text-transform:uppercase;
   color:var(--fire);display:block;margin-bottom:clamp(1.5rem,3vw,3rem);
 }
@@ -1519,7 +1801,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .ps-cta:hover{background:transparent;color:var(--fire);outline:1px solid var(--fire);}
 
 .site-footer{
-  background:var(--ink);border-top:1px solid rgba(255,51,0,0.12);
+  background:var(--ink);
   padding:clamp(5rem,10vw,10rem) 0 clamp(3rem,5vw,5rem);
 }
 .footer-inner{
@@ -1535,14 +1817,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   line-height:1.55;margin:0 0 1rem;filter:url(#roughen);
 }
 .footer-verse cite{
-  font-family:'Space Mono',monospace;font-size:0.52rem;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
   letter-spacing:0.25em;color:var(--gold);opacity:0.55;
   font-style:normal;text-transform:uppercase;display:block;
 }
 .footer-links{display:flex;align-items:center;gap:2.5rem;opacity:0;}
 .footer-yt{
   display:flex;align-items:center;gap:0.5rem;
-  font-family:'Space Mono',monospace;font-size:0.58rem;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
   letter-spacing:0.18em;text-transform:uppercase;
   color:var(--fire);text-decoration:none;
   opacity:0.45;transition:opacity 0.3s;
@@ -1551,7 +1833,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .footer-yt:hover{opacity:1;}
 .footer-yt svg{width:18px;height:18px;flex-shrink:0;transform:scale(1.2);}
 .footer-copy{
-  font-family:'Space Mono',monospace;font-size:0.48rem;
+  font-family:'Space Mono',monospace;font-size:0.72rem;
   letter-spacing:0.18em;color:var(--fire);
   opacity:0;text-transform:uppercase;text-align:center;
 }
@@ -1587,23 +1869,24 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 @media(prefers-reduced-motion:reduce){
   .sg{animation:none!important;}
   .section-glow{animation:none!important;}
-  .landing-eyebrow,.landing-line,.landing-divider,.landing-turn,.landing-sub,
+  .loader-mark,.loader-word{animation:none!important;}
+  .landing-eyebrow,.landing-line,.landing-divider,.landing-turn,.landing-door,.landing-sub,.landing-form-wrap,
   .proof-eyebrow,.proof-card,
   .threshold-line,.beholding-eyebrow,.beholding-verse,.beholding-beat,
-  .undoing-line,.coal-line,.coal-marks,.sending-line,.sending-coda,
+  .undoing-line,.coal-line,.coal-marks,.coal-signup-block,.sending-line,.sending-coda,
   .vsl-eyebrow,.vsl-headline,.vsl-frame-wrap,.vsl-scroll-cue,
   .gap-line,.teachings-header,.teachings-scroll,.teachings-footer,.resources-header,.resource-card,
   .inv-eyebrow,.inv-headline,.inv-sub,.inv-promise,.inv-urgency,.inv-form,.inv-yt-btn,
-  .exit-inner,.footer-verse,.footer-links,.footer-copy{
+  .footer-verse,.footer-links,.footer-copy{
     opacity:1!important;transform:none!important;
   }
 }
 /* ======================
    VSL SECTION
    ====================== */
-.vsl{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;overflow:hidden;}
+.vsl{background:var(--ink);padding:clamp(8rem,14vw,16rem) 0;position:relative;overflow:hidden;}
 .vsl-inner{text-align:center;}
-.vsl-eyebrow{font-family:'Space Mono',monospace;font-size:0.58rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(1.2rem,2vw,2rem);opacity:0;}
+.vsl-eyebrow{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--fire);display:block;margin-bottom:clamp(1.2rem,2vw,2rem);opacity:0;}
 .vsl-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.5rem,5.5vw,6.5rem);color:var(--ash);line-height:0.95;margin:0 0 clamp(3rem,6vw,6rem);filter:url(#roughen);opacity:0;display:block;}
 .vsl-headline em{font-style:italic;color:var(--fire);}
 .vsl-frame-wrap{position:relative;max-width:900px;margin:0 auto;opacity:0;}
@@ -1615,11 +1898,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .vsl-corner--tr{top:-18px;right:-18px;transform:scaleX(-1);}
 .vsl-corner--bl{bottom:-18px;left:-18px;transform:scaleY(-1);}
 .vsl-corner--br{bottom:-18px;right:-18px;transform:scale(-1);}
-.vsl-scroll-cue{font-family:'Space Mono',monospace;font-size:0.52rem;letter-spacing:0.28em;text-transform:uppercase;color:rgba(242,237,228,0.22);display:block;margin-top:clamp(2.5rem,4vw,4rem);opacity:0;}
 /* ======================
    THE GAP
    ====================== */
-.gap-section{background:var(--ink);padding:clamp(8rem,15vw,16rem) 0;border-top:1px solid rgba(255,51,0,0.1);position:relative;overflow:hidden;}
+.gap-section{background:var(--ink);padding:clamp(3rem,5vw,5rem) 0;position:relative;overflow:hidden;}
 .gap-lines{display:flex;flex-direction:column;gap:clamp(3rem,6vw,7rem);}
 .gap-line{opacity:0;}
 .gap-line.right{text-align:right;}
@@ -1629,22 +1911,153 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .gap-text-climax{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(2.2rem,4.5vw,5.5rem);color:var(--fire);line-height:0.92;display:block;filter:url(#roughen);letter-spacing:-0.02em;margin-top:0.5em;}
 /* AMBIENT GLOW */
 @keyframes pulse-glow{0%,100%{opacity:0}50%{opacity:1}}
-.section-glow{position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(255,51,0,0.10) 0%,transparent 70%);animation:pulse-glow 7s ease-in-out infinite;}
+.section-glow{position:absolute;inset:0;pointer-events:none;z-index:1;background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(255,51,0,0.16) 0%,transparent 70%);animation:pulse-glow 7s ease-in-out infinite;}
 /* GHOST ELEMENTS */
-.section-holy-ghost{position:absolute;font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(8rem,22vw,26rem);color:transparent;-webkit-text-stroke:1px rgba(242,237,228,0.08);pointer-events:none;z-index:1;line-height:0.85;letter-spacing:-0.02em;white-space:nowrap;user-select:none;}
-.section-holy-ghost.fire{-webkit-text-stroke:1px rgba(255,51,0,0.10);}
-.section-holy-ghost.gold{-webkit-text-stroke:1px rgba(212,160,23,0.10);}
+/* ======================
+   PAGE VIGNETTE
+   ====================== */
+#page-vignette{
+  position:fixed;inset:0;
+  pointer-events:none;
+  z-index:40;
+  background:
+    linear-gradient(to bottom,
+      var(--ink) 0%,
+      transparent 12vh,
+      transparent 88vh,
+      var(--ink) 100%
+    ),
+    radial-gradient(ellipse 85% 100% at center,
+      transparent 60%,
+      rgba(12,11,9,0.55) 100%
+    );
+}
+
+/* ======================
+   GHOST WORDS — overflow bleed, all devices
+   ====================== */
+/* ======================
+   CONTINUOUS SCROLL — gradient bleed between content sections
+   ====================== */
+.landing{isolation:auto;}
+.landing::after,
+.proof::after,
+.teachings::after,
+.resources::after,
+.vsl::after,
+.gap-section::after{
+  content:'';
+  position:absolute;
+  bottom:0;left:0;right:0;
+  height:80px;
+  background:linear-gradient(to bottom,transparent,rgba(12,11,9,0.6));
+  pointer-events:none;
+  z-index:2;
+}
+.landing::before,
+.proof::before,
+.teachings::before,
+.resources::before,
+.vsl::before,
+.gap-section::before{
+  content:'';
+  position:absolute;
+  top:0;left:0;right:0;
+  height:80px;
+  background:linear-gradient(to top,transparent,rgba(12,11,9,0.5));
+  pointer-events:none;
+  z-index:2;
+}
+.section-holy-ghost{
+  position:absolute;
+  font-family:'Playfair Display',serif;
+  font-weight:900;
+  font-size:clamp(8rem,22vw,26rem);
+  color:transparent;
+  -webkit-text-stroke:1px rgba(242,237,228,0.13);
+  pointer-events:none;
+  z-index:2;
+  line-height:0.85;
+  letter-spacing:-0.02em;
+  white-space:nowrap;
+  user-select:none;
+  will-change:transform;
+  overflow:visible;
+}
+.section-holy-ghost.fire{-webkit-text-stroke:1px rgba(255,51,0,0.16);}
+.section-holy-ghost.gold{-webkit-text-stroke:1px rgba(212,160,23,0.16);}
+
+/* Arc sections — overflow visible, no isolation, no stacking context */
+.beholding,.undoing,.coal,.sending{
+  overflow:visible;
+  isolation:auto;
+}
+/* Arc ::after gradients need z-index:0 so ghost words render above them */
+.beholding::after,.undoing::after,.coal::after,.sending::after{z-index:0;}
+/* Section content stays above everything */
+.beholding .section-inner,
+.undoing .section-inner,
+.coal .section-inner,
+.sending .section-inner{position:relative;z-index:5;}
+
+/* Prevent horizontal overflow on all devices */
+body{overflow-x:hidden;}
+
+/* ======================
+   PS PROTOCOL — center + legibility
+   ====================== */
+.ps-protocol{
+  margin-top:clamp(2.5rem,5vw,4rem);
+  padding-top:clamp(2rem,4vw,3rem);
+  
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:0.8rem;
+}
+.ps-protocol-divider{
+  font-family:'Space Mono',monospace;
+  font-size:1rem;
+  color:var(--fire);
+  opacity:0.6;
+  display:block;
+  margin:0.8rem 0;
+}
+.ps-protocol-text{
+  font-family:'IM Fell English',serif;
+  font-style:italic;
+  font-size:clamp(1rem,1.8vw,1.2rem);
+  color:var(--bone);
+  line-height:1.75;
+  opacity:0.85;
+  max-width:44ch;
+}
+.ps-protocol-link{
+  font-family:'Space Mono',monospace;
+  font-size:0.72rem;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--fire);
+  text-decoration:none;
+  border-bottom:1px solid rgba(255,51,0,0.3);
+  padding-bottom:2px;
+  opacity:0.75;
+  transition:opacity .22s ease;
+  margin-top:0.4rem;
+}
+.ps-protocol-link:hover{opacity:1;}
 /* ELEVATED SG + XMARK OPACITY */
 .section .sg{opacity:0.14!important;}
 .section .section-xmark{opacity:0.10!important;}
 /* VSL YOUTUBE CTA */
-.vsl-yt-cta{display:inline-block;margin-top:clamp(2rem,4vw,4rem);font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--fire);text-decoration:none;border:1px solid rgba(255,51,0,0.45);padding:0.9rem 2.2rem;transition:background 0.25s,color 0.25s;}
+.vsl-yt-cta{display:inline-block;margin-top:clamp(2rem,4vw,4rem);font-family:'Space Mono',monospace;font-size:0.82rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--fire);text-decoration:none;border:1px solid rgba(255,51,0,0.45);padding:1.2rem 3.2rem;transition:background 0.25s,color 0.25s;}
 .vsl-yt-cta:hover{background:var(--fire);color:var(--ash);}
 /* INVITATION YOUTUBE BUTTON */
 .inv-yt-btn{display:inline-flex;align-items:center;gap:0.6rem;font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--ash);text-decoration:none;background:var(--fire);padding:1rem 2.4rem;margin-bottom:clamp(1.5rem,3vw,3rem);opacity:0;transition:background 0.25s,color 0.25s;}
 .inv-yt-btn:hover{background:transparent;color:var(--fire);outline:1px solid var(--fire);}
 .inv-yt-btn svg{width:16px;height:16px;flex-shrink:0;}
-.inv-or{font-family:'Space Mono',monospace;font-size:0.48rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--bone);opacity:0.35;display:block;margin-top:clamp(2rem,4vw,4rem);margin-bottom:clamp(1rem,2vw,1.5rem);}
+.inv-or{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--bone);opacity:0.45;display:block;margin-top:clamp(2rem,4vw,4rem);margin-bottom:clamp(1rem,2vw,1.5rem);}
 .section-xmark{position:absolute;pointer-events:none;z-index:2;}
 .section-num{position:absolute;font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(5rem,14vw,18rem);pointer-events:none;z-index:1;line-height:1;filter:url(#roughen);user-select:none;}
 /* BEHOLDING BEATS */
@@ -1688,6 +2101,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 <div id="cursor"></div>
 
+<!-- LOADING SCREEN -->
+<div id="seraph-loader" aria-hidden="true">
+  <div id="loader-seraph">SERAPH</div>
+</div>
+
 <section class="hero" id="hero">
   <canvas id="fire-canvas"></canvas>
   <div class="bg-ink" id="bg-ink"></div>
@@ -1707,7 +2125,30 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   </svg>
 
   <div class="logo-wrap" id="logo">
-    <img id="logo-img-main" src="" data-src="seraph-logo.png" alt="Seraph" loading="lazy">
+    <svg id="logo-img-main" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;" aria-hidden="true">
+      <circle cx="200" cy="200" r="188" stroke="#F2EDE4" stroke-width="2.5" fill="none" opacity="0.18"/>
+      <circle cx="200" cy="200" r="172" stroke="#D4A017" stroke-width="1" fill="none" opacity="0.12"/>
+      <g stroke="#F2EDE4" stroke-width="18" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.92">
+        <line x1="200" y1="22"  x2="200" y2="378"/>
+        <line x1="22"  y1="110" x2="378" y2="290"/>
+        <line x1="378" y1="110" x2="22"  y2="290"/>
+      </g>
+      <g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#roughen)" opacity="0.55">
+        <line x1="200" y1="55"  x2="200" y2="345"/>
+        <line x1="55"  y1="128" x2="345" y2="272"/>
+        <line x1="345" y1="128" x2="55"  y2="272"/>
+      </g>
+      <circle cx="200" cy="200" r="14" fill="#D4A017" opacity="0.45" filter="url(#roughen)"/>
+      <circle cx="200" cy="200" r="6"  fill="#F2EDE4" opacity="0.7"/>
+      <g fill="#D4A017" opacity="0.35">
+        <circle cx="200" cy="30"  r="5"/>
+        <circle cx="200" cy="370" r="5"/>
+        <circle cx="30"  cy="119" r="5"/>
+        <circle cx="370" cy="119" r="5"/>
+        <circle cx="30"  cy="281" r="5"/>
+        <circle cx="370" cy="281" r="5"/>
+      </g>
+    </svg>
   </div>
 
   <!-- PRIMARY CROWN — Basquiat W, filled gold + rough stroke overpainting -->
@@ -1908,16 +2349,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <div class="splat s7"></div><div class="splat s8"></div>
   <div class="splat s9"></div><div class="splat s10"></div>
 
-  <div class="cta-block" id="cta-block">
-    <div class="bottom-annots">
-      <span class="ba-line ba1"><s>shame</s> → glory</span>
-      <span class="ba-line ba2"><s>silence</s> → fire</span>
-      <span class="ba-line ba3"><s>unclean lips</s> → coal</span>
-    </div>
-    <div class="cta-btns">
-      <a href="https://www.youtube.com/@seraphministryglobal" class="cta-btn cta-btn--primary" id="cta" target="_blank" rel="noopener noreferrer">Watch Now</a>
-      <a href="#invitation" class="cta-btn cta-btn--secondary">Get the Fire Letters →</a>
-    </div>
+  <div class="bottom-annots" id="bottom-annots">
+    <span class="ba-line ba1"><s>shame</s> → glory</span>
+    <span class="ba-line ba2"><s>silence</s> → fire</span>
+    <span class="ba-line ba3"><s>unclean lips</s> → coal</span>
   </div>
 
   <div class="scroll-mark" id="scroll-mark">
@@ -1954,7 +2389,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <li><a href="/resources">Resources</a></li>
       <li class="nav-sep" aria-hidden="true"></li>
       <li><a href="https://letters.seraphministry.com" target="_blank" rel="noopener noreferrer">Letters</a></li>
+      <li class="nav-sep" aria-hidden="true"></li>
+      <li><a href="/yes" class="nav-here-am-i">Here Am I</a></li>
     </ul>
+    <a href="#invitation" class="nav-letter-link" style="display:none;" aria-hidden="true">Get the Letters →</a>
   </div>
 </nav>
 
@@ -1968,34 +2406,74 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <span class="landing-line" id="ll-2">You've sung the songs. Said the prayers.</span>
     <span class="landing-line" id="ll-3">And something in you keeps asking — <em>is this it?</em></span>
     <span class="landing-divider" id="landing-divider" aria-hidden="true"></span>
-    <span class="landing-turn" id="landing-turn">That hunger isn't a problem.<br><em>It's a door.</em></span>
+    <span class="landing-turn" id="landing-turn">That hunger isn't a problem.</span>
+    <span class="landing-door" id="landing-door">It's a door.</span>
     <span class="landing-sub" id="landing-sub">Seraph exists for the believer who wants encounter, not performance — weight, not noise.</span>
+    <div class="landing-form-wrap" id="landing-form-wrap">
+      <span class="landing-form-eyebrow">The Fire Letters — Free</span>
+      <span class="landing-form-desc">Weight, not noise. Fire, not fog.</span>
+      <form class="landing-form" id="landing-form" novalidate>
+        <input type="email" name="email" id="landing-email" placeholder="Your email" autocomplete="email" required>
+        <button type="submit">Send me The Fire Letters — free</button>
+      </form>
+      <span class="landing-form-confirm" id="landing-form-confirm">The fire finds those who answer. Taking you there now...</span>
+      <span class="landing-form-trust">One letter a week. No noise. Unsubscribe any time.</span>
+    </div>
   </div>
 </section>
   
+<!-- ========================
+     THE GAP — moved before Isaiah arc so testimony earns the encounter
+     ======================== -->
+<section class="section gap-section" id="gap">
+  <div class="section-glow" style="animation-delay:-6s;" aria-hidden="true"></div>
+  <div class="section-holy-ghost" style="bottom:-4%;right:-5%;transform:rotate(3deg);font-size:clamp(6rem,16vw,20rem);" aria-hidden="true">GAP</div>
+  <div class="sg fa" style="width:40px;top:10%;left:4%;rotate:-18deg;opacity:0.055;--d:11s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:22px;bottom:25%;right:4%;rotate:38deg;opacity:0.05;--d:14s;--dl:-5s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="section-inner" style="position:relative;z-index:3;">
+    <div class="gap-lines">
+      <div class="gap-line" id="gl-1">
+        <span class="gap-text-primary">I grew up in church.</span>
+        <span class="gap-text-climax">I did not know God.</span>
+      </div>
+      <div class="gap-line" id="gl-2">
+        <span class="gap-text-primary">Not the weight of Him.</span>
+        <span class="gap-text-secondary">Not what happens to a room when He actually shows up.</span>
+      </div>
+      <div class="gap-line" id="gl-3">
+        <span class="gap-text-prose">Then the room shifted. I was never the same man again.</span>
+      </div>
+      <div class="gap-line right" id="gl-4">
+        <span class="gap-text-primary">I know the difference between going to church<br>and standing in the throne room.</span>
+        <span class="gap-text-climax">That difference is why Seraph exists.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ========================
      THE BEHOLDING
      ======================== -->
 <section class="section beholding" id="beholding">
   <div class="section-glow" aria-hidden="true"></div>
   <div class="section-holy-ghost" style="top:-3%;left:-4%;transform:rotate(-7deg);" aria-hidden="true">HOLY</div>
-  <div class="section-holy-ghost fire" style="bottom:3%;right:-5%;transform:rotate(5deg);font-size:clamp(5rem,14vw,17rem);" aria-hidden="true">HOLY</div>
+  <div class="section-holy-ghost fire" style="bottom:-4%;right:-4%;transform:rotate(5deg);font-size:clamp(5rem,14vw,17rem);" aria-hidden="true">HOLY</div>
   <span class="section-num" style="top:4%;left:6%;color:rgba(255,51,0,0.055);transform:rotate(-5deg);" aria-hidden="true">6</span>
   <svg class="section-xmark" style="width:clamp(70px,11vw,140px);top:5%;right:2%;rotate:10deg;opacity:0.042;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#F2EDE4" stroke-width="10" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="8" y1="8" x2="92" y2="92"/><line x1="92" y1="8" x2="8" y2="92"/></g></svg>
   <svg class="section-xmark" style="width:clamp(30px,4.5vw,58px);bottom:22%;left:4%;rotate:-14deg;opacity:0.05;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#D4A017" stroke-width="12" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="8" y1="8" x2="92" y2="92"/><line x1="92" y1="8" x2="8" y2="92"/></g></svg>
-  <div class="sg fa" style="width:44px;top:8%;right:5%;rotate:22deg;opacity:0.06;--d:10s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:20px;top:35%;left:2%;rotate:-40deg;opacity:0.05;--d:13s;--dl:-5s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:32px;bottom:18%;right:8%;rotate:55deg;opacity:0.05;--d:9s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fa" style="width:16px;top:60%;right:15%;rotate:-20deg;opacity:0.04;--d:14s;--dl:-7s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:56px;top:22%;left:5%;rotate:15deg;opacity:0.05;--d:11s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:12px;top:50%;right:3%;rotate:70deg;opacity:0.04;--d:16s;--dl:-9s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fa" style="width:28px;bottom:35%;left:7%;rotate:-30deg;opacity:0.04;--d:8s;--dl:-2s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:18px;top:78%;right:22%;rotate:42deg;opacity:0.035;--d:12s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:44px;top:8%;right:5%;rotate:22deg;opacity:0.06;--d:10s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fb" style="width:20px;top:35%;left:2%;rotate:-40deg;opacity:0.05;--d:13s;--dl:-5s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:32px;bottom:18%;right:8%;rotate:55deg;opacity:0.05;--d:9s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:16px;top:60%;right:15%;rotate:-20deg;opacity:0.04;--d:14s;--dl:-7s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:56px;top:22%;left:5%;rotate:15deg;opacity:0.05;--d:11s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="7" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fb" style="width:12px;top:50%;right:3%;rotate:70deg;opacity:0.04;--d:16s;--dl:-9s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:28px;bottom:35%;left:7%;rotate:-30deg;opacity:0.04;--d:8s;--dl:-2s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:18px;top:78%;right:22%;rotate:42deg;opacity:0.035;--d:12s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="section-inner" style="position:relative;z-index:3;">
     <span class="beholding-eyebrow" id="beholding-eyebrow">Isaiah 6 · The Throne Room</span>
-    <span class="beholding-verse" id="bv-1">In the year that king Uzziah died <em>I saw also the Lord sitting upon a throne, high and lifted up,</em> and his train filled the temple.</span>
-    <span class="beholding-verse" id="bv-2">Above it stood the seraphims: each one had six wings; with twain he covered his face, and with twain he covered his feet, and with twain he did fly.</span>
-    <span class="beholding-verse" id="bv-3">And one cried unto another, and said, <em>Holy, holy, holy, is the Lord of hosts: the whole earth is full of his glory.</em></span>
+    <span class="beholding-verse scripture-weight" id="bv-1">In the year that king Uzziah died <em>I saw also the Lord sitting upon a throne, high and lifted up,</em> and his train filled the temple.</span>
+    <span class="beholding-verse scripture-weight" id="bv-2">Above it stood the seraphims: each one had six wings; with twain he covered his face, and with twain he covered his feet, and with twain he did fly.</span>
+    <span class="beholding-verse scripture-weight" id="bv-3">And one cried unto another, and said, <em>Holy, holy, holy, is the Lord of hosts: the whole earth is full of his glory.</em></span>
     <span class="beholding-verse beholding-ref" id="bv-ref">Isaiah 6:1–3 · KJV</span>
     <div class="beholding-divider" aria-hidden="true"></div>
     <div class="beholding-beat" id="bb-1">
@@ -2010,16 +2488,16 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="bb-fire">Sitting.</span>
       <span class="bb-turn">Enthroned. Unmoved. There was no room left for anything else.</span>
     </div>
-    <div class="beholding-beat center" id="bb-5" style="animation:breathe 4.5s ease-in-out infinite;">
-      <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);">Holy.</span>
-      <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);color:var(--gold);">Holy.</span>
-      <span class="bb-fire" style="font-size:clamp(4.5rem,9.5vw,11rem);">Holy.</span>
+    <div class="beholding-beat center" id="bb-5">
+      <span class="bb-fire" id="holy-1" style="font-size:clamp(4.5rem,9.5vw,11rem);color:var(--fire);opacity:0;">Holy.</span>
+      <span class="bb-fire" id="holy-2" style="font-size:clamp(4.5rem,9.5vw,11rem);color:var(--gold);opacity:0;">Holy.</span>
+      <span class="bb-fire" id="holy-3" style="font-size:clamp(4.5rem,9.5vw,11rem);color:#F5F0EA;opacity:0;">Holy.</span>
     </div>
-    <div class="beholding-beat" id="bb-6">
+    <div class="beholding-beat right" id="bb-6">
       <span class="bb-large">Three times.</span>
       <span class="bb-turn">Hebrew has no superlative. This is the ceiling of language — pressed against something that has no ceiling.</span>
     </div>
-    <div class="beholding-beat right" id="bb-7">
+    <div class="beholding-beat" id="bb-7">
       <span class="bb-medium">The posts of the door moved at the sound.</span>
       <span class="bb-medium">The house filled with smoke.</span>
     </div>
@@ -2031,52 +2509,19 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 
 
 <!-- ========================
-     THE TEACHING (VSL)
-     ======================== -->
-<section class="section vsl" id="vsl">
-  <div class="section-glow" style="animation-delay:-4s;" aria-hidden="true"></div>
-  <div class="section-inner vsl-inner" style="position:relative;z-index:3;">
-    <span class="vsl-eyebrow">Watch · Free on YouTube</span>
-    <span class="vsl-headline"><em>Hear it.</em> Then decide.</span>
-    <div class="vsl-frame-wrap">
-      <div class="vsl-corner vsl-corner--tl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
-      <div class="vsl-corner vsl-corner--tr" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
-      <div class="vsl-corner vsl-corner--bl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
-      <div class="vsl-corner vsl-corner--br" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
-      <div class="vsl-frame">
-        <iframe
-          id="latest-yt"
-          src="https://www.youtube.com/embed/TfsXxGH4HR0?rel=0&modestbranding=1"
-          title="Seraph Ministry Teaching"
-          frameborder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowfullscreen
-          loading="lazy"
-        ></iframe>
-      </div>
-    </div>
-    <div class="vsl-cta-stack">
-      <a href="#invitation" class="vsl-letter-cta">Get the weekly letter — free →</a>
-      <a href="https://www.youtube.com/@seraphministryglobal" class="vsl-yt-cta" target="_blank" rel="noopener noreferrer">More teachings on YouTube →</a>
-    </div>
-  </div>
-</section>
-
-
-<!-- ========================
      THE UNDOING
      ======================== -->
 <section class="section undoing" id="undoing">
   <div class="section-glow" style="animation-delay:-3s;" aria-hidden="true"></div>
-  <div class="section-holy-ghost gold" style="top:-2%;right:-5%;transform:rotate(6deg);" aria-hidden="true">WOE</div>
+  <div class="section-holy-ghost gold" style="top:-2%;right:-4%;transform:rotate(6deg);" aria-hidden="true">WOE</div>
   <span class="section-num" style="bottom:8%;left:3%;color:rgba(212,160,23,0.05);transform:rotate(4deg);" aria-hidden="true">1</span>
   <svg class="section-xmark" style="width:clamp(80px,12vw,155px);top:4%;left:2%;rotate:-8deg;opacity:0.04;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#F2EDE4" stroke-width="10" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="8" y1="8" x2="92" y2="92"/><line x1="92" y1="8" x2="8" y2="92"/></g></svg>
   <svg class="section-xmark" style="width:clamp(35px,5vw,65px);bottom:25%;right:3%;rotate:18deg;opacity:0.05;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#FF3300" stroke-width="12" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="8" y1="8" x2="92" y2="92"/><line x1="92" y1="8" x2="8" y2="92"/></g></svg>
-  <div class="sg fc" style="width:24px;top:12%;right:4%;rotate:-30deg;opacity:0.055;--d:12s;--dl:-2s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fa" style="width:14px;bottom:15%;left:3%;rotate:20deg;opacity:0.045;--d:15s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:36px;top:30%;right:7%;rotate:45deg;opacity:0.05;--d:10s;--dl:-4s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:18px;top:55%;left:5%;rotate:-22deg;opacity:0.04;--d:13s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fa" style="width:48px;top:68%;right:12%;rotate:12deg;opacity:0.05;--d:9s;--dl:-7s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:24px;top:12%;right:4%;rotate:-30deg;opacity:0.055;--d:12s;--dl:-2s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:14px;bottom:15%;left:3%;rotate:20deg;opacity:0.045;--d:15s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fb" style="width:36px;top:30%;right:7%;rotate:45deg;opacity:0.05;--d:10s;--dl:-4s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:18px;top:55%;left:5%;rotate:-22deg;opacity:0.04;--d:13s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:48px;top:68%;right:12%;rotate:12deg;opacity:0.05;--d:9s;--dl:-7s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="7" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="section-inner" style="position:relative;z-index:3;">
     <div class="undoing-lines">
       <div class="undoing-line" id="ul-1">
@@ -2088,7 +2533,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <span class="undoing-text-primary">His first words were:</span>
         <span class="undoing-text-climax">Woe is me.</span>
       </div>
-      <div class="undoing-line" id="ul-3">
+      <div class="undoing-line right" id="ul-3">
         <span class="undoing-text-primary">That word: <em>undone.</em></span>
         <span class="undoing-text-secondary">Silenced. Destroyed. Cut off.</span>
         <span class="undoing-text-primary">He thought he was going to die.</span>
@@ -2097,7 +2542,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <span class="undoing-text-primary">Holiness doesn't produce inspiration<br>in the person who encounters it.</span>
         <span class="undoing-text-climax" style="font-size:clamp(2rem,4.5vw,5.5rem);">It produces collapse.</span>
       </div>
-      <div class="undoing-line" id="ul-5">
+      <div class="undoing-line center" id="ul-5">
         <span class="undoing-text-turn">It shows you what you are — and what He is — at the same moment.</span>
         <span class="undoing-text-primary">That gap is the beginning.</span>
       </div>
@@ -2110,26 +2555,26 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
      ======================== -->
 <section class="section coal" id="coal">
   <div class="section-glow" style="animation-delay:-1.5s;" aria-hidden="true"></div>
-  <div class="section-holy-ghost fire" style="top:-4%;left:-3%;transform:rotate(-5deg);font-size:clamp(6rem,18vw,22rem);" aria-hidden="true">FIRE</div>
+  <div class="section-holy-ghost fire" style="top:-6%;left:-3%;transform:rotate(-5deg);font-size:clamp(6rem,18vw,22rem);clip-path:inset(6% 0 0 0);" aria-hidden="true">FIRE</div>
   <span class="section-num" style="top:5%;right:5%;color:rgba(212,160,23,0.055);transform:rotate(7deg);" aria-hidden="true">3</span>
   <svg class="section-xmark" style="width:clamp(90px,13vw,165px);bottom:10%;left:1%;rotate:-6deg;opacity:0.04;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#D4A017" stroke-width="10" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="8" y1="8" x2="92" y2="92"/><line x1="92" y1="8" x2="8" y2="92"/></g></svg>
   <svg class="section-xmark" style="width:clamp(28px,4vw,52px);top:18%;right:4%;rotate:22deg;opacity:0.055;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#FF3300" stroke-width="12" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="8" y1="8" x2="92" y2="92"/><line x1="92" y1="8" x2="8" y2="92"/></g></svg>
-  <div class="sg fa" style="width:38px;top:10%;right:6%;rotate:25deg;opacity:0.06;--d:9s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:22px;top:40%;left:3%;rotate:-18deg;opacity:0.05;--d:12s;--dl:-4s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:50px;bottom:22%;right:3%;rotate:42deg;opacity:0.06;--d:10s;--dl:-7s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="8" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fa" style="width:16px;top:70%;right:18%;rotate:-55deg;opacity:0.04;--d:14s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:30px;top:55%;left:6%;rotate:35deg;opacity:0.045;--d:11s;--dl:-5s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:14px;bottom:38%;right:12%;rotate:-40deg;opacity:0.035;--d:16s;--dl:-8s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:38px;top:10%;right:6%;rotate:25deg;opacity:0.06;--d:9s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fb" style="width:22px;top:40%;left:3%;rotate:-18deg;opacity:0.05;--d:12s;--dl:-4s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:50px;bottom:22%;right:3%;rotate:42deg;opacity:0.06;--d:10s;--dl:-7s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="8" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:16px;top:70%;right:18%;rotate:-55deg;opacity:0.04;--d:14s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:30px;top:55%;left:6%;rotate:35deg;opacity:0.045;--d:11s;--dl:-5s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fb" style="width:14px;bottom:38%;right:12%;rotate:-40deg;opacity:0.035;--d:16s;--dl:-8s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="section-inner" style="position:relative;z-index:3;">
     <div class="coal-lines">
       <div class="coal-line" id="cl-1">
         <span class="coal-text-primary">Then one of the seraphim flew to him.</span>
         <span class="coal-text-secondary">Not with comfort. Not with encouragement.</span>
       </div>
-      <div class="coal-line" id="cl-2">
+      <div class="coal-line center" id="cl-2">
         <span class="coal-text-fire">With a coal.</span>
       </div>
-      <div class="coal-line" id="cl-3">
+      <div class="coal-line right" id="cl-3">
         <span class="coal-text-primary">Taken from the altar.</span>
         <span class="coal-text-secondary">The place of sacrifice. Where fire had already consumed what needed to be consumed — in someone's place.</span>
       </div>
@@ -2137,16 +2582,29 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <span class="coal-text-primary">He laid it on Isaiah's mouth.</span>
         <span class="coal-text-fire" style="font-size:clamp(1.8rem,3.5vw,4.5rem);line-height:1.05;">Thine iniquity is taken away.<br>Thy sin purged.</span>
       </div>
-      <div class="coal-line" id="cl-5">
+      <div class="coal-line right" id="cl-5">
         <span class="coal-text-secondary">Not covered. Not managed. Not deferred.</span>
         <span class="coal-text-primary">Taken. Purged.</span>
       </div>
-      <div class="coal-line" id="cl-6">
+      <div class="coal-line center" id="cl-6">
         <span class="coal-text-primary">He didn't do this to himself.</span>
         <span class="coal-text-secondary">He submitted to it.</span>
         <span class="coal-text-prose">The fire doesn't wait for you to clean up. It comes to you. Your part is — stay in the room.</span>
-        <a href="#invitation" class="coal-inline-cta">The fire doesn't wait for you to be ready. Neither does this →</a>
       </div>
+    </div>
+  </div>
+  <!-- COAL INLINE SIGNUP — capture at peak emotional activation -->
+  <div class="section-inner" style="position:relative;z-index:3;">
+    <div class="coal-signup-block" id="coal-signup-block">
+      <span class="coal-signup-anchor">"Stay in the room."</span>
+      <span class="coal-signup-eyebrow">The Fire Letters</span>
+      <span class="coal-signup-desc">The letter that picks up where this moment leaves off.</span>
+      <form class="coal-form" id="coal-form" novalidate>
+        <input type="email" name="email" id="coal-email" placeholder="Your email" autocomplete="email" required>
+        <button type="submit">Send me The Fire Letters — free</button>
+      </form>
+      <span class="coal-form-confirm" id="coal-form-confirm">The fire finds those who answer. Taking you there now...</span>
+      <span class="coal-signup-trust">One letter a week. No noise. Unsubscribe any time.</span>
     </div>
   </div>
 </section>
@@ -2156,27 +2614,27 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
      ======================== -->
 <section class="section sending" id="sending">
   <div class="section-glow" style="animation-delay:-5s;" aria-hidden="true"></div>
-  <div class="section-holy-ghost" style="top:-3%;right:-4%;transform:rotate(4deg);font-size:clamp(7rem,20vw,24rem);" aria-hidden="true">SENT</div>
+  <div class="section-holy-ghost" style="top:-12%;right:-4%;transform:rotate(4deg);font-size:clamp(7rem,20vw,24rem);" aria-hidden="true">SENT</div>
   <svg class="section-xmark" style="width:clamp(60px,9vw,120px);top:6%;left:2%;rotate:-12deg;opacity:0.042;" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke="#F2EDE4" stroke-width="10" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="8" y1="8" x2="92" y2="92"/><line x1="92" y1="8" x2="8" y2="92"/></g></svg>
-  <div class="sg fa" style="width:48px;top:7%;right:4%;rotate:18deg;opacity:0.065;--d:8s;--dl:-2s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:28px;top:45%;left:2%;rotate:-35deg;opacity:0.055;--d:11s;--dl:-5s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:36px;bottom:18%;right:10%;rotate:48deg;opacity:0.06;--d:13s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fa" style="width:18px;top:25%;right:22%;rotate:-12deg;opacity:0.045;--d:16s;--dl:-8s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:14px;bottom:35%;left:8%;rotate:65deg;opacity:0.04;--d:10s;--dl:-4s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:42px;top:60%;right:6%;rotate:-28deg;opacity:0.05;--d:9s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:48px;top:7%;right:4%;rotate:18deg;opacity:0.065;--d:8s;--dl:-2s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:28px;top:45%;left:2%;rotate:-35deg;opacity:0.055;--d:11s;--dl:-5s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fb" style="width:36px;bottom:18%;right:10%;rotate:48deg;opacity:0.06;--d:13s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:18px;top:25%;right:22%;rotate:-12deg;opacity:0.045;--d:16s;--dl:-8s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:14px;bottom:35%;left:8%;rotate:65deg;opacity:0.04;--d:10s;--dl:-4s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fb" style="width:42px;top:60%;right:6%;rotate:-28deg;opacity:0.05;--d:9s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="7" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="section-inner" style="position:relative;z-index:3;">
     <div class="sending-lines">
       <div class="sending-line" id="sl-1">
         <span class="sending-text-primary">Then he heard it.</span>
       </div>
-      <div class="sending-line" id="sl-2">
+      <div class="sending-line center" id="sl-2">
         <span class="sending-here"><em>Whom shall I send?</em><br>And who will go for us?</span>
       </div>
-      <div class="sending-line" id="sl-3">
+      <div class="sending-line right" id="sl-3">
         <span class="sending-text-secondary">God wasn't speaking to Isaiah. He was speaking to the heavenly council.</span>
         <span class="sending-text-primary">Isaiah answered anyway.</span>
       </div>
-      <div class="sending-line" id="sl-4">
+      <div class="sending-line center" id="sl-4">
         <span class="sending-text-secondary">Before the coal — "woe is me, I am undone."</span>
         <span class="sending-here" style="font-size:clamp(2.5rem,5.5vw,7rem);">After the coal —<br><em>Here am I.</em></span>
         <span class="sending-text-secondary">Same man. Completely different.</span>
@@ -2187,16 +2645,14 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <span class="sending-text-secondary">And a person with nothing to hide is the most dangerous thing God can place on the earth.</span>
       </div>
     </div>
-    <div class="sending-coda" id="sending-coda">
+    <div class="sending-coda center" id="sending-coda">
       <p>This is for the ones who answer.</p>
     </div>
   </div>
 </section>
 
-<!-- ========================
-     SOCIAL PROOF
-     ======================== -->
-<section class="proof" id="proof">
+<!-- PROOF: hidden until substantive testimonials exist — activate by removing display:none from section#proof -->
+<section class="proof" id="proof" style="display:none;">
   <div class="proof-inner">
     <span class="proof-eyebrow" id="proof-eyebrow">What people are saying</span>
     <div class="proof-grid">
@@ -2220,41 +2676,33 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 </section>
 
 <!-- ========================
-     THE GAP
+     THE TEACHING — VSL + RECENT TEACHINGS (merged)
      ======================== -->
-<section class="section gap-section" id="gap">
-  <div class="section-glow" style="animation-delay:-6s;" aria-hidden="true"></div>
-  <div class="section-holy-ghost" style="bottom:-4%;right:-5%;transform:rotate(3deg);font-size:clamp(6rem,16vw,20rem);" aria-hidden="true">GAP</div>
-  <div class="sg fa" style="width:40px;top:10%;left:4%;rotate:-18deg;opacity:0.055;--d:11s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:22px;bottom:25%;right:4%;rotate:38deg;opacity:0.05;--d:14s;--dl:-5s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="section-inner" style="position:relative;z-index:3;">
-    <div class="gap-lines">
-      <div class="gap-line" id="gl-1">
-        <span class="gap-text-primary">I grew up in church.</span>
-        <span class="gap-text-climax">I did not know God.</span>
-      </div>
-      <div class="gap-line" id="gl-2">
-        <span class="gap-text-primary">Not the weight of Him.</span>
-        <span class="gap-text-secondary">Not what happens to a room when He actually shows up.</span>
-      </div>
-      <div class="gap-line" id="gl-3">
-        <span class="gap-text-prose">Then the room shifted. I was never the same man again.</span>
-      </div>
-      <div class="gap-line right" id="gl-4">
-        <span class="gap-text-primary">I know the difference between going to church<br>and standing in the throne room.</span>
-        <span class="gap-text-climax">That difference is why Seraph exists.</span>
+<section class="section vsl teachings" id="vsl">
+  <div class="section-glow" style="animation-delay:-4s;" aria-hidden="true"></div>
+  <div class="section-inner vsl-inner" style="position:relative;z-index:3;">
+    <span class="vsl-eyebrow">Watch · Free on YouTube</span>
+    <span class="vsl-headline"><em>Hear it.</em> Then decide.</span>
+    <div class="vsl-frame-wrap">
+      <div class="vsl-corner vsl-corner--tl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
+      <div class="vsl-corner vsl-corner--tr" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
+      <div class="vsl-corner vsl-corner--bl" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
+      <div class="vsl-corner vsl-corner--br" aria-hidden="true"><svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg"><path d="M 44 4 L 4 4 L 4 44" stroke="#D4A017" stroke-width="2.5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.75"/></svg></div>
+      <div class="vsl-frame">
+        <iframe
+          id="latest-yt"
+          src="https://www.youtube.com/embed/TfsXxGH4HR0?rel=0&modestbranding=1"
+          title="Seraph Ministry Teaching"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+          loading="lazy"
+        ></iframe>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ========================
-     RECENT TEACHINGS
-     ======================== -->
-<section class="teachings" id="teachings">
-  <div class="teachings-header" id="teachings-header">
-    <span class="teachings-eyebrow">Recent Teachings</span>
-    <a href="https://www.youtube.com/@seraphministryglobal" class="teachings-all" target="_blank" rel="noopener noreferrer">All teachings →</a>
+    <div class="vsl-cta-stack">
+      <a href="#invitation" class="vsl-letter-cta">Get the weekly letter — free →</a>
+    </div>
   </div>
 
   <div class="teachings-scroll" id="teachings-scroll">
@@ -2362,7 +2810,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   </div>
 
   <div class="teachings-footer" id="teachings-footer">
-    <a href="https://www.youtube.com/@seraphministryglobal" class="teachings-channel-cta" target="_blank" rel="noopener noreferrer">See all teachings on YouTube →</a>
+    <a href="https://www.youtube.com/@seraphministryglobal" class="vsl-yt-cta" target="_blank" rel="noopener noreferrer">More teachings on YouTube →</a>
   </div>
 </section>
 
@@ -2375,7 +2823,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <span class="resources-headline">Where do you go from here?</span>
   </div>
   <div class="resources-grid">
-    <a href="/encounter" class="resource-card" id="rc-1">
+    <a href="/resources" class="resource-card" id="rc-0">
       <div class="resource-mark" aria-hidden="true">
         <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
           <g stroke="#D4A017" stroke-width="6" stroke-linecap="square" fill="none">
@@ -2403,7 +2851,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <span class="resource-desc">Bring what you're carrying. You don't need to clean it up first. Submit a request and we'll stand with you.</span>
       <span class="resource-link">Submit a request →</span>
     </a>
-    <a href="https://letters.seraphministry.com" class="resource-card resource-card--primary" id="rc-3" target="_blank" rel="noopener noreferrer">
+    <a href="/yes" class="resource-card resource-card--primary" id="rc-yes">
       <div class="resource-mark" aria-hidden="true">
         <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
           <g stroke="#F2EDE4" stroke-width="6" stroke-linecap="square" fill="none">
@@ -2413,9 +2861,9 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
           </g>
         </svg>
       </div>
-      <span class="resource-title">The Fire Letters</span>
-      <span class="resource-desc">Weekly letters that carry weight. Scripture-anchored teaching, raw and direct. The kind of content you'd pay for — free, because you shouldn't have to.</span>
-      <span class="resource-link">Join the list →</span>
+      <span class="resource-title">Here Am I</span>
+      <span class="resource-desc">Something happened while you were reading this. Don't walk past it. This is the door.</span>
+      <span class="resource-link">I'm ready →</span>
     </a>
   </div>
 </section>
@@ -2426,20 +2874,19 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <section class="section invitation" id="invitation">
   <div class="section-glow" style="animation-delay:-2s;" aria-hidden="true"></div>
   <div class="section-holy-ghost gold" style="top:-2%;left:-3%;transform:rotate(-4deg);font-size:clamp(5rem,15vw,19rem);" aria-hidden="true">HERE</div>
-  <div class="sg fa" style="width:42px;top:15%;left:5%;rotate:-20deg;opacity:0.06;--d:9s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fb" style="width:26px;bottom:20%;right:7%;rotate:35deg;opacity:0.05;--d:12s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
-  <div class="sg fc" style="width:18px;top:55%;right:3%;rotate:-50deg;opacity:0.04;--d:10s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none" filter="url(#heavyRoughen)" opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fa" style="width:42px;top:15%;left:5%;rotate:-20deg;opacity:0.06;--d:9s;--dl:-3s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#D4A017" stroke-width="7" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fb" style="width:26px;bottom:20%;right:7%;rotate:35deg;opacity:0.05;--d:12s;--dl:-6s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#FF3300" stroke-width="6" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
+  <div class="sg fc" style="width:18px;top:55%;right:3%;rotate:-50deg;opacity:0.04;--d:10s;--dl:-1s;" aria-hidden="true"><svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><g stroke="#F2EDE4" stroke-width="5" stroke-linecap="square" fill="none"  opacity="0.9"><line x1="40" y1="4" x2="40" y2="76"/><line x1="4" y1="20" x2="76" y2="60"/><line x1="76" y1="20" x2="4" y2="60"/></g></svg></div>
   <div class="section-inner vsl-inner" style="position:relative;z-index:3;display:flex;flex-direction:column;align-items:center;text-align:center;">
-    <span class="inv-headline">For the ones God won't<br><em>stop reaching for.</em></span>
     <span class="inv-eyebrow">The Fire Letters</span>
-    <span class="inv-promise">Every Tuesday, one letter. One scripture, taken apart until it moves. Three minutes to read. Free forever.</span>
+    <span class="inv-headline">For the ones God won't<br><em>stop reaching for.</em></span>
     <span class="inv-urgency">The letter goes out Tuesday. If you're not on the list, this one won't reach you.</span>
     <ul class="inv-bullets">
       <li>Why the emptiness you feel in church isn't a faith problem — and what it's actually telling you.</li>
       <li>Why your worst season might be the same thing God was doing in Isaiah's worst year.</li>
       <li>The one thing most believers never attempt after the coal — and why it's available to you right now.</li>
     </ul>
-    <span class="inv-skeptic">This isn't another devotional. If you want something soft and encouraging, this isn't it.</span>
+    <span class="inv-bridge">The letters go deeper than the videos. This is the room after the teaching.</span>
     <form class="inv-form" id="inv-form" novalidate>
       <input type="email" name="email" id="inv-email" placeholder="Your email" autocomplete="email" required>
       <button type="submit">Send me The Fire Letters — free</button>
@@ -2451,32 +2898,15 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
       <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
       Watch on YouTube
     </a>
-  </div>
-</section>
-
-<!-- ========================
-     THE ENCOUNTER PROTOCOL — exit offer
-     ======================== -->
-<section class="exit-path" id="exit-path">
-  <div class="exit-inner">
-    <span class="exit-eyebrow">Free Resource</span>
-    <span class="exit-headline">Not ready to subscribe?<br>Start here instead.</span>
-    <p class="exit-desc">The Encounter Protocol is a one-page system for approaching Scripture until Christ is revealed. Seven movements. One encounter. The difference between reading the Bible and being changed by it. Free — no email required.</p>
-    <a href="https://drive.google.com/uc?export=download&id=1Tc4UIrd2Sr0PJVuYaMMYYhJfr7X9YUq-" class="exit-btn" target="_blank" rel="noopener noreferrer">↓ Download The Protocol — Free</a>
-    <span class="exit-sub">Or <a href="/encounter" class="exit-link">read the full system online →</a></span>
-  </div>
-</section>
-
-<!-- ========================
-     P.S.
-     ======================== -->
-<section class="section ps-section" id="ps">
-  <div class="section-inner ps-inner">
-    <span class="ps-label">P.S.</span>
-    <p class="ps-body">Something is moving in this generation. A hunger for what's real — for weight, for fire instead of fog. People are leaving performances behind. Searching for the thing that was actually handed down. The early church didn't have a show. They had an encounter.</p>
-    <p class="ps-body">The Fire Letters exist because that hunger deserves an answer.</p>
-    <p class="ps-close">It's free. The only thing it costs you is your email address.</p>
-    <a href="#invitation" class="ps-cta">Send me The Fire Letters — free</a>
+    <!-- P.S. FOLDED IN -->
+    <div class="inv-ps-wrap">
+      <span class="inv-ps-label">P.S.</span>
+      <p class="inv-ps-body">Something is moving in this generation. A hunger for what's real — for weight, for fire instead of fog. The early church didn't have a show. They had an encounter. The Fire Letters exist because that hunger deserves an answer.</p>
+      <div class="inv-ps-protocol">
+        <p class="inv-ps-protocol-text">Not ready? Download The Encounter Protocol — a one-page system for approaching Scripture until Christ is revealed. Seven movements. Free. No email required.</p>
+        <a href="https://drive.google.com/uc?export=download&id=1Tc4UIrd2Sr0PJVuYaMMYYhJfr7X9YUq-" class="inv-ps-protocol-link" target="_blank" rel="noopener noreferrer">↓ Download free →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2492,8 +2922,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   <button class="mobile-bar-close" id="mobile-bar-close" aria-label="Dismiss">×</button>
 </div>
 
-<!-- ========================
-     FOOTER
+<!-- FOOTER
      ======================== -->
 <footer class="site-footer" id="site-footer">
   <div class="footer-inner">
@@ -2522,15 +2951,57 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 <script>
 const logoSrc="seraph-logo.png"
 gsap.registerPlugin(ScrollTrigger);
+// Clear stale sound state
+sessionStorage.removeItem('seraph-sound');
 
-// Load logo immediately on script execution
-const logoImg=document.getElementById("logo-img-main");
-let logoLoaded=false;
-if(logoSrc){logoImg.src=logoSrc;logoLoaded=true;}
-window.addEventListener('load',function(){
-  if(!logoLoaded&&logoSrc){logoImg.src=logoSrc;logoLoaded=true;}
-});
-// seraph marks: pure SVG, no PNG instances
+// ========================
+// LOADING SCREEN
+// ========================
+(function(){
+  var loader=document.getElementById('seraph-loader');
+  var loaderSeraph=document.getElementById('loader-seraph');
+  if(!loader) return;
+
+  // Inline scramble — GSAP not loaded yet, self-contained
+  function loaderScramble(el,finalText,ms){
+    var chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ#@!$%&';
+    var total=Math.floor(ms/35);var f=0;
+    el.textContent=finalText.split('').map(function(){
+      return chars[Math.floor(Math.random()*chars.length)];
+    }).join('');
+    var iv=setInterval(function(){
+      var p=f/total;
+      el.textContent=finalText.split('').map(function(c,i){
+        return i<Math.floor(p*finalText.length)?c:chars[Math.floor(Math.random()*chars.length)];
+      }).join('');
+      f++;
+      if(f>total){el.textContent=finalText;clearInterval(iv);}
+    },35);
+  }
+
+  if(loaderSeraph) loaderScramble(loaderSeraph,'SERAPH',460);
+
+  var minShow=400;
+  var start=Date.now();
+  function exitLoader(){
+    var elapsed=Date.now()-start;
+    var delay=Math.max(0,minShow-elapsed);
+    setTimeout(function(){
+      loader.classList.add('exit');
+      setTimeout(function(){ loader.style.display='none'; },500);
+    },delay);
+  }
+  if(document.readyState==='complete'){exitLoader();}
+  else{window.addEventListener('load',exitLoader);}
+  setTimeout(function(){
+    if(loader.style.display!=='none'){
+      loader.classList.add('exit');
+      setTimeout(function(){ loader.style.display='none'; },500);
+    }
+  },1200);
+})();
+
+// Logo is inline SVG — no external load needed
 
 const fc=document.getElementById('fire-canvas');
 function drawFireCanvas(img){
@@ -2605,9 +3076,8 @@ tl.to("#scroll-bar",{height:56,duration:1.0,ease:"power2.out"},2.3);
 
 }
 
-const logoImgEl=document.getElementById('logo-img-main');
-function startTimelineAndFire(){drawFireCanvas(logoImgEl);startTimeline();}
-if(logoImgEl.complete&&logoImgEl.naturalWidth>0){startTimelineAndFire();}else{logoImgEl.addEventListener('load',startTimelineAndFire);}
+// Logo is now inline SVG — always ready, no load event needed
+startTimeline();
 
 gsap.to("#logo",{opacity:0.82,duration:3.5,ease:"sine.inOut",repeat:-1,yoyo:true,delay:2.2});
 gsap.to("#crown-mark",{y:-5,rotate:-4,duration:4.5,ease:"sine.inOut",repeat:-1,yoyo:true,delay:2.6});
@@ -2703,7 +3173,9 @@ if(!reducedMotion){
     scrollTrigger:{trigger:'.landing',start:'top 68%'}});
   gsap.fromTo('#landing-turn',{opacity:0,y:24},{opacity:1,y:0,duration:1,ease:'power3.out',delay:0.35,
     scrollTrigger:{trigger:'#landing-turn',start:'top 82%'}});
-  gsap.fromTo('#landing-sub',{opacity:0},{opacity:1,duration:0.7,ease:'power2.out',delay:0.55,
+  gsap.fromTo('#landing-door',{opacity:0,y:16},{opacity:1,y:0,duration:0.85,ease:'power3.out',delay:0.55,
+    scrollTrigger:{trigger:'#landing-turn',start:'top 82%'}});
+  gsap.fromTo('#landing-sub',{opacity:0},{opacity:1,duration:0.7,ease:'power2.out',delay:0.75,
     scrollTrigger:{trigger:'#landing-sub',start:'top 84%'}});
 
   // SOCIAL PROOF — fire wipe
@@ -2738,17 +3210,23 @@ if(!reducedMotion){
   }
 
   // TEACHINGS STRIP
-  gsap.fromTo('#teachings-header',{opacity:0,y:16},{opacity:1,y:0,duration:0.7,ease:'power2.out',
-    scrollTrigger:{trigger:'.teachings',start:'top 78%'}});
-  gsap.fromTo('#teachings-scroll',{opacity:0,y:24},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.2,
-    scrollTrigger:{trigger:'.teachings',start:'top 74%'}});
-  gsap.fromTo('.teachings-footer',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',delay:0.4,
+  gsap.fromTo('#teachings-scroll',{opacity:0,y:24},{opacity:1,y:0,duration:0.9,ease:'power3.out',
+    scrollTrigger:{trigger:'#teachings-scroll',start:'top 78%'}});
+  gsap.fromTo('.teachings-footer',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',delay:0.3,
     scrollTrigger:{trigger:'.teachings-footer',start:'top 88%'}});
 
-  // RESOURCES
+  // LANDING EARLY FORM
+  gsap.fromTo('#landing-form-wrap',{opacity:0,y:20},{opacity:1,y:0,duration:0.8,ease:'power2.out',delay:0.3,
+    scrollTrigger:{trigger:'#landing-form-wrap',start:'top 85%'}});
+
+  // COAL SIGNUP BLOCK
+  gsap.fromTo('#coal-signup-block',{opacity:0,y:24},{opacity:1,y:0,duration:0.9,ease:'power3.out',
+    scrollTrigger:{trigger:'#coal-signup-block',start:'top 82%'}});
+
+  // RESOURCES — 3 cards
   gsap.fromTo('#resources-header',{opacity:0,y:16},{opacity:1,y:0,duration:0.7,ease:'power2.out',
     scrollTrigger:{trigger:'.resources',start:'top 78%'}});
-  ['#rc-1','#rc-2','#rc-3'].forEach(function(sel,i){
+  ['#rc-0','#rc-2','#rc-yes'].forEach(function(sel,i){
     gsap.fromTo(sel,{opacity:0,y:30},{opacity:1,y:0,duration:0.85,ease:'power3.out',delay:i*0.15,
       scrollTrigger:{trigger:'.resources-grid',start:'top 80%'}});
   });
@@ -2760,7 +3238,7 @@ if(!reducedMotion){
     gsap.fromTo(sel,{opacity:0,y:24},{opacity:1,y:0,duration:0.9,ease:'power2.out',delay:i*0.15,
       scrollTrigger:{trigger:sel,start:'top 84%',toggleActions:'play none none none'}});
   });
-  ['#bb-1','#bb-2','#bb-3','#bb-4','#bb-5','#bb-6','#bb-7','#bb-8'].forEach(function(sel){
+  ['#bb-1','#bb-2','#bb-3','#bb-6','#bb-7','#bb-8'].forEach(function(sel){
     var el=document.querySelector(sel);if(!el)return;
     var isRight=el.classList.contains('right');
     var isCenter=el.classList.contains('center');
@@ -2770,6 +3248,12 @@ if(!reducedMotion){
        scrollTrigger:{trigger:sel,start:'top 88%',toggleActions:'play none none none'}}
     );
   });
+  // bb-5 (Holy Holy Holy) — parent container fades in; children glow via dedicated JS
+  gsap.fromTo('#bb-5',
+    {opacity:0,y:24},
+    {opacity:1,y:0,duration:1.0,ease:'power3.out',
+     scrollTrigger:{trigger:'#bb-5',start:'top 88%',toggleActions:'play none none none'}}
+  );
 
   // THE UNDOING
   gsap.utils.toArray('.undoing-line').forEach(function(el){
@@ -2817,26 +3301,13 @@ if(!reducedMotion){
   // THE INVITATION
   var invTl=gsap.timeline({scrollTrigger:{trigger:'.invitation',start:'top 72%'}});
   invTl
-    .fromTo('.inv-headline',{opacity:0,y:26},{opacity:1,y:0,duration:0.8,ease:'power3.out'})
-    .to('.inv-eyebrow',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.3')
-    .to('.inv-promise',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2')
+    .fromTo('.inv-eyebrow',{opacity:0},{opacity:1,duration:0.5,ease:'power2.out'})
+    .fromTo('.inv-headline',{opacity:0,y:26},{opacity:1,y:0,duration:0.8,ease:'power3.out'},'-=0.2')
     .to('.inv-urgency',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.15')
+    .to('.inv-bullets',{opacity:1,duration:0.6,ease:'power2.out'},'-=0.1')
+    .to('.inv-bridge',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.1')
     .to('.inv-form',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.1')
     .to('.inv-yt-btn',{opacity:1,duration:0.5,ease:'power2.out'},'-=0.2');
-
-  // EXIT PATH
-  gsap.fromTo('.exit-inner',{opacity:0,y:24},{opacity:1,y:0,duration:0.9,ease:'power3.out',
-    scrollTrigger:{trigger:'.exit-path',start:'top 78%'}});
-
-  // P.S.
-  gsap.fromTo('.ps-label',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',
-    scrollTrigger:{trigger:'.ps-section',start:'top 78%'}});
-  gsap.fromTo('.ps-body',{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.15,
-    scrollTrigger:{trigger:'.ps-section',start:'top 75%'}});
-  gsap.fromTo('.ps-close',{opacity:0,y:20},{opacity:1,y:0,duration:0.9,ease:'power3.out',delay:0.35,
-    scrollTrigger:{trigger:'.ps-section',start:'top 75%'}});
-  gsap.fromTo('.ps-cta',{opacity:0},{opacity:1,duration:0.6,ease:'power2.out',delay:0.55,
-    scrollTrigger:{trigger:'.ps-section',start:'top 72%'}});
 
   // FOOTER
   gsap.to('.footer-verse',{opacity:1,duration:0.9,ease:'power2.out',
@@ -2991,7 +3462,181 @@ if(navBtn&&navLinks){
   });
 })();
 
-// EMAIL FORM — submit to Beehiiv, redirect to Fire Letters page
+// HERO AMBIENT — pause mark floats when hero not visible (perf)
+(function(){
+  var heroEl=document.getElementById('hero');
+  if(!heroEl) return;
+  ScrollTrigger.create({
+    trigger:heroEl,
+    start:'top bottom',
+    end:'bottom top',
+    onLeave:function(){ gsap.globalTimeline.pause(); gsap.globalTimeline.resume(); },
+    onEnterBack:function(){ gsap.globalTimeline.resume(); }
+  });
+  // More targeted: pause only the sm float tweens
+  var smIds=['#sm1','#sm2','#sm3','#sm4','#sm5','#sm6','#sm7','#sm8','#sm9','#sm10','#sm11','#sm12','#sm13','#sm14','#sm15','#logo','#crown-mark','#crown-small'];
+  ScrollTrigger.create({
+    trigger:heroEl,
+    start:'bottom top',
+    onEnter:function(){
+      smIds.forEach(function(id){gsap.getTweensOf(id).forEach(function(t){t.pause();});});
+    },
+    onLeaveBack:function(){
+      smIds.forEach(function(id){gsap.getTweensOf(id).forEach(function(t){t.resume();});});
+    }
+  });
+})();
+
+// ========================
+// HOLY HOLY HOLY — GPU-composited glow via filter:drop-shadow
+// No text-shadow = no repaint on every frame
+// ========================
+(function(){
+  var fired=false;
+  var glows=[
+    {id:'holy-1', glow:'drop-shadow(0 0 18px rgba(255,51,0,0.9)) drop-shadow(0 0 40px rgba(255,51,0,0.5))',   dim:'drop-shadow(0 0 6px rgba(255,51,0,0.3))'},
+    {id:'holy-2', glow:'drop-shadow(0 0 18px rgba(212,160,23,0.95)) drop-shadow(0 0 40px rgba(212,160,23,0.5))', dim:'drop-shadow(0 0 6px rgba(212,160,23,0.3))'},
+    {id:'holy-3', glow:'drop-shadow(0 0 22px rgba(248,244,234,1)) drop-shadow(0 0 50px rgba(248,244,234,0.6))',   dim:'drop-shadow(0 0 8px rgba(248,244,234,0.35))'}
+  ];
+  ScrollTrigger.create({
+    trigger:'#bb-5',
+    start:'top 78%',
+    once:true,
+    onEnter:function(){
+      if(fired) return;
+      fired=true;
+      glows.forEach(function(g,i){
+        var el=document.getElementById(g.id);
+        if(!el) return;
+        setTimeout(function(){
+          // Strike in: opacity + filter glow
+          gsap.to(el,{
+            opacity:1,
+            filter:g.glow,
+            duration:0.4,
+            ease:'power2.out',
+            onComplete:function(){
+              // Breathing: oscillate filter between bright and dim
+              gsap.to(el,{
+                filter:g.dim,
+                duration:3.5+(i*0.6),
+                ease:'sine.inOut',
+                repeat:-1,
+                yoyo:true,
+                delay:0.1
+              });
+            }
+          });
+        }, i * 420);
+      });
+    }
+  });
+})();
+
+// ========================
+// COAL GLOW — GPU composited: filter:drop-shadow on fire text, opacity-only overlay
+// ========================
+(function(){
+  var fired=false;
+  ScrollTrigger.create({
+    trigger:'#cl-4',
+    start:'top 65%',
+    onEnter:function(){
+      if(fired) return;
+      fired=true;
+      var coal=document.querySelector('.coal');
+      if(coal){
+        var glow=document.createElement('div');
+        glow.id='coal-glow-pulse';
+        glow.style.cssText='position:absolute;inset:0;pointer-events:none;z-index:1;opacity:0;background:radial-gradient(ellipse 65% 55% at center,rgba(255,51,0,0.14) 0%,transparent 70%);will-change:opacity;';
+        coal.appendChild(glow);
+        gsap.to('#coal-glow-pulse',{opacity:1,duration:0.6,ease:'power2.out',
+          onComplete:function(){
+            gsap.to('#coal-glow-pulse',{opacity:0.2,duration:3.5,ease:'sine.inOut',repeat:-1,yoyo:true});
+          }
+        });
+      }
+      var fireEl=document.querySelector('#cl-4 .coal-text-fire');
+      if(fireEl){
+        fireEl.style.willChange='filter';
+        gsap.to(fireEl,{
+          filter:'drop-shadow(0 0 20px rgba(255,51,0,0.8)) drop-shadow(0 0 40px rgba(255,51,0,0.3))',
+          duration:0.5,ease:'power2.out',
+          onComplete:function(){
+            gsap.to(fireEl,{
+              filter:'drop-shadow(0 0 6px rgba(255,51,0,0.25))',
+              duration:3.5,ease:'sine.inOut',repeat:-1,yoyo:true,delay:0.2
+            });
+          }
+        });
+      }
+    }
+  });
+})();
+
+// ========================
+// CURSOR WEIGHT — scripture hover
+// ========================
+(function(){
+  document.querySelectorAll('.scripture-weight').forEach(function(el){
+    el.addEventListener('mouseenter',function(){
+      document.body.classList.add('scripture-hover');
+    });
+    el.addEventListener('mouseleave',function(){
+      document.body.classList.remove('scripture-hover');
+    });
+  });
+})();
+
+// LANDING EARLY FORM — same endpoint, same redirect
+(function(){
+  var form=document.getElementById('landing-form');
+  var confirm=document.getElementById('landing-form-confirm');
+  if(!form) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=document.getElementById('landing-email').value.trim();
+    if(!email||email.indexOf('@')<1) return;
+    var btn=form.querySelector('button');
+    btn.innerHTML='<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(242,237,228,0.3);border-top-color:var(--ash);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;"></span>Sending...';
+    btn.disabled=true;
+    fetch('https://letters.seraphministry.com/subscribe',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:'email='+encodeURIComponent(email)
+    }).catch(function(){})
+    .finally(function(){
+      form.style.opacity='0';form.style.pointerEvents='none';
+      if(confirm){confirm.classList.add('visible');}
+      setTimeout(function(){ window.location.href='https://letters.seraphministry.com/'; },1800);
+    });
+  });
+})();
+
+// COAL FORM — same endpoint, same redirect
+(function(){
+  var form=document.getElementById('coal-form');
+  var confirm=document.getElementById('coal-form-confirm');
+  if(!form) return;
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=document.getElementById('coal-email').value.trim();
+    if(!email||email.indexOf('@')<1) return;
+    var btn=form.querySelector('button');
+    btn.innerHTML='<span style="display:inline-block;width:14px;height:14px;border:2px solid rgba(242,237,228,0.3);border-top-color:var(--ash);border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:8px;"></span>Sending...';
+    btn.disabled=true;
+    fetch('https://letters.seraphministry.com/subscribe',{
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:'email='+encodeURIComponent(email)
+    }).catch(function(){})
+    .finally(function(){
+      form.style.opacity='0';form.style.pointerEvents='none';
+      if(confirm){confirm.classList.add('visible');}
+      setTimeout(function(){ window.location.href='https://letters.seraphministry.com/'; },1800);
+    });
+  });
+})();
 (function(){
   var form=document.getElementById('inv-form');
   var confirm=document.getElementById('inv-confirm');
@@ -3029,5 +3674,7 @@ if(navBtn&&navLinks){
   });
 })();
 </script>
+<div id="page-vignette" aria-hidden="true"></div>
+
 </body>
 </html>
